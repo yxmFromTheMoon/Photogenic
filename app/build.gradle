@@ -5,13 +5,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.example.yxm.photogenic"
-        minSdkVersion 15
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        applicationId rootProject.ext.applicationId
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -24,10 +24,26 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':lib_network')
+    implementation project(':lib_imageloader')
+    implementation project(':lib_share')
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //support
+    implementation rootProject.dependLibs.appcompt
+    implementation rootProject.dependLibs.constraintlayout
+    implementation rootProject.dependLibs.recyclerView
+
+    //bus
+    implementation rootProject.dependLibs.eventbus
+
+    //ui
+    implementation rootProject.dependLibs.circleimageview
+    implementation rootProject.dependLibs.toasty
+    implementation rootProject.dependLibs.youthbanner
+    implementation rootProject.dependLibs.photoview
+
+    //permission
+    implementation rootProject.dependLibs.rxpermissons
+
 }
