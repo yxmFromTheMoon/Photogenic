@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion rootProject.android.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion rootProject.android.minSdkVersion
+        targetSdkVersion rootProject.android.targetSdkVersion
+        versionCode rootProject.android.versionCode
+        versionName rootProject.android.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -26,15 +26,15 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //rx
-    implementation rootProject.dependLibs.rxjava2
-    implementation rootProject.dependLibs.rxandroid
-    implementation rootProject.dependLibs.rxjava2adapter
+    api rootProject.dependLibs.rxjava2
+    api rootProject.dependLibs.rxandroid
+    api rootProject.dependLibs.rxjava2adapter
 
     //retrofit
-    implementation rootProject.dependLibs.retrofit2
-    implementation rootProject.dependLibs.glide
-    implementation rootProject.dependLibs.retrofit2convertergson
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api rootProject.dependLibs.retrofit2
+    api rootProject.dependLibs.glide
+    api rootProject.dependLibs.retrofit2convertergson
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
     mavenCentral()
