@@ -1,0 +1,75 @@
+//首页精选
+http://baobab.kaiyanapp.com/api/v2/feed?
+
+//获取分类
+http://baobab.kaiyanapp.com/api/v4/categories
+
+//获取分类详情List
+http://baobab.kaiyanapp.com/api/v4/categories/videoList?id=xxx&udid=xxx
+
+//获取排行榜的 Info
+http://baobab.kaiyanapp.com/api/v4/rankList
+
+周排行
+http://baobab.kaiyanapp.com/api/v4/rankList/videos?strategy=weekly
+月排行
+http://baobab.kaiyanapp.com/api/v4/rankList/videos?strategy=monthly
+总排行
+http://baobab.kaiyanapp.com/api/v4/rankList/videos?strategy=historical
+
+//获取搜索信息
+http://baobab.kaiyanapp.com/api/v1/search?&num=10&start=10&query=xxx
+
+//社区关注
+http://baobab.kaiyanapp.com/api/v4/tabs/follow
+
+//热门搜索词
+http://baobab.kaiyanapp.com/api/v3/queries/hot
+["阅后即瞎","日食记","复仇者联盟","励志","谷阿莫","复仇者联盟3","美食","广告","爱情","舞蹈","搞笑","漫威","动画","日本","电影相关","健身","VR","滑板","脱口秀","寻梦环游记"]
+
+作者信息
+http://baobab.kaiyanapp.com/api/v4/pgcs/detail/tab?id=571
+
+每日视频推荐接口：
+https://api.apiopen.top/todayVideo
+
+视频大纲获取接口：
+https://api.apiopen.top/videoHomeTab
+
+首页发现
+http://baobab.kaiyanapp.com/api/v5/index/tab/discovery
+
+视频分类推荐接口：
+https://api.apiopen.top/videoCategoryDetails?id=14
+广告id 14
+生活id 36
+动画id 10
+搞笑id 28
+开胃id 4
+创意id 2
+运动 id 18
+音乐id 20
+萌宠id 26
+剧情id 12
+科技id 32
+旅行id 6
+影视id 8
+记录id 22
+游戏id 30
+综艺id 38
+时尚id 24
+
+http://baobab.kaiyanapp.com/api/v5/index/tab/feed
+首页日报
+
+http://baobab.kaiyanapp.com/api/v5/index/tab/allRec?page=0
+首页推荐
+
+社区推荐
+http://baobab.kaiyanapp.com/api/v5/index/tab/ugcSelected
+
+根据ID推荐接口：
+https://api.apiopen.top/videoRecommend?id=127398
+id从视频分类推荐接口中获取
+
+首页，社区，发现，我的
