@@ -1,17 +1,9 @@
-package com.example.lib_network.model
-
-import com.google.gson.annotations.SerializedName
+package com.example.lib_network.bean
 
 /**
  * Created by yxm on 2019-12-31
  * @function: 分类bean
  */
-
-data class CategoriesResult(
-
-        @SerializedName("result")
-        var result: List<CategoriesBean> = emptyList()
-)
 
 data class CategoriesBean(
 
