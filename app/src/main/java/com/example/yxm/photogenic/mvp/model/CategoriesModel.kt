@@ -1,4 +1,4 @@
-package com.example.yxm.photogenic.mvp
+package com.example.yxm.photogenic.mvp.model
 
 import com.example.lib_network.api.RetrofitManager
 import com.example.lib_network.api.constants.UrlConstants
