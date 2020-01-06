@@ -1,6 +1,7 @@
 package com.example.lib_network.api
 
 import com.example.lib_network.bean.CategoriesBean
+import com.example.lib_network.bean.CommonVideoBean
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -18,8 +19,8 @@ interface Api {
     fun getCategories(): Observable<ArrayList<CategoriesBean>>
 
     //获取排行
-    @GET("v4/rankList/videos?{strategy}")
-    fun getRanks(@Path("strategy")strategy: String): Observable<Any>
+    @GET("v4/rankList/videos")
+    fun getRanks(@Query("strategy")strategy: String): Observable<CommonVideoBean>
 
     //获取搜索信息
     /**
@@ -28,13 +29,14 @@ interface Api {
      * @query 搜索的关键词
      */
     @GET("v1/search?&start=1&num=10")
-    fun getSearchInfo(@Query("query")query: String): Observable<Any>
+    fun getSearchInfo(@Query("query")query: String): Observable<CommonVideoBean>
 
     /**
-     * 获取更多搜索信息
+     * 获取更多信息
+     * @param url nextPageUrl
      */
     @GET
-    fun getMoreSearchData(@Url url: String): Observable<Any>
+    fun getMoreData(@Url url: String): Observable<CommonVideoBean>
 
 
     //社区关注
@@ -43,7 +45,7 @@ interface Api {
 
     //热门搜索词
     @GET("v3/queries/hot")
-    fun getHotWord(): Observable<List<String>>
+    fun getHotWords(): Observable<ArrayList<String>>
 
 
 }
