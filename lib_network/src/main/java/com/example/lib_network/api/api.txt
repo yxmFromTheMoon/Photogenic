@@ -33,9 +33,6 @@ http://baobab.kaiyanapp.com/api/v4/pgcs/detail/tab?id=571
 每日视频推荐接口：
 https://api.apiopen.top/todayVideo
 
-视频大纲获取接口：
-https://api.apiopen.top/videoHomeTab
-
 首页发现
 http://baobab.kaiyanapp.com/api/v5/index/tab/discovery
 

@@ -2,6 +2,7 @@ package com.example.lib_network.api
 
 import com.example.lib_network.bean.CategoriesBean
 import com.example.lib_network.bean.CommonVideoBean
+import com.example.lib_network.bean.CommunityFollowBean
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -32,20 +33,68 @@ interface Api {
     fun getSearchInfo(@Query("query")query: String): Observable<CommonVideoBean>
 
     /**
-     * 获取更多信息
+     * 获取更多video信息
      * @param url nextPageUrl
      */
     @GET
-    fun getMoreData(@Url url: String): Observable<CommonVideoBean>
+    fun getMoreVideoData(@Url url: String): Observable<CommonVideoBean>
+
+    /**
+     * 获取更多关注信息
+     * @param url nextPageUrl
+     */
+    @GET
+    fun getMoreFollowData(@Url url: String): Observable<CommunityFollowBean>
 
 
-    //社区关注
+    /**
+     * 社区关注
+     */
     @GET("v4/tabs/follow")
-    fun getCommunityAttention(): Observable<Any>
+    fun getCommunityFollow(): Observable<CommunityFollowBean>
 
-    //热门搜索词
+
+    /**
+     *  社区推荐
+     */
+    @GET("v5/index/tab/ugcSelected")
+    fun getCommunityRecommend(): Observable<Any>
+
+    /**
+     * 热门搜索词
+     */
     @GET("v3/queries/hot")
     fun getHotWords(): Observable<ArrayList<String>>
 
+
+    /**
+     * 首页推荐
+     */
+    @GET("v5/index/tab/allRec")
+    fun getHomePageRecommend(): Observable<Any>
+
+    /**
+     * 首页日报
+     */
+    @GET("v5/index/tab/feed")
+    fun getHomePageDailyReport(): Observable<Any>
+
+
+    /**
+     * https://api.apiopen.top/videoCategoryDetails?id=14
+     * 视频分类推荐接口
+     *
+     */
+    @GET("videoCategoryDetails")
+    fun getVideoRecommend(@Query("id")id: Int): Observable<Any>
+
+
+    /**
+     * http://baobab.kaiyanapp.com/api/v5/index/tab/discovery
+     * 发现模块
+     * 视频分类推荐接口
+     */
+    @GET("v5/index/tab/discovery")
+    fun getDiscovery(): Observable<Any>
 
 }

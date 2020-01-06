@@ -90,55 +90,55 @@ data class CommonVideoBean(val itemList: ArrayList<ResultBean>, val count: Int, 
                     "communityIndex": 0
                 },
                 {
-                "id": 1025,
-                "name": "影视",
-                "actionUrl": "eyepetizer://tag/1025/?title=%E5%BD%B1%E8%A7%86",
-                "adTrack": null,
-                "desc": "电影、剧集、戏剧抢先看",
-                "bgPicture": "http://img.kaiyanapp.com/8a298964e7c9fc2ae16342832e36d88d.jpeg?imageMogr2/quality/60/format/jpg",
-                "headerImage": "http://img.kaiyanapp.com/9d7fe42c1445031e4c8f2421b652a011.jpeg?imageMogr2/quality/60/format/jpg",
-                "tagRecType": "NORMAL",
-                "childTagList": null,
-                "childTagIdList": null,
-                "haveReward": false,
-                "ifNewest": false,
-                "newestEndTime": null,
-                "communityIndex": 0
+                    "id": 1025,
+                    "name": "影视",
+                    "actionUrl": "eyepetizer://tag/1025/?title=%E5%BD%B1%E8%A7%86",
+                    "adTrack": null,
+                    "desc": "电影、剧集、戏剧抢先看",
+                    "bgPicture": "http://img.kaiyanapp.com/8a298964e7c9fc2ae16342832e36d88d.jpeg?imageMogr2/quality/60/format/jpg",
+                    "headerImage": "http://img.kaiyanapp.com/9d7fe42c1445031e4c8f2421b652a011.jpeg?imageMogr2/quality/60/format/jpg",
+                    "tagRecType": "NORMAL",
+                    "childTagList": null,
+                    "childTagIdList": null,
+                    "haveReward": false,
+                    "ifNewest": false,
+                    "newestEndTime": null,
+                    "communityIndex": 0
                 }
             ],
             "consumption": {
-            "collectionCount": 7219,
-            "shareCount": 10973,
-            "replyCount": 51,
-            "realCollectionCount": 1471
+                "collectionCount": 7219,
+                "shareCount": 10973,
+                "replyCount": 51,
+                "realCollectionCount": 1471
             },
             "resourceType": "video",
             "slogan": null,
             "provider": {
-            "name": "YouTube",
-            "alias": "youtube",
-            "icon": "http://img.kaiyanapp.com/fa20228bc5b921e837156923a58713f6.png"
+                "name": "YouTube",
+                "alias": "youtube",
+                "icon": "http://img.kaiyanapp.com/fa20228bc5b921e837156923a58713f6.png"
             },
             "category": "影视",
-            "author": {
-            "id": 2744,
-            "icon": "http://img.kaiyanapp.com/f37f2bfffd91a64225c1827ad4762bb2.jpeg?imageMogr2/quality/60/format/jpg",
-            "name": "DrMachakil",
-            "description": "DrMachakil 只做有趣的电影混剪。",
-            "link": "",
-            "latestReleaseTime": 1577754000000,
-            "videoNum": 29,
-            "adTrack": null,
-            "follow": {
-            "itemType": "author",
-            "itemId": 2744,
-            "followed": false
-            },
-            "shield": {
-            "itemType": "author",
-            "itemId": 2744,
-            "shielded": false
-            },
+                "author": {
+                "id": 2744,
+                "icon": "http://img.kaiyanapp.com/f37f2bfffd91a64225c1827ad4762bb2.jpeg?imageMogr2/quality/60/format/jpg",
+                "name": "DrMachakil",
+                "description": "DrMachakil 只做有趣的电影混剪。",
+                "link": "",
+                "latestReleaseTime": 1577754000000,
+                "videoNum": 29,
+                "adTrack": null,
+                "follow": {
+                    "itemType": "author",
+                    "itemId": 2744,
+                    "followed": false
+                },
+                "shield": {
+                    "itemType": "author",
+                    "itemId": 2744,
+                    "shielded": false
+                },
             "approvedNotReadyVideoCount": 0,
             "ifPgc": true,
             "recSort": 0,

@@ -2,33 +2,32 @@ package com.example.yxm.photogenic.model
 
 import com.example.lib_network.api.RetrofitManager
 import com.example.lib_network.api.constants.UrlConstants
-import com.example.lib_network.bean.CommonVideoBean
+import com.example.lib_network.bean.CommunityFollowBean
 import com.example.yxm.photogenic.rxschedulers.IoMainScheduler
 import io.reactivex.Observable
 
 /**
  * Created by yxm on 2020-1-6
- * @function: 搜索结果Model
+ * @function: 社区关注model
  */
-class SearchModel {
+class CommunityFollowModel {
 
     /**
-     * 搜索结果
-     * @param query 关键字
+     * 获取社区关注数据
      */
-    fun getSearchData(query: String): Observable<CommonVideoBean>{
+    fun getCommunityFollowData(): Observable<CommunityFollowBean>{
         return RetrofitManager.getApi(UrlConstants.baseUrlKaiYan)
-                .getSearchInfo(query)
+                .getCommunityFollow()
                 .compose(IoMainScheduler())
     }
 
     /**
-     * 获取更多搜索信息
-     * @param url nextPageUrl
+     * 获取更多关注数据
+     *@param nextPageUrl
      */
-    fun getMoreSearchData(nextPageUrl: String): Observable<CommonVideoBean>{
+    fun getMoreCommunityFollowData(nextPageUrl: String): Observable<CommunityFollowBean>{
         return RetrofitManager.getApi(UrlConstants.baseUrlKaiYan)
-                .getMoreVideoData(nextPageUrl)
+                .getMoreFollowData(nextPageUrl)
                 .compose(IoMainScheduler())
     }
 
