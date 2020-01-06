@@ -3,6 +3,7 @@ package com.example.lib_network.api
 import com.example.lib_network.bean.CategoriesBean
 import com.example.lib_network.bean.CommonVideoBean
 import com.example.lib_network.bean.CommunityFollowBean
+import com.example.lib_network.bean.CommunityRecommendBean
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -58,7 +59,7 @@ interface Api {
      *  社区推荐
      */
     @GET("v5/index/tab/ugcSelected")
-    fun getCommunityRecommend(): Observable<Any>
+    fun getCommunityRecommend(): Observable<CommunityRecommendBean>
 
     /**
      * 热门搜索词

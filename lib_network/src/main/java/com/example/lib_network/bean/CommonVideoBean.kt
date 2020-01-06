@@ -46,8 +46,8 @@ data class CommonVideoBean(val itemList: ArrayList<ResultBean>, val count: Int, 
                 data class ShieldBean(val itemType: String, val itemId: Int, val shielded: Boolean)
             }
 
-            data class Cover(val feed: String, val detail: String, val blurred: String,
-                             val sharing: String?, val homePage: String)
+            data class Cover(val feed: String?, val detail: String?, val blurred: String?,
+                             val sharing: String?, val homePage: String?)
 
             data class WebUrl(val raw: String, val forWeibo: String)
 
