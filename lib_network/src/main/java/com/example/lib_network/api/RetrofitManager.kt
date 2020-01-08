@@ -1,5 +1,6 @@
 package com.example.lib_network.api
 
+import com.example.lib_network.okhttp.client.CommonOkHttpClient
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -20,7 +21,7 @@ object RetrofitManager {
     fun getApi(baseUrl: String): Api {
         if(api == null){
             val retrofit = Retrofit.Builder()
-                    .client(getOkHttpClient())
+                    .client(CommonOkHttpClient.getOkHttpClient())
                     .baseUrl(baseUrl)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -29,20 +30,4 @@ object RetrofitManager {
         }
         return api!!
     }
-
-    /**
-     * 获取okHttpClient
-     */
-    private fun getOkHttpClient(): OkHttpClient{
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        return OkHttpClient.Builder()
-                .addInterceptor(httpLoggingInterceptor)
-                .connectTimeout(60L,TimeUnit.SECONDS)
-                .readTimeout(60L,TimeUnit.SECONDS)
-                .writeTimeout(60L,TimeUnit.SECONDS)
-                .build()
-    }
-
 }
