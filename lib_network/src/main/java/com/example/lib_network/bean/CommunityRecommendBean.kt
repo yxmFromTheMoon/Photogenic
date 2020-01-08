@@ -5,19 +5,19 @@ package com.example.lib_network.bean
  *@function 社区推荐bean
  */
 data class CommunityRecommendBean(val itemList: ArrayList<CommunityRecommendResultBean>, val count: Int,
-                                  val total: Int, val nextPageUrl: String, val adExist: Boolean) {
+                                  val total: Int, val nextPageUrl: String?, val adExist: Boolean) {
 
     data class CommunityRecommendResultBean(val type: String, val data: RecommendDataBean,
-                                            val tag: String?, val id: Long, val adIndex: Int) {
+                                            val tag: Any?, val id: Long, val adIndex: Int) {
         data class RecommendDataBean(val dataType: String, val header: RecommendHeaderBean,
-                                     val content: RecommendContentBean, val adTrack: String?) {
+                                     val content: RecommendContentBean, val adTrack: Any?) {
 
             data class RecommendHeaderBean(val id: Long, val actionUrl: String, val labelList: ArrayList<String>?,
                                            val icon: String, val iconType: String, val time: Long,
                                            val showHateVideo: Boolean, val followType: String, val tagId: Int,
-                                           val tagName: String?, val issuerName: String, val topShow: Boolean)
+                                           val tagName: Any?, val issuerName: String, val topShow: Boolean)
 
-            data class RecommendContentBean(val type: String, val data: ContentDataBean, val tag: String?,
+            data class RecommendContentBean(val type: String, val data: ContentDataBean, val tag: Any?,
                                             val id: Long, val adIndex: Int) {
 
                 data class ContentDataBean(val dataType: String, val id: Long, val title: String,
@@ -25,9 +25,9 @@ data class CommunityRecommendBean(val itemList: ArrayList<CommunityRecommendResu
                                            val consumption: CommonVideoBean.ResultBean.ResultData.Consumption, val resourceType: String,
                                            val uid: Long, val createTime: Long, val updateTime: Long, val collected: Boolean,
                                            val reallyCollected: Boolean, val owner: ContentDataOwnerBean, val cover: CommonVideoBean.ResultBean.ResultData.Cover,
-                                           val selectedTime: Long?, val checkStatus: String, val area: String, val city: String, val longitude: Double, val latitude: Double,
+                                           val selectedTime: Any?, val checkStatus: String, val area: String, val city: String, val longitude: Double, val latitude: Double,
                                            val ifMock: Boolean, val validateStatus: String, val validateResult: String, val width: Long, val height: Long, val addWaterMark: Boolean,
-                                           val recentOnceReply: String?, val privateMessageActionUrl: String?, val url: String, val urls: ArrayList<String>,
+                                           val recentOnceReply: Any?, val privateMessageActionUrl: String?, val url: String, val urls: ArrayList<String>,
                                            val status: Int, val releaseTime: Long, val urlsWithWatermark: ArrayList<String>) {
 
                     data class ContentDataOwnerBean(val uid: Long, val nickname: String, val avatar: String, val userType: String,

@@ -1,60 +1,59 @@
 package com.example.lib_network.bean
 
+import java.io.Serializable
+
 /**
  * Created by yxm on 2020-1-6
- * @function: 通用视频实体类
+ * @function: 通用视频详情实体类
  */
-data class CommonVideoBean(val itemList: ArrayList<ResultBean>, val count: Int, val total: Int, val nextPageUrl: String?, val adExist: Boolean) {
+data class CommonVideoBean(val itemList: ArrayList<ResultBean>, val count: Int, val total: Int, val nextPageUrl: String?, val adExist: Boolean): Serializable {
 
-    data class ResultBean(val type: String, val data: ResultData, val tag: String?, val id: Int, val adIndex: Int) {
+    data class ResultBean(val type: String, val data: ResultData, val tag: String?, val id: Int, val adIndex: Int):Serializable {
 
         data class ResultData(val dataType: String, val id: Long, val title: String, val description: String,
                               val library: String, val tags: ArrayList<TagBean>, val consumption: Consumption,
                               val resourceType: String, val slogan: String?, val provider: Provider, val category: String,
                               val author: Author, val cover: Cover, val playUrl: String, val thumbPlayUrl: String?,
                               val duration: Long, val webUrl: WebUrl, val releaseTime: Long, val playInfo: ArrayList<PlayInfoBean>,
-                              val campaign: String?, val waterMarks: String?, val ad: Boolean, val adTrack: List<String> = emptyList(),
-                              val type: String, val titlePgc: String?, val descriptionPgc: String?, val remark: String,
+                              val campaign: Any?, val waterMarks: Any?, val ad: Boolean, val adTrack: List<String>,
+                              val type: String, val titlePgc: Any?, val descriptionPgc: Any?, val remark: String,
                               val ifLimitVideo: Boolean, val searchWeight: Int, val brandWebsiteInfo: String?, val idx: Int,
-                              val shareAdTrack: String?, val favoriteAdTrack: String?, val webAdTrack: String?, val date: Long,
-                              val promotion: String?, val label: String?, val labelList: List<String> = emptyList(), val descriptionEditor: String?,
-                              val collected: Boolean, val reallyCollected: Boolean, val played: Boolean, val subtitles: List<String> = emptyList(),
-                              val lastViewTime: Long, val playlists: ArrayList<String>?, val src: String?) {
+                              val shareAdTrack: Any?, val favoriteAdTrack: Any?, val webAdTrack: Any?, val date: Long,
+                              val promotion: Any?, val label: Any?, val labelList: Any, val descriptionEditor: Any?,
+                              val collected: Boolean, val reallyCollected: Boolean, val played: Boolean, val subtitles: Any,
+                              val lastViewTime: Long, val playlists: Any?, val src: String?): Serializable {
 
             data class TagBean(val id: Int, val name: String, val actionUrl: String,
-                               val adTrack: String?, val desc: String, val bgPicture: String,
-                               val headerImage: String, val tagRecType: String, val childTagList: ArrayList<ChildTagBean>?,
-                               val childTagIdList: ArrayList<Int>?, val haveReward: Boolean, val ifNewest: Boolean,
-                               val newestEndTime: Long?, val communityIndex: Int) {
-
-                data class ChildTagBean(val id: Int)
-            }
+                               val adTrack: Any, val desc: String, val bgPicture: String,
+                               val headerImage: String, val tagRecType: String, val childTagList: Any,
+                               val childTagIdList: Any, val haveReward: Boolean, val ifNewest: Boolean,
+                               val newestEndTime: Any, val communityIndex: Int):Serializable
 
             data class Consumption(val collectionCount: Long, val shareCount: Long,
-                                   val replyCount: Long, val realCollectionCount: Long)
+                                   val replyCount: Long, val realCollectionCount: Long): Serializable
 
-            data class Provider(val name: String, val alias: String, val icon: String)
+            data class Provider(val name: String, val alias: String, val icon: String): Serializable
 
             data class Author(val id: Int, val icon: String, val name: String, val description: String,
                               val link: String, val latestReleaseTime: Long, val videoNum: Int,
-                              val adTrack: String?, val follow: FollowBean, val shield: ShieldBean,
+                              val adTrack: Any?, val follow: FollowBean, val shield: ShieldBean,
                               val approvedNotReadyVideoCount: Int, val ifPgc: Boolean, val recSort: Int,
-                              val expert: Boolean) {
+                              val expert: Boolean):Serializable {
 
-                data class FollowBean(val itemType: String, val itemId: Int, val followed: Boolean)
+                data class FollowBean(val itemType: String, val itemId: Int, val followed: Boolean): Serializable
 
-                data class ShieldBean(val itemType: String, val itemId: Int, val shielded: Boolean)
+                data class ShieldBean(val itemType: String, val itemId: Int, val shielded: Boolean): Serializable
             }
 
             data class Cover(val feed: String?, val detail: String?, val blurred: String?,
-                             val sharing: String?, val homePage: String?)
+                             val sharing: String?, val homePage: String?): Serializable
 
-            data class WebUrl(val raw: String, val forWeibo: String)
+            data class WebUrl(val raw: String, val forWeibo: String): Serializable
 
             data class PlayInfoBean(val height: Int, val width: Int, val urlList: ArrayList<UrlBean>,
-                                    val name: String, val type: String, val url: String) {
+                                    val name: String, val type: String, val url: String): Serializable {
 
-                data class UrlBean(val name: String, val url: String, val size: Long)
+                data class UrlBean(val name: String, val url: String, val size: Long): Serializable
 
             }
         }
