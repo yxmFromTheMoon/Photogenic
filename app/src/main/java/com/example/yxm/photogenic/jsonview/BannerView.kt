@@ -11,7 +11,7 @@ import com.example.yxm.photogenic.model.DiscoveryModel
  * Created by yxm on 2020-1-7
  * @function: 轮播图view
  */
-class ViewBanner(context: Context,attributeSet: AttributeSet?,defStyleAttr: Int,model: DiscoveryModel = DiscoveryModel()) :
+class BannerView(context: Context, attributeSet: AttributeSet?, defStyleAttr: Int, model: DiscoveryModel = DiscoveryModel()) :
         FrameLayout(context,attributeSet,defStyleAttr),DiscoveryModel.DiscoveryModelListener{
 
     constructor(context: Context) : this(context,null,0)

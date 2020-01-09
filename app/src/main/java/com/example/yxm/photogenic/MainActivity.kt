@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.example.lib_network.bean.BannerDataBean
 import com.example.lib_network.okhttp.gsonutils.GsonUtils
-import com.example.yxm.photogenic.jsonview.ViewBanner
+import com.example.yxm.photogenic.jsonview.BannerView
 import com.example.yxm.photogenic.model.DiscoveryModel
 
 class MainActivity : AppCompatActivity(),DiscoveryModel.DiscoveryModelListener {
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity(),DiscoveryModel.DiscoveryModelListener {
         setContentView(R.layout.fragment_home)
         val model = DiscoveryModel()
         model.setDiscoveryModelListener(this)
-        val viewbanner = ViewBanner(this)
+        val viewbanner = BannerView(this)
     }
 
     override fun onGetBannerData(jsonString: String) {
