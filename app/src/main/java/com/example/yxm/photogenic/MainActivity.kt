@@ -3,24 +3,23 @@ package com.example.yxm.photogenic
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
+import com.example.lib_network.bean.BannerDataBean
+import com.example.lib_network.okhttp.gsonutils.GsonUtils
+import com.example.yxm.photogenic.jsonview.ViewBanner
 import com.example.yxm.photogenic.model.DiscoveryModel
-import com.example.yxm.photogenic.utils.TextUtils
-import kotlinx.android.synthetic.main.fragment_home.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),DiscoveryModel.DiscoveryModelListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_home)
-
-        val password: TextView = password
-        val password2: TextView = password2
-
-        password.text = TextUtils.justifyString("密码密码",5)
-        password2.text = TextUtils.justifyString("大大密码吗",5)
-
         val model = DiscoveryModel()
-        Log.i("MainActivity",model.getBannerList().toString())
+        model.setDiscoveryModelListener(this)
+        val viewbanner = ViewBanner(this)
+    }
+
+    override fun onGetBannerData(jsonString: String) {
+        val bean = GsonUtils.jsonStringToBean(jsonString,BannerDataBean::class.java)
+        Log.i("MainActivity","${bean.count}")
     }
 }

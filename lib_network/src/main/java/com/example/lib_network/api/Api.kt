@@ -88,13 +88,4 @@ interface Api {
     @GET("videoCategoryDetails")
     fun getVideoRecommend(@Query("id")id: Int): Observable<Any>
 
-
-    /**
-     * http://baobab.kaiyanapp.com/api/v5/index/tab/discovery
-     * 发现模块
-     * 视频分类推荐接口
-     */
-    @GET("v5/index/tab/discovery")
-    fun getDiscovery(): Call<ResponseBody>
-
 }

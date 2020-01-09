@@ -1,53 +1,55 @@
 package com.example.yxm.photogenic.model
 
-import com.example.lib_network.api.RetrofitManager
+import android.util.Log
 import com.example.lib_network.api.constants.UrlConstants
+import com.example.lib_network.okhttp.RequestCenter
+import com.example.lib_network.okhttp.listeners.DisposeDataListener
 import com.example.yxm.photogenic.jsonview.viewdata.ViewData
-import okhttp3.ResponseBody
-import org.json.JSONArray
 import org.json.JSONObject
-import retrofit2.Call
 
 
 /**
  * Created by yxm on 2020-1-7
- * @function: 首页发现model
+ * @function: 发现接口model，这里只获取了轮播图
  */
-class DiscoveryModel {
+class DiscoveryModel : DisposeDataListener {
 
-    private val viewDatas: HashMap<String,ViewData> = HashMap()
+    private val viewDatas: HashMap<String, ViewData> = HashMap()
+    private lateinit var mListener: DiscoveryModelListener
 
     init {
-        val jsonString = RetrofitManager.getApi(UrlConstants.baseUrlKaiYan)
-                .getDiscovery().execute().body()?.string()
-        val json = JSONObject(jsonString)
-        val jsonArray = json.getJSONArray("itemList")
-        for (i in 0 until jsonArray.length()) {
-            val viewData = ViewData(jsonArray.getJSONObject(i))
-            viewDatas.put(viewData.type, viewData)
-        }
+        RequestCenter.getRequest("${UrlConstants.baseUrlKaiYan}v5/index/tab/discovery", null, this, null)
     }
 
+    override fun onSuccess(responseObj: Any?) {
 
-    private fun getBannerJsonData(): JSONObject?{
-
-        return viewDatas.get("horizontalScrollCard")?.json
-    }
-
-    fun getBannerList(): ArrayList<String>?{
-
-        getBannerJsonData()?.run {
-            getJSONObject("data")
-        }?.run {
+        responseObj.run {
+            this as String
+            JSONObject(this)
+        }.run {
             getJSONArray("itemList")
-        }?.let {
-            val list = ArrayList<String>()
-            for (i in 0 until it.length()){
-                list.add(it.getJSONObject(i).getString("image"))
+        }.run {
+            for (i in 0 until this.length()) {
+                val viewData = ViewData(this.getJSONObject(i))
+                viewDatas.put(viewData.type, viewData)
             }
-            return list
         }
-        return null
+        mListener.onGetBannerData(viewDatas.get("horizontalScrollCard")!!.json.toString())
+    }
+
+    override fun onFailure(reasonObj: Any?) {
+        Log.e("DiscoverModel", reasonObj.toString())
+    }
+
+    fun setDiscoveryModelListener(listener: DiscoveryModelListener){
+        mListener = listener
+    }
+
+    interface DiscoveryModelListener{
+
+        //获取轮播图
+        fun onGetBannerData(jsonString: String)
+        //后续还可添加更多类型的数据，这里只获取了轮播图
     }
 
 }
