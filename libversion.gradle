@@ -61,7 +61,7 @@ ext {
             glomadrian              : "com.github.glomadrian:Grav:$dependLibsVersion.glomadrian",
             immersionbar            : "com.gyf.immersionbar:immersionbar:$dependLibsVersion.immersionbar",
             immersionbarkt          : "com.gyf.immersionbar:immersionbar-ktx:$dependLibsVersion.immersionbarkt",
-            immersionbarcomponents  : "com.gyf.immersionbar:immersionbar-components:$dependLibsVersion.immersionbarkt"
+            immersionbarcomponents  : "com.gyf.immersionbar:immersionbar-components:$dependLibsVersion.immersionbarcomponents"
     ]
 
 }
