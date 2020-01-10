@@ -29,12 +29,18 @@ ext {
             photoview               : "2.0.0",
             constraintlayout        : "1.1.3",
             rxpermissons            : "0.10.2",
-            okhttp3LoggerInterceptor: "3.4.1"
+            okhttp3LoggerInterceptor: "3.4.1",
+            dachshundtab            : "v0.3.0",
+            glomadrian              : "1.1",
+            immersionbar            : "3.0.0",
+            immersionbarkt          : "3.0.0",
+            immersionbarcomponents  : "3.0.0"
     ]
 
 
     dependLibs = [
             appcompt                : "com.android.support:appcompat-v7:$dependLibsVersion.appcompat",
+            design                  : "com.android.support:design:$dependLibsVersion.design",
             recyclerView            : "com.android.support:recyclerview-v7:$dependLibsVersion.recyclerview",
             retrofit2               : "com.squareup.retrofit2:retrofit:$dependLibsVersion.retrofit2",
             rxjava2                 : "io.reactivex.rxjava2:rxjava:$dependLibsVersion.rxjava2",
@@ -50,7 +56,12 @@ ext {
             photoview               : "com.github.chrisbanes:PhotoView:$dependLibsVersion.photoview",
             constraintlayout        : "com.android.support.constraint:constraint-layout:$dependLibsVersion.constraintlayout",
             rxpermissons            : "com.github.tbruyelle:rxpermissions:$dependLibsVersion.rxpermissons",
-            okhttp3LoggerInterceptor: "com.squareup.okhttp3:logging-interceptor:$dependLibsVersion.okhttp3LoggerInterceptor"
+            okhttp3LoggerInterceptor: "com.squareup.okhttp3:logging-interceptor:$dependLibsVersion.okhttp3LoggerInterceptor",
+            dachshundtab            : "com.github.Andy671:Dachshund-Tab-Layout:$dependLibsVersion.dachshundtab",
+            glomadrian              : "com.github.glomadrian:Grav:$dependLibsVersion.glomadrian",
+            immersionbar            : "com.gyf.immersionbar:immersionbar:$dependLibsVersion.immersionbar",
+            immersionbarkt          : "com.gyf.immersionbar:immersionbar-ktx:$dependLibsVersion.immersionbarkt",
+            immersionbarcomponents  : "com.gyf.immersionbar:immersionbar-components:$dependLibsVersion.immersionbarkt"
     ]
 
 }

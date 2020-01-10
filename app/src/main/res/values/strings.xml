@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Photogenic</string>
+    <string name="login">LOGIN</string>
+    <string name="login_now">Login now</string>
+    <string name="username">请输入用户名</string>
+    <string name="password">请输入密码</string>
 </resources>

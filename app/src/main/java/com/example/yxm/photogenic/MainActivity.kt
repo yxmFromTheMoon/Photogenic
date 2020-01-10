@@ -1,25 +1,19 @@
 package com.example.yxm.photogenic
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.example.lib_network.bean.BannerDataBean
-import com.example.lib_network.okhttp.gsonutils.GsonUtils
-import com.example.yxm.photogenic.jsonview.BannerView
-import com.example.yxm.photogenic.model.DiscoveryModel
+import com.example.yxm.photogenic.base.BaseActivity
+import com.gyf.immersionbar.ktx.immersionBar
+import com.gyf.immersionbar.ktx.showStatusBar
+import kotlinx.android.synthetic.main.activity_login.*
 
-class MainActivity : AppCompatActivity(),DiscoveryModel.DiscoveryModelListener {
+class MainActivity : BaseActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_home)
-        val model = DiscoveryModel()
-        model.setDiscoveryModelListener(this)
-        val viewbanner = BannerView(this)
-    }
-
-    override fun onGetBannerData(jsonString: String) {
-        val bean = GsonUtils.jsonStringToBean(jsonString,BannerDataBean::class.java)
-        Log.i("MainActivity","${bean.count}")
+        setContentView(R.layout.activity_login)
+        val login = login_action
+        login.setOnClickListener {
+            finish()
+        }
     }
 }

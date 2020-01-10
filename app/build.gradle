@@ -32,6 +32,7 @@ dependencies {
 
     //support
     implementation rootProject.dependLibs.appcompt
+    implementation rootProject.dependLibs.design
     implementation rootProject.dependLibs.constraintlayout
     implementation rootProject.dependLibs.recyclerView
 
@@ -43,6 +44,15 @@ dependencies {
     implementation rootProject.dependLibs.toasty
     implementation rootProject.dependLibs.youthbanner
     implementation rootProject.dependLibs.photoview
+    implementation rootProject.dependLibs.dachshundtab
+    //粒子效果UI
+    implementation rootProject.dependLibs.glomadrian
+    //沉浸式,基础库
+    implementation rootProject.dependLibs.immersionbar
+    //kt扩展
+    implementation rootProject.dependLibs.immersionbarkt
+    //fragment快速实现
+    implementation rootProject.dependLibs.immersionbarcomponents
 
     //permission
     implementation rootProject.dependLibs.rxpermissons

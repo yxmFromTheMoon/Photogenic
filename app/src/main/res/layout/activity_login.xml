@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/author_account_bg">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:layout_marginTop="100dp"
+        android:textSize="20sp"
+        android:textColor="@color/common_white"
+        android:layout_centerHorizontal="true" />
+    
+    <LinearLayout
+        android:id="@+id/login_layout"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <FrameLayout
+            android:background="#34ffffff"
+            android:layout_width="300dp"
+            android:layout_height="40dp">
+
+            <EditText
+                android:id="@+id/username_ed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:background="@android:color/transparent"
+                android:textColor="#fff"
+                android:textColorHint="#a8ffffff"
+                android:hint="@string/username"
+                android:inputType="number"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="#34ffffff">
+
+            <EditText
+                android:id="@+id/password_ed"
+                android:hint="@string/password"
+                android:gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:textColor="#fff"
+                android:textColorHint="#a8ffffff"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_centerHorizontal="true"
+        android:layout_margin="50dp"
+        android:layout_below="@+id/login_layout"
+        android:background="@drawable/login_background"
+        android:layout_width="300dp"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/login_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_now"
+            android:textSize="16sp"
+            android:textColor="#c3ffffff"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+    <com.github.glomadrian.grav.GravView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        app:colorGenerator="com.github.glomadrian.grav.generator.paint.ArrayColorGenerator"
+        app:pointGenerator="com.github.glomadrian.grav.generator.point.RegularPointGenerator"
+        app:regular_cell_size="300"
+        app:array_colors="@array/bubble"
+        app:regular_variance="200"
+        app:gravGenerator="com.github.glomadrian.grav.generator.grav.BallGenerator"
+        app:ball_from_size="10dp"
+        app:ball_to_size="20dp"
+        app:animationGenerators="@array/BubbleAnimations"
+        app:side_to_side_min_duration="10000"
+        app:side_to_side_max_duration="10000"
+        app:side_to_side_direction="leftToRight"
+        app:shake_direction="vertical"
+        app:shake_min_duration="10000"
+        app:shake_max_duration="20000"
+        app:shake_variance="500dp"/>
+
+</RelativeLayout>
