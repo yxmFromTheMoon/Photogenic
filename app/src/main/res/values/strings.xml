@@ -4,4 +4,11 @@
     <string name="login_now">Login now</string>
     <string name="username">请输入用户名</string>
     <string name="password">请输入密码</string>
+    <string name="lobster_font">Lobster</string>
+    <string name="condensed_bold_font">CondensedBold</string>
+    <string name="condensed_medium_font">CondensedMedium</string>
+    <string name="homepage">首页</string>
+    <string name="community">社区</string>
+    <string name="discovery">发现</string>
+    <string name="mine">我的</string>
 </resources>

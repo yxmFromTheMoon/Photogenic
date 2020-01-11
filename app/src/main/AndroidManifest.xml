@@ -12,11 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".ui.activity.MainActivity"
             android:theme="@style/AnimActivityStyle"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".SplashActivity"
+        <activity android:name=".ui.activity.SplashActivity"
+            android:theme="@style/SplashScaleAnim"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait"/>
 
         <!--适配全面屏-->
         <meta-data

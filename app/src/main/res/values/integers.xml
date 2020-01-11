@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="anim_landing_icon_rotate">1000</integer>
+    <integer name="anim_landing_step1_time">2000</integer>
+    <integer name="anim_landing_step2_time">1500</integer>
+    <integer name="anim_landing_step3_time">1500</integer>
+    <integer name="anim_time_abnormal">300</integer>
+    <integer name="anim_time_fast">200</integer>
+    <integer name="anim_time_long">800</integer>
+    <integer name="anim_time_normal">350</integer>
+    <integer name="animation_default_duration">300</integer>
+    <item type="integer" name="common_image_ratio">1.725</item>
+    <item type="integer" name="common_video_ratio">1.778</item>
+    <item type="integer" name="common_video_vertical_ratio">0.563</item>
+    <integer name="default_blur_radius">15</integer>
+    <integer name="default_downsample_factor">8</integer>
+    <integer name="ucrop_progress_loading_anim_time">1500</integer>
+    <integer name="video_detail_cover_image_scale_time">5000</integer>
+</resources>

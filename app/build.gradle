@@ -53,6 +53,8 @@ dependencies {
     implementation rootProject.dependLibs.immersionbarkt
     //fragment快速实现
     implementation rootProject.dependLibs.immersionbarcomponents
+    //底部菜单
+    implementation rootProject.dependLibs.alphatabs
 
     //permission
     implementation rootProject.dependLibs.rxpermissons
