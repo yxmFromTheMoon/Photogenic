@@ -21,19 +21,4 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_up_to_top</item>
     </style>
 
-    <style name="SplashScaleAnim" parent="AppTheme">
-        <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowBackground">@drawable/light</item>
-        <item name="android:windowAnimationStyle">@style/SplashScale</item>
-    </style>
-
-    <style name="SplashScale" parent="AppTheme">
-        <item name="android:activityOpenEnterAnimation">@anim/scale_up</item>
-        <item name="android:activityOpenExitAnimation">@anim/anim_no</item>
-        <item name="android:activityCloseEnterAnimation">@anim/anim_no</item>
-        <item name="android:activityCloseExitAnimation">@anim/anim_no</item>
-    </style>
-
 </resources>

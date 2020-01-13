@@ -89,7 +89,7 @@ class MainActivity : BaseActivity(){
                     showToast("再按一次退出")
                     mExitTime = System.currentTimeMillis()
                 }else{
-                    System.exit(0)
+                    super.onKeyDown(keyCode, event)
                 }
                 return true
             }
