@@ -13,7 +13,6 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".ui.activity.MainActivity"
-            android:theme="@style/AnimActivityStyle"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".ui.activity.SplashActivity"

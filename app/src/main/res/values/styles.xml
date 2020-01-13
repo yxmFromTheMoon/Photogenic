@@ -24,6 +24,8 @@
     <style name="SplashScaleAnim" parent="AppTheme">
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/light</item>
         <item name="android:windowAnimationStyle">@style/SplashScale</item>
     </style>
 

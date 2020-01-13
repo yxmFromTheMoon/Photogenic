@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.widget.FrameLayout
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
+import com.gyf.immersionbar.ktx.immersionBar
 import com.yinglan.alphatabs.AlphaTabView
 import com.yinglan.alphatabs.AlphaTabsIndicator
 import kotlinx.android.synthetic.main.activity_main.*
@@ -24,6 +25,12 @@ class MainActivity : BaseActivity(){
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
+    }
+
+    override fun setStatusBarState() {
+        immersionBar {
+            statusBarDarkFont(true)
+        }
     }
 
     override fun initView() {
