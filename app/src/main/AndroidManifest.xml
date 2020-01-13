@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,11 +14,6 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".ui.activity.MainActivity"
-            android:theme="@style/AnimActivityStyle"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".ui.activity.SplashActivity"
-            android:theme="@style/SplashScaleAnim"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +22,16 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.activity.SplashActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
         <activity android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.activity.SearchActivity"
+            android:theme="@style/AnimActivityStyle"
             android:screenOrientation="portrait"/>
 
         <!--适配全面屏-->
