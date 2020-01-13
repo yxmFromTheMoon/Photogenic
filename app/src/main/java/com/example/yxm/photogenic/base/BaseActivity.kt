@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.ktx.immersionBar
+import com.tbruyelle.rxpermissions2.RxPermissions
 import es.dmoral.toasty.Toasty
 
 /**
@@ -11,6 +12,10 @@ import es.dmoral.toasty.Toasty
  * @function:
  */
 abstract class BaseActivity: AppCompatActivity() {
+
+    protected val rxPermission: RxPermissions by lazy {
+        RxPermissions(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

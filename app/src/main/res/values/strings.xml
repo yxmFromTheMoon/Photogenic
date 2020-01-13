@@ -7,8 +7,13 @@
     <string name="lobster_font">Lobster</string>
     <string name="condensed_bold_font">CondensedBold</string>
     <string name="condensed_medium_font">CondensedMedium</string>
+    <string name="FZLTDGB">FZLanTingHeiS-DB1-GB-Regular</string>
+    <string name="FZLTLGB">FZLanTingHeiS-L-GB-Regular</string>
     <string name="homepage">首页</string>
     <string name="community">社区</string>
     <string name="discovery">发现</string>
     <string name="mine">我的</string>
+    <string name="query_hint">输入关键词搜索</string>
+    <string name="cancel">取消</string>
+    <string name="key_word">热搜关键词</string>
 </resources>

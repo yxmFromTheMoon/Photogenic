@@ -35,7 +35,8 @@ ext {
             immersionbar            : "3.0.0",
             immersionbarkt          : "3.0.0",
             immersionbarcomponents  : "3.0.0",
-            alphatabs               : "1.0.8"
+            alphatabs               : "1.0.8",
+            brvah                   : "2.9.46"
     ]
 
 
@@ -63,7 +64,8 @@ ext {
             immersionbar            : "com.gyf.immersionbar:immersionbar:$dependLibsVersion.immersionbar",
             immersionbarkt          : "com.gyf.immersionbar:immersionbar-ktx:$dependLibsVersion.immersionbarkt",
             immersionbarcomponents  : "com.gyf.immersionbar:immersionbar-components:$dependLibsVersion.immersionbarcomponents",
-            alphatabs               : "com.yinglan.alphatabs:library:$dependLibsVersion.alphatabs"
+            alphatabs               : "com.yinglan.alphatabs:library:$dependLibsVersion.alphatabs",
+            brvah                   : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$dependLibsVersion.brvah"
     ]
 
 }
