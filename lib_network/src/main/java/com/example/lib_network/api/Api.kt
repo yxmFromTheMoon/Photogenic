@@ -79,6 +79,12 @@ interface Api {
     @GET("v5/index/tab/feed")
     fun getHomePageDailyReport(): Observable<Any>
 
+    /**
+     * 发现
+     */
+    @GET("v5/index/tab/discovery")
+    fun getDiscovery(): Observable<ResponseBody>
+
 
     /**
      * https://api.apiopen.top/videoCategoryDetails?id=14

@@ -5,13 +5,14 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.gyf.immersionbar.components.ImmersionFragment
 import com.tbruyelle.rxpermissions2.RxPermissions
 
 /**
  * Created by yxm on 2020-1-13
  * @function: fragment基类,懒加载
  */
-abstract class BaseFragment: Fragment() {
+abstract class BaseFragment: ImmersionFragment() {
 
     protected val rxPermission: RxPermissions by lazy {
         RxPermissions(this)
@@ -71,7 +72,4 @@ abstract class BaseFragment: Fragment() {
      */
     abstract fun lazyLoad()
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
 }

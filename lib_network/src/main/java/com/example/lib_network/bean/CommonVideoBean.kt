@@ -21,7 +21,7 @@ data class CommonVideoBean(val itemList: ArrayList<ResultBean>, val count: Int, 
                               val shareAdTrack: Any?, val favoriteAdTrack: Any?, val webAdTrack: Any?, val date: Long,
                               val promotion: Any?, val label: Any?, val labelList: Any, val descriptionEditor: Any?,
                               val collected: Boolean, val reallyCollected: Boolean, val played: Boolean, val subtitles: Any,
-                              val lastViewTime: Long, val playlists: Any?, val src: String?): Serializable {
+                              val lastViewTime: Any?, val playlists: Any?, val src: String?): Serializable {
 
             data class TagBean(val id: Int, val name: String, val actionUrl: String,
                                val adTrack: Any, val desc: String, val bgPicture: String,

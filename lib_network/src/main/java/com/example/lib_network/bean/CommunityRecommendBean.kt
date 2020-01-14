@@ -2,7 +2,7 @@ package com.example.lib_network.bean
 
 /**
  *Created by yxm on 2020/1/6
- *@function 社区推荐bean
+ *@function 社区推荐bean  pictureFollowCard类型bean
  */
 data class CommunityRecommendBean(val itemList: ArrayList<CommunityRecommendResultBean>, val count: Int,
                                   val total: Int, val nextPageUrl: String?, val adExist: Boolean) {
@@ -32,7 +32,7 @@ data class CommunityRecommendBean(val itemList: ArrayList<CommunityRecommendResu
 
                     data class ContentDataOwnerBean(val uid: Long, val nickname: String, val avatar: String, val userType: String,
                                                     val ifPgc: Boolean, val description: String, val area: String?, val gender: String,
-                                                    val regisDate: Long, val releaseDate: Long, val cover: String, val actionUrl: String,
+                                                    val registDate: Long, val releaseDate: Long, val cover: String?, val actionUrl: String,
                                                     val followed: Boolean, val limitVideoOpen: Boolean, val library: String, val birthday: Long,
                                                     val country: String, val city: String, val university: String?, val job: String, val expert: Boolean)
                 }

@@ -36,9 +36,7 @@ class SplashActivity: BaseActivity(),Observer<Long> {
     }
 
     override fun initListener() {
-        /**
-         * NoListener
-         */
+
         skipBtn.setOnClickListener {
             stopCountDown()
             toMainActivity()

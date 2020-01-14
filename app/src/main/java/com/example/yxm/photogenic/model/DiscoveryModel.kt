@@ -1,10 +1,14 @@
 package com.example.yxm.photogenic.model
 
 import android.util.Log
+import com.example.lib_network.api.RetrofitManager
 import com.example.lib_network.api.constants.UrlConstants
 import com.example.lib_network.okhttp.RequestCenter
 import com.example.lib_network.okhttp.listeners.DisposeDataListener
 import com.example.yxm.photogenic.jsonview.viewdata.ViewData
+import com.example.yxm.photogenic.rxschedulers.IoMainScheduler
+import io.reactivex.Observable
+import okhttp3.ResponseBody
 import org.json.JSONObject
 
 
@@ -50,6 +54,12 @@ class DiscoveryModel : DisposeDataListener {
         //获取轮播图
         fun onGetBannerData(jsonString: String)
         //后续还可添加更多类型的数据，这里只获取了轮播图
+    }
+
+    fun getDiscoveryData(): Observable<ResponseBody>{
+        return RetrofitManager.getApi(UrlConstants.baseUrlKaiYan)
+                .getDiscovery()
+                .compose(IoMainScheduler())
     }
 
 }
