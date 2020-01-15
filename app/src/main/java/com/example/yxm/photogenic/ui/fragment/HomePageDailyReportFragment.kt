@@ -11,7 +11,7 @@ import com.example.yxm.photogenic.base.BaseFragment
 class HomePageDailyReportFragment: BaseFragment() {
 
     override fun initImmersionBar() {
-
+        
     }
 
     override fun getLayoutId(): Int {
@@ -34,5 +34,17 @@ class HomePageDailyReportFragment: BaseFragment() {
         /**
          * TODO
          */
+    }
+
+    /**
+     * 伴生对象
+     */
+    companion object {
+        /**
+         * 返回一个fragment实例
+         */
+        fun newInstance(): HomePageDailyReportFragment{
+            return HomePageDailyReportFragment()
+        }
     }
 }

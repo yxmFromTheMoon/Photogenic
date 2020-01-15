@@ -25,4 +25,16 @@ class MineFragment: BaseFragment() {
     override fun lazyLoad() {
 
     }
+
+    /**
+     * 伴生对象
+     */
+    companion object {
+        /**
+         * 返回一个fragment实例
+         */
+        fun newInstance(): MineFragment{
+            return MineFragment()
+        }
+    }
 }

@@ -36,7 +36,10 @@ ext {
             immersionbarkt          : "3.0.0",
             immersionbarcomponents  : "3.0.0",
             alphatabs               : "1.0.8",
-            brvah                   : "2.9.46"
+            brvah                   : "2.9.46",
+            smartrefresh            : "2.0.0-alpha-1",
+            classicsheader          : "2.0.0-alpha-1",
+            classicsfooter          : "2.0.0-alpha-1"
     ]
 
 
@@ -65,7 +68,9 @@ ext {
             immersionbarkt          : "com.gyf.immersionbar:immersionbar-ktx:$dependLibsVersion.immersionbarkt",
             immersionbarcomponents  : "com.gyf.immersionbar:immersionbar-components:$dependLibsVersion.immersionbarcomponents",
             alphatabs               : "com.yinglan.alphatabs:library:$dependLibsVersion.alphatabs",
-            brvah                   : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$dependLibsVersion.brvah"
+            brvah                   : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$dependLibsVersion.brvah",
+            smartrefresh            : "com.scwang.smart:refresh-layout-kernel:${dependLibsVersion.smartrefresh}",
+            classicsheader          : "com.scwang.smart:refresh-header-classics:${dependLibsVersion.classicsheader}",
+            classicsfooter          : "com.scwang.smart:refresh-footer-classics:${dependLibsVersion.classicsfooter}"
     ]
-
 }

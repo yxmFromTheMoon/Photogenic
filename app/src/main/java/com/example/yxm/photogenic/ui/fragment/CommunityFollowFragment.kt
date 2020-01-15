@@ -26,4 +26,16 @@ class CommunityFollowFragment: BaseFragment() {
 
     }
 
+    /**
+     * 伴生对象
+     */
+    companion object {
+        /**
+         * 返回一个fragment实例
+         */
+        fun newInstance(): CommunityFollowFragment{
+            return CommunityFollowFragment()
+        }
+    }
+
 }

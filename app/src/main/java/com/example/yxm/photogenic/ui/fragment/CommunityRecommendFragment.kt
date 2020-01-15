@@ -25,4 +25,16 @@ class CommunityRecommendFragment: BaseFragment() {
     override fun lazyLoad() {
 
     }
+
+    /**
+     * 伴生对象
+     */
+    companion object {
+        /**
+         * 返回一个fragment实例
+         */
+        fun newInstance(): CommunityRecommendFragment{
+            return CommunityRecommendFragment()
+        }
+    }
 }

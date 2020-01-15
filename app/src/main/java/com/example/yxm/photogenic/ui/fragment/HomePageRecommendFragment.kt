@@ -35,4 +35,16 @@ class HomePageRecommendFragment: BaseFragment() {
          * TODO
          */
     }
+
+    /**
+     * 伴生对象
+     */
+    companion object {
+        /**
+         * 返回一个fragment实例
+         */
+        fun newInstance(): HomePageRecommendFragment{
+            return HomePageRecommendFragment()
+        }
+    }
 }
