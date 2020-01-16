@@ -27,6 +27,10 @@ class HomePageRecommendFragment: BaseFragment() {
          */
     }
 
+    override fun initListener() {
+
+    }
+
     /**
      * 懒加载数据
      */

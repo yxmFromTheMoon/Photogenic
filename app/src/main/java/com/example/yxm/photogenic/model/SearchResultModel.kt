@@ -10,7 +10,7 @@ import io.reactivex.Observable
  * Created by yxm on 2020-1-6
  * @function: 搜索结果Model
  */
-class SearchModel {
+class SearchResultModel {
 
     /**
      * 搜索结果

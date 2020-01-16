@@ -22,6 +22,10 @@ class CommunityFollowFragment: BaseFragment() {
 
     }
 
+    override fun initListener() {
+
+    }
+
     override fun lazyLoad() {
 
     }

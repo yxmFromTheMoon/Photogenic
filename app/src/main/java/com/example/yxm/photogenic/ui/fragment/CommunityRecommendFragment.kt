@@ -22,6 +22,10 @@ class CommunityRecommendFragment: BaseFragment() {
 
     }
 
+    override fun initListener() {
+
+    }
+
     override fun lazyLoad() {
 
     }

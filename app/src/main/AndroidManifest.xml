@@ -31,6 +31,9 @@
         <activity android:name=".ui.activity.SearchActivity"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".ui.fragment.SearchResultFragment"
+            android:screenOrientation="portrait"/>
+
         <!--适配全面屏-->
         <meta-data
             android:name="android.max_aspect"

@@ -1,5 +1,6 @@
 package com.example.yxm.photogenic.base
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.gyf.immersionbar.components.ImmersionFragment
 import com.tbruyelle.rxpermissions2.RxPermissions
+import es.dmoral.toasty.Toasty
 
 /**
  * Created by yxm on 2020-1-13
@@ -17,6 +19,8 @@ abstract class BaseFragment: ImmersionFragment() {
     protected val rxPermission: RxPermissions by lazy {
         RxPermissions(this)
     }
+
+    protected lateinit var mContext: Context
     /**
      * 视图是否加载完毕
      */
@@ -35,6 +39,8 @@ abstract class BaseFragment: ImmersionFragment() {
      */
     protected abstract fun initView(view: View)
 
+    protected abstract fun initListener()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return if (getLayoutId() != 0) {
             inflater.inflate(getLayoutId(), container, false)
@@ -45,6 +51,7 @@ abstract class BaseFragment: ImmersionFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mContext = activity as Context
         isViewPrepare = true
         initView(view)
         lazyLoadDataIfPrepared()
@@ -71,5 +78,9 @@ abstract class BaseFragment: ImmersionFragment() {
      * 懒加载数据
      */
     abstract fun lazyLoad()
+
+    protected fun showErrorToast(msg: String){
+        Toasty.error(mContext,msg).show()
+    }
 
 }

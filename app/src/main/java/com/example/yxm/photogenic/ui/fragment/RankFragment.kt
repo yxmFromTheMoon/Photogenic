@@ -28,6 +28,10 @@ class RankFragment: BaseFragment(), RankContract.IRankView{
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun initListener() {
+
+    }
+
     override fun lazyLoad() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -50,12 +54,10 @@ class RankFragment: BaseFragment(), RankContract.IRankView{
         /**
          * 返回一个fragment实例
          */
-        fun newInstance(title: String): RankFragment{
-            val rankFragment = RankFragment()
+        fun  newInstance(title: String) = RankFragment().apply {
             val bundle = Bundle()
             bundle.putString(RANK_FRAGMENT_TITLE,title)
-            rankFragment.arguments = bundle
-            return rankFragment
+            this.arguments = bundle
         }
     }
 

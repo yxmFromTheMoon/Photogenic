@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
+import com.example.yxm.photogenic.R
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.constant.RefreshState
 import com.scwang.smart.refresh.layout.simple.SimpleComponent
@@ -15,10 +16,11 @@ import com.scwang.smart.refresh.layout.simple.SimpleComponent
 class MyRefreshHeader @JvmOverloads constructor(context: Context,attributeSet: AttributeSet,defStyleAttr: Int = 0)
     : SimpleComponent(context,attributeSet,defStyleAttr){
 
-    lateinit var refreshView: ImageView
+    private var refreshView: ImageView
 
     init {
-
+        View.inflate(context, R.layout.widget_refresh_header, this)
+        refreshView = findViewById(R.id.refresh_view)
     }
 
     /**
@@ -35,15 +37,19 @@ class MyRefreshHeader @JvmOverloads constructor(context: Context,attributeSet: A
         when(newState){
             RefreshState.PullDownToRefresh ->{
                 //设置下拉动画
+                refreshView.animate().rotation(180f)
             }
-            RefreshState.ReleaseToRefresh ->{
+            RefreshState.ReleaseToRefresh -> {
                 //设置刷新动画
+                refreshView.animate().rotation(-180f)
             }
-            RefreshState.Refreshing ->{
+            RefreshState.RefreshReleased,RefreshState.Refreshing ->{
                 //设置加载中动画
+                refreshView.animate().rotation(360f)
             }
             RefreshState.PullDownCanceled ->{
                 //下拉取消
+                refreshView.animate().rotation(-90f)
             }
         }
     }

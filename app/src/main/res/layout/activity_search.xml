@@ -37,25 +37,11 @@
         app:layout_constraintLeft_toRightOf="@+id/edit_query"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <com.example.yxm.photogenic.font.FontTextView
-        android:id="@+id/hot_words_title"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:paddingTop="2dp"
-        android:text="@string/key_word"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:fontType="@string/condensed_bold_font"
-        app:layout_constraintTop_toBottomOf="@+id/edit_query"
-        app:layout_constraintVertical_weight="1" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/hot_words_rv"
+    <FrameLayout
+        android:id="@+id/search_result_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:padding="3dp"
-        app:layout_constraintTop_toBottomOf="@+id/hot_words_title" />
+        app:layout_constraintTop_toBottomOf="@+id/query_cancel_tv"/>
 
 </android.support.constraint.ConstraintLayout>

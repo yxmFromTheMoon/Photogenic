@@ -22,6 +22,10 @@ class MineFragment: BaseFragment() {
 
     }
 
+    override fun initListener() {
+
+    }
+
     override fun lazyLoad() {
 
     }

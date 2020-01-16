@@ -1,5 +1,6 @@
 package com.example.yxm.photogenic.base
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.gyf.immersionbar.ImmersionBar
@@ -16,11 +17,13 @@ abstract class BaseActivity: AppCompatActivity() {
     protected val rxPermission: RxPermissions by lazy {
         RxPermissions(this)
     }
+    protected lateinit var mContext: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
         setStatusBarState()
+        mContext = this
         initView()
         initListener()
         initData()
@@ -42,7 +45,11 @@ abstract class BaseActivity: AppCompatActivity() {
     }
 
     protected fun showToast(msg: String){
-        Toasty.info(this,msg).show()
+        Toasty.info(mContext,msg).show()
+    }
+
+    protected fun showErrorToast(msg:String){
+        Toasty.error(mContext,msg).show()
     }
 
     override fun onDestroy() {

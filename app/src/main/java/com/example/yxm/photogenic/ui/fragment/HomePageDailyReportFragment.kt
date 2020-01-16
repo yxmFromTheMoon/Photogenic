@@ -27,6 +27,10 @@ class HomePageDailyReportFragment: BaseFragment() {
          */
     }
 
+    override fun initListener() {
+
+    }
+
     /**
      * 懒加载数据
      */
