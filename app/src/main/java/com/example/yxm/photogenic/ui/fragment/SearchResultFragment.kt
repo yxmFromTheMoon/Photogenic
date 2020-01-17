@@ -1,13 +1,15 @@
 package com.example.yxm.photogenic.ui.fragment
 
 import android.os.Bundle
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.example.lib_network.bean.CommonVideoBean
 import com.example.yxm.photogenic.R
-import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.base.BaseFragment
-import com.example.yxm.photogenic.model.SearchResultModel
+import com.example.yxm.photogenic.font.FontTextView
 import com.example.yxm.photogenic.module.searchresult.SearchResultContract
+import com.example.yxm.photogenic.module.searchresult.SearchResultPresenter
+import kotlinx.android.synthetic.main.fragment_search_result.*
 
 /**
  * Created by yxm on 2020-1-16
@@ -15,12 +17,19 @@ import com.example.yxm.photogenic.module.searchresult.SearchResultContract
  */
 class SearchResultFragment: BaseFragment(),SearchResultContract.ISearchResultView {
 
-    private val mModel: SearchResultModel by lazy {
-        SearchResultModel()
+    private lateinit var searResultRv: RecyclerView
+    private lateinit var emptyView: FontTextView
+
+    private val searchResultPresenter: SearchResultPresenter by lazy {
+        SearchResultPresenter()
     }
 
     override val queryWords: String by lazy {
         arguments?.getString(SearchResultFragment.QUERY_WORDS) ?: ""
+    }
+
+    init {
+        searchResultPresenter.attachView(this)
     }
 
     override fun getLayoutId(): Int {
@@ -28,6 +37,8 @@ class SearchResultFragment: BaseFragment(),SearchResultContract.ISearchResultVie
     }
 
     override fun initView(view: View) {
+        searResultRv = search_result_rv
+        emptyView = empty_tv
     }
 
     override fun initListener() {
@@ -35,7 +46,7 @@ class SearchResultFragment: BaseFragment(),SearchResultContract.ISearchResultVie
     }
 
     override fun lazyLoad() {
-        mModel.getSearchData(queryWords)
+        searchResultPresenter.getSearchResult(queryWords)
     }
 
     override fun setSearchResult(data: ArrayList<CommonVideoBean.ResultBean>) {
