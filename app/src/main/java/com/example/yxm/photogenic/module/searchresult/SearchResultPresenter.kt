@@ -14,13 +14,19 @@ class SearchResultPresenter : BasePresenter<SearchResultContract.ISearchResultVi
         SearchResultModel()
     }
 
+    /**
+     * 获取搜索结果
+     * @param queryWords 搜索词
+     */
     override fun getSearchResult(queryWords: String) {
+        checkViewAttached()
         mRootView?.showLoading()
         val dispose = mModel.getSearchData(queryWords)
                 .subscribe({
                     mRootView?.apply {
                         dismissLoading()
                         if (it.itemList.isNotEmpty()) {
+                            showSearchView()
                             setSearchResult(it.itemList)
                         } else {
                             mRootView?.showEmptyView()
@@ -33,21 +39,24 @@ class SearchResultPresenter : BasePresenter<SearchResultContract.ISearchResultVi
         addSubscribe(dispose)
     }
 
+    /**
+     * 加载更多数据
+     */
     override fun getMoreData() {
-        val dispose = nextPageUrl?.let { url ->
-            mModel.getMoreSearchData(url)
-                    .subscribe({
-                        mRootView?.apply {
-                            setSearchResult(it.itemList)
-                            mRootView?.showEmptyView()
-                            nextPageUrl = it.nextPageUrl
-                        }
-                    }, {
-                        mRootView?.showEmptyView()
-                    })
-        }
-        dispose?.let {
-            addSubscribe(dispose)
-        }
+        nextPageUrl?.let { url ->
+            addSubscribe(dispose = mModel.getMoreSearchData(url)
+                        .subscribe({
+                            mRootView?.apply {
+                                if (it.itemList.isNotEmpty()) {
+                                    showSearchView()
+                                    loadMoreData(it.itemList)
+                                }
+                                //Log.e("SearchPresenter", nextPageUrl)
+                                nextPageUrl = it.nextPageUrl
+                            }
+                        }, {
+                            mRootView?.loadMoreFailure()
+                        }))
+            }
     }
 }

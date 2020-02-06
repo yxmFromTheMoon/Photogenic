@@ -13,7 +13,7 @@ data class CommonVideoBean(val itemList: ArrayList<ResultBean>, val count: Int, 
         data class ResultData(val dataType: String, val id: Long, val title: String, val description: String,
                               val library: String, val tags: ArrayList<TagBean>, val consumption: Consumption,
                               val resourceType: String, val slogan: String?, val provider: Provider, val category: String,
-                              val author: Author, val cover: Cover, val playUrl: String, val thumbPlayUrl: String?,
+                              val author: Author?, val cover: Cover, val playUrl: String, val thumbPlayUrl: String?,
                               val duration: Long, val webUrl: WebUrl, val releaseTime: Long, val playInfo: ArrayList<PlayInfoBean>,
                               val campaign: Any?, val waterMarks: Any?, val ad: Boolean, val adTrack: List<String>,
                               val type: String, val titlePgc: Any?, val descriptionPgc: Any?, val remark: String,
@@ -34,7 +34,7 @@ data class CommonVideoBean(val itemList: ArrayList<ResultBean>, val count: Int, 
 
             data class Provider(val name: String, val alias: String, val icon: String): Serializable
 
-            data class Author(val id: Int, val icon: String, val name: String, val description: String,
+            data class Author(val id: Int, val icon: String?, val name: String, val description: String,
                               val link: String, val latestReleaseTime: Long, val videoNum: Int,
                               val adTrack: Any?, val follow: FollowBean, val shield: ShieldBean,
                               val approvedNotReadyVideoCount: Int, val ifPgc: Boolean, val recSort: Int,

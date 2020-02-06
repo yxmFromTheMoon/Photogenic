@@ -14,7 +14,6 @@ class HotWordsAdapter: BaseQuickAdapter<String,BaseViewHolder>(R.layout.item_hot
 
         with(helper){
             setText(R.id.key_word,item)
-            addOnClickListener(R.id.key_word)
         }
     }
 }

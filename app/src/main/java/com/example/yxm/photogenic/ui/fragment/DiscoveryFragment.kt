@@ -6,13 +6,9 @@ import com.example.yxm.photogenic.base.BaseFragment
 
 /**
  * Created by yxm on 2020-1-14
- * @function:
+ * @function:发现fragment
  */
 class DiscoveryFragment: BaseFragment() {
-
-    override fun initImmersionBar() {
-
-    }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_discovery

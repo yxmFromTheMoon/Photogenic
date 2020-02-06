@@ -10,10 +10,6 @@ import com.example.yxm.photogenic.base.BaseFragment
  */
 class HomePageDailyReportFragment: BaseFragment() {
 
-    override fun initImmersionBar() {
-        
-    }
-
     override fun getLayoutId(): Int {
         return R.layout.fragment_homepage_daily_report
     }

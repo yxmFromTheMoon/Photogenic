@@ -1,12 +1,16 @@
 package com.example.yxm.photogenic.ui.activity
 
+import android.content.Intent
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.view.KeyEvent
 import android.widget.FrameLayout
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
+import com.example.yxm.photogenic.ui.fragment.SplashFragment
 import com.gyf.immersionbar.ktx.immersionBar
+import com.gyf.immersionbar.ktx.showStatusBar
 import com.yinglan.alphatabs.AlphaTabView
 import com.yinglan.alphatabs.AlphaTabsIndicator
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,7 +18,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 /**
  * MainActivity
  */
-class MainActivity : BaseActivity(){
+class MainActivity : BaseActivity() {
+
     private lateinit var contentLayout: FrameLayout
     private lateinit var homePageTab: AlphaTabView
     private lateinit var communityTab: AlphaTabView
@@ -22,13 +27,20 @@ class MainActivity : BaseActivity(){
     private lateinit var mineTab: AlphaTabView
     private lateinit var mAlphaIndicator: AlphaTabsIndicator
     private var mExitTime: Long = 0
+    private var mSplashFragment: SplashFragment? = null
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
+        super.onCreate(savedInstanceState)
+    }
+
     override fun setStatusBarState() {
         immersionBar {
+            showStatusBar()
             statusBarDarkFont(true)
         }
     }
@@ -40,6 +52,7 @@ class MainActivity : BaseActivity(){
         discoveryTab = discovery_tab
         mineTab = mine_tab
         mAlphaIndicator = alphaIndicator
+        showSplash()
     }
 
     override fun initData() {
@@ -52,10 +65,37 @@ class MainActivity : BaseActivity(){
         }
     }
 
-    private fun initFragment(id: Int){
+    /**
+     * 展示闪屏页
+     */
+    private fun showSplash() {
+        val transaction = supportFragmentManager.beginTransaction()
+        mSplashFragment = supportFragmentManager.findFragmentByTag(SplashFragment::class.java.simpleName) as SplashFragment?
+        val temp = mSplashFragment
+        if (temp != null) {
+            if (temp.isAdded) {
+                transaction.show(temp).commitAllowingStateLoss()
+            } else {
+                transaction.remove(temp).commitAllowingStateLoss()
+                mSplashFragment = SplashFragment.newInstance()
+                transaction.add(R.id.main_content, temp, SplashFragment::class.java.simpleName).commitAllowingStateLoss()
+            }
+        } else {
+            val tempSplash = SplashFragment.newInstance()
+            mSplashFragment = tempSplash
+            transaction.add(R.id.main_content, tempSplash, SplashFragment::class.java.simpleName).commitAllowingStateLoss()
+        }
+        mSplashFragment?.setSplashListener(object : SplashFragment.OnSplashListener {
+            override fun onSplash(time: Long, totalTime: Long) {
+
+            }
+        })
+    }
+
+    private fun initFragment(id: Int) {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         var fragment: Fragment? = null
-        when(id){
+        when (id) {
             R.id.home_page_tab -> {
                 showToast("首页")
             }
@@ -69,26 +109,26 @@ class MainActivity : BaseActivity(){
                 showToast("我的")
             }
         }
-        fragment?.let{
+        fragment?.let {
             hideFragment(transaction)
             transaction.show(fragment)
             transaction.commitAllowingStateLoss()
         }
     }
 
-    private fun hideFragment(transaction: FragmentTransaction){
+    private fun hideFragment(transaction: FragmentTransaction) {
         /**
          * TODO
          */
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        when(keyCode == KeyEvent.KEYCODE_BACK) {
+        when (keyCode == KeyEvent.KEYCODE_BACK) {
             true -> {
                 if (System.currentTimeMillis() - mExitTime > 2000) {
                     showToast("再按一次退出")
                     mExitTime = System.currentTimeMillis()
-                }else{
+                } else {
                     super.onKeyDown(keyCode, event)
                 }
                 return true

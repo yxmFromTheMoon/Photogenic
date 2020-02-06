@@ -7,6 +7,7 @@ import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.ktx.immersionBar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import es.dmoral.toasty.Toasty
+import kotlinx.android.synthetic.main.activity_search.*
 
 /**
  * Created by yxm on 2020-1-10
@@ -22,9 +23,9 @@ abstract class BaseActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
-        setStatusBarState()
         mContext = this
         initView()
+        setStatusBarState()
         initListener()
         initData()
     }

@@ -14,7 +14,13 @@ interface SearchResultContract {
 
         fun setSearchResult(data: ArrayList<CommonVideoBean.ResultBean>)
 
+        fun loadMoreData(data: ArrayList<CommonVideoBean.ResultBean>)
+
         fun showEmptyView()
+
+        fun loadMoreFailure()
+
+        fun showSearchView()
     }
 
     interface ISearchResultPresenter: IPresenter<ISearchResultView>{

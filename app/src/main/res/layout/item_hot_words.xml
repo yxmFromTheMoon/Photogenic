@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white">
 
     <com.example.yxm.photogenic.font.FontTextView
@@ -12,7 +12,7 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:text="艺术"
-        android:textColor="@color/deepSkyBlue"
+        android:textColor="@android:color/holo_blue_dark"
         android:textSize="14sp"
         app:fontType="@string/FZLTDGB"
         app:layout_constraintHorizontal_weight="1" />
@@ -20,7 +20,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/lightGray"
+        android:background="@color/statusBarColor"
         app:layout_constraintTop_toBottomOf="@+id/key_word" />
 
 </android.support.constraint.ConstraintLayout>

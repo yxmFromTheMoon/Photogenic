@@ -3,12 +3,13 @@ package com.example.yxm.photogenic.ui.fragment
 import android.view.View
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
+import com.example.yxm.photogenic.base.BaseImmersionFragment
 
 /**
  * Created by yxm on 2020-1-14
  * @function:我的fragment
  */
-class MineFragment: BaseFragment() {
+class MineFragment: BaseImmersionFragment() {
 
     override fun initImmersionBar() {
 

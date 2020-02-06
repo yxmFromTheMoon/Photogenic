@@ -40,4 +40,24 @@ public class TextUtils {
         }
         return spannableStringBuilder;
     }
+
+    /**
+     * 秒转分秒
+     * @param seconds
+     * @return
+     */
+    public static String secToTime(long seconds){
+        if(seconds < 60){
+            return String.valueOf(seconds);
+        }
+        String min = (seconds / 60) + "";
+        String second = (seconds % 60) + "";
+        if(min.length() < 2){
+            min = 0 + min;
+        }
+        if(second.length() < 2){
+            second = 0 + second;
+        }
+        return min + ":" + second;
+    }
 }

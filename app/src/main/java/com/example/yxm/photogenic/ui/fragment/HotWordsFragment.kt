@@ -1,15 +1,23 @@
 package com.example.yxm.photogenic.ui.fragment
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.WindowManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.module.hotwords.HotWordsAdapter
 import com.example.yxm.photogenic.module.hotwords.HotWordsContract
+import com.example.yxm.photogenic.module.hotwords.HotWordsEvent
 import com.example.yxm.photogenic.module.hotwords.HotWordsPresenter
+import com.example.yxm.photogenic.module.searchresult.SearchResultEvent
+import com.example.yxm.photogenic.ui.activity.SearchActivity
+import com.example.yxm.photogenic.utils.KeyBoardHelper
+import com.gyf.immersionbar.ktx.hideStatusBar
 import kotlinx.android.synthetic.main.fragment_hot_words.view.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by yxm on 2020-1-16
@@ -50,6 +58,7 @@ class HotWordsFragment: BaseFragment(), HotWordsContract.IHotWordsView{
     }
 
     override fun initView(view: View) {
+
         hotWordsRv = view.hot_words_rv
         hotWordsRv.run {
             layoutManager = LinearLayoutManager(mContext)
@@ -60,7 +69,8 @@ class HotWordsFragment: BaseFragment(), HotWordsContract.IHotWordsView{
     override fun initListener() {
         mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as String
-
+            KeyBoardHelper.hideKeyBoard(hotWordsRv)
+            EventBus.getDefault().post(HotWordsEvent(item))
         }
     }
 
@@ -68,12 +78,12 @@ class HotWordsFragment: BaseFragment(), HotWordsContract.IHotWordsView{
         mHotWordsPresenter.getHotWords()
     }
 
-    override fun initImmersionBar() {
+    companion object {
+        fun newInstance(): HotWordsFragment = HotWordsFragment()
     }
 
-    companion object {
-        fun newInstance(): HotWordsFragment{
-            return HotWordsFragment()
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mHotWordsPresenter.detachView()
     }
 }

@@ -2,19 +2,23 @@ package com.example.yxm.photogenic.base
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.gyf.immersionbar.components.ImmersionFragment
 import com.tbruyelle.rxpermissions2.RxPermissions
 import es.dmoral.toasty.Toasty
+import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.components.SimpleImmersionFragment
+
 
 /**
- * Created by yxm on 2020-1-13
- * @function: fragment基类,懒加载
+ * Created by yxm on 2020/2/2
+ * @function 带沉浸式的fragment基类
  */
-abstract class BaseFragment: Fragment() {
+abstract class BaseImmersionFragment: SimpleImmersionFragment(){
+
+    protected val mTag = this.javaClass.simpleName
 
     protected val rxPermission: RxPermissions by lazy {
         RxPermissions(this)
@@ -58,6 +62,10 @@ abstract class BaseFragment: Fragment() {
         lazyLoadDataIfPrepared()
     }
 
+    override fun initImmersionBar() {
+        ImmersionBar.with(this).keyboardEnable(true).init()
+    }
+
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if(isVisibleToUser){
@@ -83,5 +91,4 @@ abstract class BaseFragment: Fragment() {
     protected fun showErrorToast(msg: String){
         Toasty.error(mContext,msg).show()
     }
-
 }

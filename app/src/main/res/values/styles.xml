@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
     <style name="AnimActivityStyle" parent="AppTheme">
@@ -19,6 +21,11 @@
         <item name="android:activityOpenExitAnimation">@anim/anim_no</item>
         <item name="android:activityCloseEnterAnimation">@anim/anim_no</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_up_to_top</item>
+    </style>
+
+    <style name="SplashAppTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_logo_welcome</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
 </resources>

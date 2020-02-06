@@ -1,16 +1,29 @@
 package com.example.yxm.photogenic.ui.activity
 
+import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.KeyEvent
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
+import com.example.yxm.photogenic.module.hotwords.HotWordsEvent
+import com.example.yxm.photogenic.module.searchresult.SearchResultEvent
 import com.example.yxm.photogenic.ui.fragment.HotWordsFragment
 import com.example.yxm.photogenic.ui.fragment.SearchResultFragment
+import com.example.yxm.photogenic.utils.KeyBoardHelper
 import com.gyf.immersionbar.ktx.immersionBar
 import kotlinx.android.synthetic.main.activity_search.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by yxm on 2020-1-13
@@ -23,30 +36,54 @@ class SearchActivity : BaseActivity() {
      */
     private lateinit var queryEditText: EditText
     private lateinit var queryCancelTv: TextView
+    private lateinit var statusBarView: View
     private lateinit var searchContentLayout: FrameLayout
     private var hotWordsFragment: HotWordsFragment? = null
     private var searchResultFragment: SearchResultFragment? = null
-    private val transition = supportFragmentManager.beginTransaction()
 
     override fun getLayoutId(): Int {
         return R.layout.activity_search
     }
 
     override fun initView() {
+        EventBus.getDefault().register(this)
         queryEditText = edit_query
         queryCancelTv = query_cancel_tv
         searchContentLayout = search_result_content
+        statusBarView = status_bar_view
+        KeyBoardHelper.openKeyBoard(queryEditText)
         initFragment()
     }
 
     override fun initListener() {
-
-        queryEditText.setOnClickListener {
-            //开始搜索
-            if (!queryEditText.text.toString().isEmpty()) {
-                showResultFragment(queryEditText.text.toString())
+        queryEditText.setOnEditorActionListener { v, actionId, event ->
+            val keyWord: String? = queryEditText.text.toString().trim()
+            if ((actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER)) && !keyWord.isNullOrEmpty()) {
+                KeyBoardHelper.hideKeyBoard(queryEditText)
+                //开始搜索
+                showResultFragment(keyWord)
+                return@setOnEditorActionListener true
+            } else {
+                showToast("请输入你感兴趣的关键词")
             }
+            return@setOnEditorActionListener false
         }
+
+        queryEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                removeResultFragment()
+                initFragment()
+            }
+
+        })
         //取消
         queryCancelTv.setOnClickListener {
             queryEditText.setText("")
@@ -60,8 +97,9 @@ class SearchActivity : BaseActivity() {
 
     override fun setStatusBarState() {
         immersionBar {
-            statusBarColor(R.color.lightGray)
-            keyboardEnable(true)
+            titleBar(statusBarView)
+            statusBarColor(R.color.statusBarColor)
+            statusBarDarkFont(true)
         }
     }
 
@@ -69,51 +107,54 @@ class SearchActivity : BaseActivity() {
      * 初始化热搜词汇fragment
      */
     private fun initFragment() {
+        val transition = supportFragmentManager.beginTransaction()
         if (hotWordsFragment == null) {
             hotWordsFragment = HotWordsFragment.newInstance()
+            transition.add(R.id.search_result_content, hotWordsFragment as Fragment)
         }
-        transition.add(R.id.search_result_content, hotWordsFragment as Fragment)
-        transition.hide(searchResultFragment as Fragment)
-        transition.show(hotWordsFragment as Fragment)
-        transition.commitAllowingStateLoss()
+        searchResultFragment?.let {
+            transition.hide(it)
+        }
+        transition.show(hotWordsFragment as Fragment).commitAllowingStateLoss()
+    }
+
+    /**
+     * 移除搜索结果fragment
+     */
+    private fun removeResultFragment() {
+        supportFragmentManager?.let {
+            val fragment = searchResultFragment
+            if (fragment != null) {
+                it.beginTransaction().remove(fragment).commitAllowingStateLoss()
+            }
+        }
     }
 
     /**
      * 显示搜索结果fragment
      */
-    private fun showResultFragment(queryWords: String) {
-        checkNotNull(queryWords)
+    private fun showResultFragment(queryWords: String?) {
+        val transition = supportFragmentManager.beginTransaction()
+        searchResultFragment = SearchResultFragment.newInstance(queryWords)
         transition.add(R.id.search_result_content, searchResultFragment as Fragment)
-        transition.hide(hotWordsFragment as Fragment)
-        transition.show(searchResultFragment as Fragment)
-        transition.commitAllowingStateLoss()
-    }
-
-    /**
-     * 隐藏fragment
-     */
-    private fun hideFragment(transition: FragmentTransaction) {
-
         hotWordsFragment?.let {
             transition.hide(it)
         }
-        searchResultFragment?.let {
-            transition.hide(it)
-        }
-    }
-
-    /**
-     * 确保fragment非空
-     */
-    private fun checkNotNull(queryWords: String) {
-        if (searchResultFragment == null) {
-            searchResultFragment = SearchResultFragment.newInstance(queryWords)
-        }
-
+        transition.show(searchResultFragment as Fragment).commitAllowingStateLoss()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        hideFragment(transition)
+        EventBus.getDefault().unregister(this)
+    }
+
+    /**
+     * 接收热搜词汇点击事件
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getHotWordsFromFragment(hotWordsEvent: HotWordsEvent) {
+        val hotWords = hotWordsEvent.hotWords
+        queryEditText.text = Editable.Factory.getInstance().newEditable(hotWords)
+        showResultFragment(hotWords)
     }
 }

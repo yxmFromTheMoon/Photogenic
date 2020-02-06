@@ -36,10 +36,6 @@ class RankFragment: BaseFragment(), RankContract.IRankView{
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun initImmersionBar() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun getLayoutId(): Int {
         return R.layout.fragment_rank
     }

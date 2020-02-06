@@ -1,6 +1,18 @@
 package com.example.lib_imageloader;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Utils {
 
@@ -213,4 +225,124 @@ public class Utils {
 
         return (bitmap);
     }
+
+    /**
+     * 获取window宽度和高度
+     * @param window window
+     * @return integer[]
+     */
+    public static Integer[] getWidthAndHeight(Window window) {
+        if (window == null) {
+            return null;
+        }
+        Integer[] integer = new Integer[2];
+        DisplayMetrics dm = new DisplayMetrics();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            window.getWindowManager().getDefaultDisplay().getRealMetrics(dm);
+        } else {
+            window.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        }
+        integer[0] = dm.widthPixels;
+        integer[1] = dm.heightPixels;
+        return integer;
+    }
+
+    /**
+     * 获取随机图片
+     * @return string
+     */
+    public static String getPic() {
+        Random random = new Random();
+        return "http://106.14.135.179/ImmersionBar/" + random.nextInt(40) + ".jpg";
+    }
+
+    /**
+     * 获取多张图片
+     * @return list
+     */
+    public static ArrayList<String> getPics() {
+        return getPics(4);
+    }
+
+    /**
+     *
+     * @param num
+     * @return list
+     */
+    public static ArrayList<String> getPics(int num) {
+        ArrayList<String> pics = new ArrayList<>();
+        Random random = new Random();
+
+        do {
+            String s = "http://106.14.135.179/ImmersionBar/" + random.nextInt(40) + ".jpg";
+            if (!pics.contains(s)) {
+                pics.add(s);
+            }
+        } while (pics.size() < num);
+        return pics;
+    }
+
+    /**
+     * 获取大图
+     * @return
+     */
+    public static String getFullPic() {
+        Random random = new Random();
+        return "http://106.14.135.179/ImmersionBar/phone/" + random.nextInt(40) + ".jpeg";
+    }
+
+    /**
+     * 网络是否可用
+     * @param context
+     * @return
+     */
+    public static boolean isNetworkConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager manager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = manager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                return mNetworkInfo.isAvailable();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * dip转px
+     * @param c
+     * @param dpValue
+     * @return
+     */
+    public static int dip2px(Context c, float dpValue) {
+        final float scale = c.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    /**
+     * 使view增加一个状态栏的高度
+     * @param activity
+     * @param view
+     */
+    public static void increaseViewHeightByStatusBarHeight(Activity activity, View view) {
+        ViewGroup.LayoutParams lp = view.getLayoutParams();
+        if (lp == null) {
+            lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) lp;
+        layoutParams.height += getStatusBarHeight(activity);
+        view.setLayoutParams(layoutParams);
+    }
+
+    /**
+     * 获取状态栏高度
+     * @param activity
+     * @return
+     */
+    private static int getStatusBarHeight(Activity activity){
+        // 获得状态栏高度
+        int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        return activity.getResources().getDimensionPixelSize(resourceId);
+    }
+
 }

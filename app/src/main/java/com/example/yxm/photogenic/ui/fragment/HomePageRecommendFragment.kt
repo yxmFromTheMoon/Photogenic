@@ -10,10 +10,6 @@ import com.example.yxm.photogenic.base.BaseFragment
  */
 class HomePageRecommendFragment: BaseFragment() {
 
-    override fun initImmersionBar() {
-
-    }
-
     override fun getLayoutId(): Int {
         return R.layout.fragment_homepage_recommend
     }
