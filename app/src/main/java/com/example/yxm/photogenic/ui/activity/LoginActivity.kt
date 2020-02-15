@@ -1,6 +1,5 @@
 package com.example.yxm.photogenic.ui.activity
 
-import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import com.example.yxm.photogenic.R

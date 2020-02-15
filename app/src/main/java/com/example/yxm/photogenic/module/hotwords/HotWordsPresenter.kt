@@ -3,7 +3,6 @@ package com.example.yxm.photogenic.module.hotwords
 import android.util.Log
 import com.example.yxm.photogenic.base.BasePresenter
 import com.example.yxm.photogenic.model.HotWordsModel
-import io.reactivex.disposables.Disposable
 
 /**
  * Created by yxm on 2020-1-13

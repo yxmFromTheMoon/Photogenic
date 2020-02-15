@@ -1,21 +1,17 @@
 package com.example.yxm.photogenic.ui.activity
 
-import android.content.Context
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.module.hotwords.HotWordsEvent
-import com.example.yxm.photogenic.module.searchresult.SearchResultEvent
 import com.example.yxm.photogenic.ui.fragment.HotWordsFragment
 import com.example.yxm.photogenic.ui.fragment.SearchResultFragment
 import com.example.yxm.photogenic.utils.KeyBoardHelper

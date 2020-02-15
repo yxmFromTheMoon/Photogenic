@@ -4,10 +4,7 @@ import com.example.lib_network.bean.*
 import io.reactivex.Observable
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
-import retrofit2.http.Url
+import retrofit2.http.*
 
 /**
  *Created by yxm on 2019-12-28
@@ -16,10 +13,12 @@ import retrofit2.http.Url
 interface Api {
 
     //获取分类
+    @Headers("domain:kaiyan")
     @GET("v4/categories")
     fun getCategories(): Observable<ArrayList<CategoriesBean>>
 
     //获取排行
+    @Headers("domain:kaiyan")
     @GET("v4/rankList/videos")
     fun getRanks(@Query("strategy")strategy: String): Observable<CommonVideoBean>
 
@@ -29,6 +28,7 @@ interface Api {
      * @num 搜索的个数
      * @query 搜索的关键词
      */
+    @Headers("domain:kaiyan")
     @GET("v1/search?&start=1&num=10")
     fun getSearchInfo(@Query("query")query: String): Observable<CommonVideoBean>
 
@@ -37,6 +37,7 @@ interface Api {
      * @param url nextPageUrl
      */
     @GET
+    @Headers("domain:kaiyan")
     fun getMoreVideoData(@Url url: String): Observable<CommonVideoBean>
 
     /**
@@ -63,6 +64,7 @@ interface Api {
     /**
      * 热门搜索词
      */
+    @Headers("domain:kaiyan")
     @GET("v3/queries/hot")
     fun getHotWords(): Observable<ArrayList<String>>
 
@@ -82,6 +84,7 @@ interface Api {
     /**
      * 发现
      */
+    @Headers("domain:kaiyan")
     @GET("v5/index/tab/discovery")
     fun getDiscovery(): Observable<ResponseBody>
 
@@ -91,7 +94,16 @@ interface Api {
      * 视频分类推荐接口
      *
      */
-    @GET("videoCategoryDetails")
-    fun getVideoRecommend(@Query("id")id: Int): Observable<Any>
+    @Headers("domain:apiopen")
+    @GET("videoCategoryDetails?")
+    fun getVideoRecommend(@Query("id")id: Int): Observable<CategoryDetailBean>
+
+    /**
+     * 根据item id获取相关推荐视频
+     * id从视频分类推荐接口中获取
+     */
+    @Headers("domain:kaiyan")
+    @GET("v4/video/related?")
+    fun getRelatedVideoData(@Query("id") id: Long): Observable<CommonVideoBean>
 
 }

@@ -2,7 +2,6 @@ package com.example.yxm.photogenic.ui.fragment
 
 import android.view.View
 import com.example.yxm.photogenic.R
-import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.base.BaseImmersionFragment
 
 /**

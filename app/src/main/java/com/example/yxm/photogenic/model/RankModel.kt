@@ -13,30 +13,11 @@ import io.reactivex.Observable
 class RankModel {
 
     /**
-     * 获取周排行榜
+     * 获取周、月、历史排行榜
      */
-    fun getWeeklyData(): Observable<CommonVideoBean>{
+    fun getRankData(strategy: String): Observable<CommonVideoBean>{
         return RetrofitManager.getApi(UrlConstants.baseUrlKaiYan)
-                .getRanks("weekly")
-                .compose(IoMainScheduler())
-    }
-
-    /**
-     * 获取月排行榜
-     */
-    fun getMonthlyData(): Observable<CommonVideoBean>{
-        return RetrofitManager.getApi(UrlConstants.baseUrlKaiYan)
-                .getRanks("monthly")
-                .compose(IoMainScheduler())
-    }
-
-
-    /**
-     * 获取总排行榜
-     */
-    fun getHistoricalData(): Observable<CommonVideoBean>{
-        return RetrofitManager.getApi(UrlConstants.baseUrlKaiYan)
-                .getRanks("historical")
+                .getRanks(strategy)
                 .compose(IoMainScheduler())
     }
 

@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/light" />
+            android:src="@mipmap/test" />
 
         <TextView
             android:id="@+id/video_duration"
@@ -42,12 +42,14 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/video_author_avatar"
+            android:layout_marginTop="5dp"
             android:layout_gravity="center_vertical"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/recommend_share_icon" />
 
         <LinearLayout
+            android:layout_marginStart="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -56,7 +58,6 @@
                 android:id="@+id/video_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:ellipsize="end"
                 android:maxEms="20"
@@ -68,9 +69,8 @@
                 android:id="@+id/video_secondary_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:padding="2dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:text="广告二级标题" />
         </LinearLayout>
     </LinearLayout>
@@ -81,6 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/video_content_layout"
         android:src="@drawable/ic_action_share_grey" />
 </RelativeLayout>

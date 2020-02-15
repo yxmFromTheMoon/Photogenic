@@ -28,4 +28,7 @@ class FontTextView
         return Typeface.createFromAsset(context.assets,fontType)
     }
 
+    fun setFontType(type: String){
+        this.type = type
+    }
 }

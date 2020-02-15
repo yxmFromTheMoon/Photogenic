@@ -3,11 +3,9 @@ package com.example.yxm.photogenic.base
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.ktx.immersionBar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.activity_search.*
 
 /**
  * Created by yxm on 2020-1-10
@@ -24,6 +22,7 @@ abstract class BaseActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
         mContext = this
+        initDataBeforeView()
         initView()
         setStatusBarState()
         initListener()
@@ -37,6 +36,8 @@ abstract class BaseActivity: AppCompatActivity() {
     abstract fun initData()
 
     abstract fun initListener()
+
+    open fun initDataBeforeView(){}
 
     /**
      * 设置状态栏参数,默认透明

@@ -27,7 +27,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation rootProject.dependLibs.appcompt
-    implementation rootProject.dependLibs.glide
+    api rootProject.dependLibs.glide
     implementation rootProject.dependLibs.rxjava2
     implementation rootProject.dependLibs.rxandroid
     testImplementation 'junit:junit:4.12'

@@ -1,29 +1,188 @@
 package com.example.yxm.photogenic.ui.fragment
 
+import android.content.Intent
+import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.example.lib_network.bean.CategoriesBean
+import com.example.lib_network.bean.CommonVideoBean
 import com.example.yxm.photogenic.R
-import com.example.yxm.photogenic.base.BaseFragment
+import com.example.yxm.photogenic.base.BaseImmersionFragment
+import com.example.yxm.photogenic.module.discovery.CategoryAdapter
+import com.example.yxm.photogenic.module.discovery.DiscoveryContract
+import com.example.yxm.photogenic.module.discovery.DiscoveryPresenter
+import com.example.yxm.photogenic.module.discovery.DiscoveryVideoAdapter
+import com.example.yxm.photogenic.ui.activity.AllCategoriesActivity
+import com.example.yxm.photogenic.ui.activity.AllRankActivity
+import com.example.yxm.photogenic.ui.activity.CategoryDetailActivity
+import com.example.yxm.photogenic.utils.GlideImageLoader
+import com.example.yxm.photogenic.widget.FooterView
+import com.example.yxm.photogenic.widget.RightArrowSelectView
+import com.gyf.immersionbar.ImmersionBar
+import com.scwang.smart.refresh.header.ClassicsHeader
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.youth.banner.Banner
+import com.youth.banner.BannerConfig
+import kotlinx.android.synthetic.main.fragment_discovery.*
+import java.io.Serializable
 
 /**
  * Created by yxm on 2020-1-14
  * @function:发现fragment
  */
-class DiscoveryFragment: BaseFragment() {
+class DiscoveryFragment: BaseImmersionFragment(),DiscoveryContract.IDiscoveryView {
+
+    /**
+     * data
+     */
+    private val mDiscoveryPresenter: DiscoveryPresenter by lazy {
+        DiscoveryPresenter()
+    }
+    private val mCategoryAdapter: CategoryAdapter by lazy {
+        CategoryAdapter()
+    }
+    private val mDiscoveryVideoAdapter: DiscoveryVideoAdapter by lazy {
+        DiscoveryVideoAdapter()
+    }
+
+    /**
+     * UI
+     */
+    private lateinit var mRefreshLayout: SmartRefreshLayout
+    private lateinit var mBanner: Banner
+    private lateinit var mLookAllCategoryTv: RightArrowSelectView
+    private lateinit var mCategoryRv: RecyclerView
+    private lateinit var mLookAllFeaturedTv: RightArrowSelectView
+    private lateinit var mDiscoveryVideoRv: RecyclerView
+
+    init {
+        mDiscoveryPresenter.attachView(this)
+    }
+
+    /**
+     * 设置分类目录
+     */
+    override fun setCategory(data: ArrayList<CategoriesBean>) {
+        data.removeAt(data.size-1)
+        mCategoryAdapter.setNewData(data)
+    }
+
+    /**
+     * 设置本周精选
+     */
+    override fun setVideoData(data: ArrayList<CommonVideoBean.ResultBean.ResultData>) {
+        mDiscoveryVideoAdapter.setNewData(data)
+    }
+
+    /**
+     * 设置banner
+     */
+    override fun setBannerList(data: ArrayList<String>) {
+        mBanner.setOnBannerListener {
+            val url = data[it]
+            showErrorToast(url)
+        }
+        mBanner.setImages(data).start()
+    }
+
+    override fun showError(msg: String) {
+        showErrorToast(msg)
+    }
+
+    override fun showSuccess() {
+
+    }
+
+    override fun finishRefresh() {
+        mRefreshLayout.finishRefresh()
+    }
+
+    override fun showLoading() {
+    }
+
+    override fun dismissLoading() {
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_discovery
     }
 
     /**
+     * 状态栏处理
+     */
+    override fun initImmersionBar() {
+        val statusBarView = status_bar_view
+        ImmersionBar.with(this)
+                .titleBar(statusBarView)
+                .statusBarDarkFont(true)
+                .statusBarColor(R.color.statusBarColor)
+                .init()
+    }
+
+    /**
      * 初始化view
      */
     override fun initView(view: View) {
-        /**
-         * TODO
-         */
+        mBanner = discovery_banner
+        mLookAllCategoryTv = look_all_category
+        mLookAllFeaturedTv = look_all_rank
+        mCategoryRv = hot_category_rv
+        mDiscoveryVideoRv = discovery_video_rv
+        mRefreshLayout = refreshLayout
+
+        mBanner.apply {
+            setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+            setDelayTime(4000)
+            setImageLoader(GlideImageLoader())
+            setIndicatorGravity(BannerConfig.LEFT)
+        }
+
+        mCategoryRv.run {
+            layoutManager = GridLayoutManager(mContext,2,GridLayoutManager.HORIZONTAL,false)
+            adapter = mCategoryAdapter
+        }
+
+        mDiscoveryVideoRv.run {
+            layoutManager = LinearLayoutManager(mContext)
+            adapter = mDiscoveryVideoAdapter
+        }
+        mDiscoveryVideoAdapter.setFooterView(FooterView(mContext))
+
+        mRefreshLayout.setRefreshHeader(ClassicsHeader(mContext))
     }
 
     override fun initListener() {
+        mCategoryAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+            val categoryBean = adapter.getItem(position) as Serializable
+            startActivity(Intent(mContext,CategoryDetailActivity::class.java).apply {
+                val bundle = Bundle()
+                bundle.putSerializable("categoryBean",categoryBean)
+                putExtras(bundle)
+            })
+        }
+        mDiscoveryVideoAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+            val videoBean = adapter.getItem(position) as Serializable
+            showErrorToast("跳转播放页")
+        }
+
+        mLookAllCategoryTv.setOnClickListener {
+             startActivity(Intent(mContext,AllCategoriesActivity::class.java))
+        }
+
+        mLookAllFeaturedTv.setOnClickListener {
+            startActivity(Intent(mContext,AllRankActivity::class.java))
+        }
+
+        mRefreshLayout.setEnableLoadMore(false)
+        //下拉刷新
+        mRefreshLayout.setOnRefreshListener {
+            mDiscoveryPresenter.getBannerData()
+            mDiscoveryPresenter.getVideoCollectionWithBrief()
+            mDiscoveryPresenter.getCategoryData()
+        }
 
     }
 
@@ -31,9 +190,14 @@ class DiscoveryFragment: BaseFragment() {
      * 懒加载数据
      */
     override fun lazyLoad() {
-        /**
-         * TODO
-         */
+        mDiscoveryPresenter.getBannerData()
+        mDiscoveryPresenter.getCategoryData()
+        mDiscoveryPresenter.getVideoCollectionWithBrief()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mDiscoveryPresenter.detachView()
     }
 
     /**
@@ -43,8 +207,6 @@ class DiscoveryFragment: BaseFragment() {
         /**
          * 返回一个fragment实例
          */
-        fun newInstance(): DiscoveryFragment{
-            return DiscoveryFragment()
-        }
+        fun newInstance(): DiscoveryFragment = DiscoveryFragment()
     }
 }

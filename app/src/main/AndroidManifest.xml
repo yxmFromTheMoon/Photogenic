@@ -37,6 +37,26 @@
             <!--</intent-filter>-->
         </activity>
 
+        <activity android:name=".ui.activity.CategoryDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<action android:name="android.intent.action.VIEW" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity android:name=".ui.activity.TagDetailActivity"
+            android:launchMode="standard"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.activity.AllCategoriesActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.activity.AllRankActivity"
+            android:screenOrientation="portrait"/>
+
         <!--适配全面屏-->
         <meta-data
             android:name="android.max_aspect"

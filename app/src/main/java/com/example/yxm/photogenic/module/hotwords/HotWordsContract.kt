@@ -9,9 +9,9 @@ import com.example.yxm.photogenic.base.IPresenter
  */
 interface HotWordsContract {
     interface IHotWordsView: BaseView{
+
         fun setHotWords(data: ArrayList<String>)
 
-        fun showError(msg: String)
     }
 
     interface IHotWordsPresenter: IPresenter<IHotWordsView>{

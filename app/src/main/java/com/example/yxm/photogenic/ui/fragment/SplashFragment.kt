@@ -3,16 +3,13 @@ package com.example.yxm.photogenic.ui.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_imageloader.Utils
 import com.example.yxm.photogenic.R
-import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.base.BaseImmersionFragment
 import com.example.yxm.photogenic.rxschedulers.IoMainScheduler
-import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.ktx.hideStatusBar
 import com.gyf.immersionbar.ktx.showStatusBar
 import io.reactivex.Observable
@@ -31,7 +28,7 @@ class SplashFragment: BaseImmersionFragment(),Observer<Long> {
     private lateinit var skipBtn: TextView
     private lateinit var splashImageView: ImageView
     private lateinit var mSubscribe: Disposable
-    private val defaultTime: Long = 3
+    private val defaultTime: Long = 0
     private var mOnSplashListener: OnSplashListener? = null
     private var mIsFinish = false
 

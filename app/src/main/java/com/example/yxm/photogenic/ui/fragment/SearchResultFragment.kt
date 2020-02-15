@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_network.bean.CommonVideoBean
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
@@ -15,8 +14,6 @@ import com.example.yxm.photogenic.module.searchresult.SearchResultAdapter
 import com.example.yxm.photogenic.module.searchresult.SearchResultContract
 import com.example.yxm.photogenic.module.searchresult.SearchResultPresenter
 import com.example.yxm.photogenic.widget.FooterView
-import com.scwang.smart.refresh.footer.ClassicsFooter
-import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.fragment_search_result.*
 
 /**
@@ -93,18 +90,8 @@ class SearchResultFragment: BaseFragment(),SearchResultContract.ISearchResultVie
         mAdapter.addData(data)
     }
 
-    override fun showEmptyView() {
-        emptyView.visibility = VISIBLE
-        searchResultRv.visibility = GONE
-    }
-
     override fun loadMoreFailure() {
         showErrorToast("加载更多失败")
-    }
-
-    override fun showSearchView() {
-        emptyView.visibility = GONE
-        searchResultRv.visibility = VISIBLE
     }
 
     override fun showLoading() {
@@ -113,6 +100,16 @@ class SearchResultFragment: BaseFragment(),SearchResultContract.ISearchResultVie
 
     override fun dismissLoading() {
 
+    }
+
+    override fun showError(msg: String) {
+        emptyView.visibility = VISIBLE
+        searchResultRv.visibility = GONE
+    }
+
+    override fun showSuccess() {
+        emptyView.visibility = GONE
+        searchResultRv.visibility = VISIBLE
     }
 
     companion object {

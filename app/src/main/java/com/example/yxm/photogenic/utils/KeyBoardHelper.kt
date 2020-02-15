@@ -1,8 +1,6 @@
 package com.example.yxm.photogenic.utils
 
-import android.annotation.TargetApi
 import android.content.Context
-import android.hardware.input.InputManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText

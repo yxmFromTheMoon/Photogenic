@@ -16,11 +16,7 @@ interface SearchResultContract {
 
         fun loadMoreData(data: ArrayList<CommonVideoBean.ResultBean>)
 
-        fun showEmptyView()
-
         fun loadMoreFailure()
-
-        fun showSearchView()
     }
 
     interface ISearchResultPresenter: IPresenter<ISearchResultView>{

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.yxm.photogenic.widget.LeftBackTitle
+        android:id="@+id/header_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:centerTitle="全部排行"
+        android:background="@color/statusBarColor"/>
+
+    <com.kekstudio.dachshundtablayout.DachshundTabLayout
+        android:id="@+id/rank_tab"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_below="@+id/header_title"
+        app:tabBackground="@color/statusBarColor"
+        app:tabGravity="fill"
+        app:ddIndicatorColor="@color/black"
+        app:ddIndicatorHeight="3dp"
+        app:tabIndicatorGravity="bottom"
+        app:tabSelectedTextColor="@color/black" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/rank_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rank_tab"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</RelativeLayout>

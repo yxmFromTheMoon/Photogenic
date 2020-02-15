@@ -1,10 +1,8 @@
 package com.example.yxm.photogenic.ui.fragment
 
-import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.view.WindowManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
@@ -12,10 +10,7 @@ import com.example.yxm.photogenic.module.hotwords.HotWordsAdapter
 import com.example.yxm.photogenic.module.hotwords.HotWordsContract
 import com.example.yxm.photogenic.module.hotwords.HotWordsEvent
 import com.example.yxm.photogenic.module.hotwords.HotWordsPresenter
-import com.example.yxm.photogenic.module.searchresult.SearchResultEvent
-import com.example.yxm.photogenic.ui.activity.SearchActivity
 import com.example.yxm.photogenic.utils.KeyBoardHelper
-import com.gyf.immersionbar.ktx.hideStatusBar
 import kotlinx.android.synthetic.main.fragment_hot_words.view.*
 import org.greenrobot.eventbus.EventBus
 
@@ -48,6 +43,10 @@ class HotWordsFragment: BaseFragment(), HotWordsContract.IHotWordsView{
     }
 
     override fun showLoading() {
+    }
+
+    override fun showSuccess() {
+
     }
 
     override fun dismissLoading() {

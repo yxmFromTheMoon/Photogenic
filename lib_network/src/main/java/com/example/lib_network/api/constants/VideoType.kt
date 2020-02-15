@@ -26,7 +26,8 @@ object VideoType {
     const val FASHION = 24
 
     /**
-     * 广告id 14
+     *
+    广告id 14
     生活id 36
     动画id 10
     搞笑id 28

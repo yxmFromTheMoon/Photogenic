@@ -30,7 +30,7 @@ ext {
             constraintlayout        : "1.1.3",
             rxpermissons            : "0.10.2",
             okhttp3LoggerInterceptor: "3.4.1",
-            dachshundtab            : "v0.3.0",
+            dachshundtab            : "v0.3.3",
             glomadrian              : "1.1",
             immersionbar            : "3.0.0",
             immersionbarkt          : "3.0.0",

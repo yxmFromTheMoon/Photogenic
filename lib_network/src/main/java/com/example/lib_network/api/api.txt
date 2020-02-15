@@ -67,6 +67,7 @@ http://baobab.kaiyanapp.com/api/v5/index/tab/ugcSelected
 
 根据ID推荐接口：
 https://api.apiopen.top/videoRecommend?id=127398
+http://baobab.kaiyanapp.com/api/v4/video/related?&id=1584 该接口很多id都没有数据！！
 id从视频分类推荐接口中获取
 
 首页，社区，发现，我的

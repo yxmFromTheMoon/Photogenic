@@ -3,4 +3,12 @@
     <declare-styleable name="FontTextView">
         <attr name="fontType" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="RightArrowSelectView">
+        <attr name="rightText" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="LeftBackTitle">
+        <attr name="centerTitle" format="string"/>
+    </declare-styleable>
 </resources>

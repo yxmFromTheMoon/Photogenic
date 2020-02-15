@@ -1,6 +1,5 @@
 package com.example.yxm.photogenic.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
@@ -8,6 +7,9 @@ import android.view.KeyEvent
 import android.widget.FrameLayout
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
+import com.example.yxm.photogenic.ui.fragment.DiscoveryFragment
+import com.example.yxm.photogenic.ui.fragment.HomePageRecommendFragment
+import com.example.yxm.photogenic.ui.fragment.MineFragment
 import com.example.yxm.photogenic.ui.fragment.SplashFragment
 import com.gyf.immersionbar.ktx.immersionBar
 import com.gyf.immersionbar.ktx.showStatusBar
@@ -28,6 +30,9 @@ class MainActivity : BaseActivity() {
     private lateinit var mAlphaIndicator: AlphaTabsIndicator
     private var mExitTime: Long = 0
     private var mSplashFragment: SplashFragment? = null
+    private var mHomePageRecommendFragment: HomePageRecommendFragment? = null
+    private var mDiscoveryFragment: DiscoveryFragment? = null
+    private var mMineFragment: MineFragment? = null
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
@@ -103,7 +108,11 @@ class MainActivity : BaseActivity() {
                 showToast("社区")
             }
             R.id.discovery_tab -> {
-                showToast("发现")
+                if(mDiscoveryFragment == null){
+                    mDiscoveryFragment = DiscoveryFragment.newInstance()
+                    fragment = mDiscoveryFragment
+                    transaction.add(R.id.content_layout,fragment!!)
+                }
             }
             R.id.mine_tab -> {
                 showToast("我的")
@@ -111,15 +120,20 @@ class MainActivity : BaseActivity() {
         }
         fragment?.let {
             hideFragment(transaction)
-            transaction.show(fragment)
-            transaction.commitAllowingStateLoss()
+            transaction.show(fragment).commitAllowingStateLoss()
         }
     }
 
     private fun hideFragment(transaction: FragmentTransaction) {
-        /**
-         * TODO
-         */
+        mHomePageRecommendFragment?.let {
+            transaction.hide(it)
+        }
+        mDiscoveryFragment?.let {
+            transaction.hide(it)
+        }
+        mMineFragment?.let {
+            transaction.hide(it)
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

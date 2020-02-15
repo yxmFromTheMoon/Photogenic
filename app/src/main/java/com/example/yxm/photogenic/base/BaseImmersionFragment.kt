@@ -2,14 +2,14 @@ package com.example.yxm.photogenic.base
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.tbruyelle.rxpermissions2.RxPermissions
-import es.dmoral.toasty.Toasty
+import com.example.yxm.photogenic.R
 import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.components.SimpleImmersionFragment
+import com.tbruyelle.rxpermissions2.RxPermissions
+import es.dmoral.toasty.Toasty
 
 
 /**
@@ -63,7 +63,10 @@ abstract class BaseImmersionFragment: SimpleImmersionFragment(){
     }
 
     override fun initImmersionBar() {
-        ImmersionBar.with(this).keyboardEnable(true).init()
+        ImmersionBar.with(this)
+                .keyboardEnable(true)
+                .statusBarColor(R.color.statusBarColor)
+                .init()
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {

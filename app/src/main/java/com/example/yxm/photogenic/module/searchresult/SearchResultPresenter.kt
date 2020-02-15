@@ -10,6 +10,7 @@ import com.example.yxm.photogenic.model.SearchResultModel
 class SearchResultPresenter : BasePresenter<SearchResultContract.ISearchResultView>(), SearchResultContract.ISearchResultPresenter {
 
     private var nextPageUrl: String? = null
+
     private val mModel: SearchResultModel by lazy {
         SearchResultModel()
     }
@@ -26,15 +27,15 @@ class SearchResultPresenter : BasePresenter<SearchResultContract.ISearchResultVi
                     mRootView?.apply {
                         dismissLoading()
                         if (it.itemList.isNotEmpty()) {
-                            showSearchView()
+                            showSuccess()
                             setSearchResult(it.itemList)
                         } else {
-                            mRootView?.showEmptyView()
+                            mRootView?.showError("")
                         }
                         nextPageUrl = it.nextPageUrl
                     }
                 }, {
-                    mRootView?.showEmptyView()
+                    mRootView?.showError("")
                 })
         addSubscribe(dispose)
     }
@@ -48,10 +49,9 @@ class SearchResultPresenter : BasePresenter<SearchResultContract.ISearchResultVi
                         .subscribe({
                             mRootView?.apply {
                                 if (it.itemList.isNotEmpty()) {
-                                    showSearchView()
+                                    showSuccess()
                                     loadMoreData(it.itemList)
                                 }
-                                //Log.e("SearchPresenter", nextPageUrl)
                                 nextPageUrl = it.nextPageUrl
                             }
                         }, {

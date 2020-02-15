@@ -1,18 +1,17 @@
 package com.example.yxm.photogenic.module.discovery
 
-import android.util.Log
 import com.example.lib_network.bean.BannerDataBean
+import com.example.lib_network.bean.CommonVideoBean
 import com.example.lib_network.okhttp.gsonutils.GsonUtils
 import com.example.yxm.photogenic.base.BasePresenter
 import com.example.yxm.photogenic.model.DiscoveryModel
-import com.example.yxm.photogenic.rxschedulers.IoMainScheduler
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
-import io.reactivex.ObservableSource
-import io.reactivex.functions.Function
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
+import org.json.JSONArray
 import org.json.JSONObject
 
 /**
@@ -33,17 +32,18 @@ class DiscoveryPresenter : BasePresenter<DiscoveryContract.IDiscoveryView>(), Di
         mRootView?.showLoading()
         val dispose = discoveryModel.getDiscoveryData()
                 .flatMap {
-                    getDataTypeObservable(it, "horizontalScrollCard")
-                }
+                    getDataTypeObservable(it,"horizontalScrollCard")
+                }.observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     mRootView?.apply {
+                        finishRefresh()
                         val bannerList = ArrayList<BannerDataBean>()
                         val urlList = ArrayList<String>()
                         it.forEach { jsonObject ->
                             bannerList.add(GsonUtils.jsonStringToBean(jsonObject.toString(), BannerDataBean::class.java))
                         }
-                        bannerList.forEach {bannerDataBean ->
-                            bannerDataBean.itemList.forEach {bannerItemBean ->
+                        bannerList.forEach { bannerDataBean ->
+                            bannerDataBean.itemList.forEach { bannerItemBean ->
                                 urlList.add(bannerItemBean.data.image)
                             }
                         }
@@ -51,13 +51,66 @@ class DiscoveryPresenter : BasePresenter<DiscoveryContract.IDiscoveryView>(), Di
                     }
                 }, {
                     mRootView?.apply {
+                        finishRefresh()
                         showError("Banner获取失败")
                     }
                 })
         addSubscribe(dispose)
     }
 
+    /**
+     * 获得videoCollectionWithBrief类型的数据
+     */
+    override fun getVideoCollectionWithBrief() {
+        checkViewAttached()
+        mRootView?.showLoading()
+        val dispose = discoveryModel.getDiscoveryData()
+                .flatMap {
+                    getDataTypeObservable(it,"videoCollectionWithBrief")
+                }.observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    mRootView?.apply {
+                        val mVideoList: ArrayList<CommonVideoBean.ResultBean.ResultData> = ArrayList()
+                        finishRefresh()
+                        it.forEach { jsonObject ->
+                            val resultList: JSONArray = jsonObject.getJSONArray("itemList")
+                            for (i in 0 until resultList.length()){
+                                val json = resultList.getJSONObject(i)
+                                mVideoList.add(GsonUtils.jsonStringToBean(json.getJSONObject("data").toString(), CommonVideoBean.ResultBean.ResultData::class.java))
+                            }
+                        }
+                        setVideoData(mVideoList)
+                    }
+                }, {
+                    mRootView?.apply {
+                        finishRefresh()
+                        showError("videoCollectionWithBrief获取失败")
+                    }
+                })
+        addSubscribe(dispose)
+    }
 
+    /**
+     * 获取分类
+     */
+    override fun getCategoryData() {
+        checkViewAttached()
+        mRootView?.showLoading()
+        val dispose = discoveryModel.getCategoryData()
+                .subscribe({
+                    mRootView?.apply {
+                        finishRefresh()
+                        dismissLoading()
+                        setCategory(it)
+                    }
+                },{
+                    mRootView?.apply {
+                        finishRefresh()
+                        showError("获取分类列表失败")
+                    }
+                })
+        addSubscribe(dispose)
+    }
 
     /**
      * 获取不同类型的数据
@@ -65,7 +118,7 @@ class DiscoveryPresenter : BasePresenter<DiscoveryContract.IDiscoveryView>(), Di
      * @type 要转换的类型
      * @return 转换类型的JSONObject集合
      */
-    private fun getDataTypeObservable(responseBody: ResponseBody, type: String): Observable<ArrayList<JSONObject>> {
+    private fun getDataTypeObservable(responseBody: ResponseBody,type: String): Observable<ArrayList<JSONObject>> {
         return Observable.create(object : ObservableOnSubscribe<ArrayList<JSONObject>> {
             val result = responseBody.string().run {
                 JSONObject(this)
