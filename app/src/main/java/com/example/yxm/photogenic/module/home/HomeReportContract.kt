@@ -5,12 +5,12 @@ import com.example.yxm.photogenic.base.BaseView
 import com.example.yxm.photogenic.base.IPresenter
 
 /**
- *Created by yxm on 2020/2/15
- *@function 首页推荐
+ *Created by yxm on 2020/2/19
+ *@function 首页日报
  */
-interface HomeRecommendContract {
+interface HomeReportContract {
 
-    interface IHomeRecommendView: BaseView{
+    interface IHomeReportView: BaseView {
 
         fun setData(data: ArrayList<HomeBean.Issue>)
 
@@ -19,9 +19,9 @@ interface HomeRecommendContract {
         fun finishRefresh()
     }
 
-    interface IHomeRecommendPresenter: IPresenter<IHomeRecommendView>{
+    interface IHomeReportPresenter: IPresenter<IHomeReportView> {
 
-        fun getRecommendData()
+        fun getReportData()
 
         fun loadMoreData()
 

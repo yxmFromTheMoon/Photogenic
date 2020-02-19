@@ -7,8 +7,8 @@ import java.io.Serializable
  *Created by yxm on 2020/2/15
  *@function 首页推荐接口bean
  */
-data class HomeRecommendBean(val itemList: ArrayList<Issue>, val count: Int,
-                             val total: Int, val nextPageUrl: String?, val adExist: Boolean){
+data class HomeBean(val itemList: ArrayList<Issue>, val count: Int,
+                    val total: Int, val nextPageUrl: String?, val adExist: Boolean){
 
     data class Issue(val type: String, val data: Data, val tag: String?, val id: Int, val adIndex: Int): MultiItemEntity, Serializable{
 

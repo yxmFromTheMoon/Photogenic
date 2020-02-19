@@ -3,15 +3,16 @@ package com.example.yxm.photogenic.ui.fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.example.lib_network.bean.HomeRecommendBean
+import com.example.lib_network.bean.HomeBean
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.module.home.HomeRecommendAdapter
 import com.example.yxm.photogenic.module.home.HomeRecommendContract
 import com.example.yxm.photogenic.module.home.HomeRecommendPresenter
 import com.example.yxm.photogenic.widget.FooterView
+import com.scwang.smart.refresh.header.ClassicsHeader
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.fragment_homepage_recommend.*
 
 /**
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_homepage_recommend.*
 class HomePageRecommendFragment : BaseFragment(), HomeRecommendContract.IHomeRecommendView {
 
     private lateinit var mContentRv: RecyclerView
+    private lateinit var mRefreshLayout: SmartRefreshLayout
     private var loadMore = false
     private lateinit var mAdapter: HomeRecommendAdapter
 
@@ -47,7 +49,11 @@ class HomePageRecommendFragment : BaseFragment(), HomeRecommendContract.IHomeRec
 
     }
 
-    override fun setData(data: ArrayList<HomeRecommendBean.Issue>) {
+    override fun finishRefresh() {
+        mRefreshLayout.finishRefresh()
+    }
+
+    override fun setData(data: ArrayList<HomeBean.Issue>) {
         mAdapter = HomeRecommendAdapter(data)
         mAdapter.setFooterView(FooterView(mContext))
         mContentRv.run {
@@ -59,13 +65,13 @@ class HomePageRecommendFragment : BaseFragment(), HomeRecommendContract.IHomeRec
             val type = adapter.getItemViewType(position)
             val item = adapter.getItem(position)
             when (type) {
-                HomeRecommendBean.Issue.VIDEO_CARD -> {
+                HomeBean.Issue.VIDEO_CARD -> {
                     showErrorToast("type + $type")
                 }
-                HomeRecommendBean.Issue.FOLLOW_CARD -> {
+                HomeBean.Issue.FOLLOW_CARD -> {
                     showErrorToast("type + $type")
                 }
-                HomeRecommendBean.Issue.SQUARE_CARD -> {
+                HomeBean.Issue.SQUARE_CARD -> {
                     showErrorToast("type + $type")
                 }
             }
@@ -74,7 +80,7 @@ class HomePageRecommendFragment : BaseFragment(), HomeRecommendContract.IHomeRec
         mAdapter.setNewData(data)
     }
 
-    override fun setMoreData(data: ArrayList<HomeRecommendBean.Issue>) {
+    override fun setMoreData(data: ArrayList<HomeBean.Issue>) {
         loadMore = false
         mAdapter.addData(data)
     }
@@ -88,6 +94,10 @@ class HomePageRecommendFragment : BaseFragment(), HomeRecommendContract.IHomeRec
      */
     override fun initView(view: View) {
         mContentRv = home_recommend_rv
+        mRefreshLayout = refreshLayout
+
+        mRefreshLayout.setEnableLoadMore(false)
+        mRefreshLayout.setRefreshHeader(ClassicsHeader(mContext))
     }
 
     override fun initListener() {
@@ -103,6 +113,10 @@ class HomePageRecommendFragment : BaseFragment(), HomeRecommendContract.IHomeRec
                 }
             }
         })
+
+        mRefreshLayout.setOnRefreshListener {
+            mPresenter.getRecommendData()
+        }
     }
 
     /**
@@ -110,6 +124,11 @@ class HomePageRecommendFragment : BaseFragment(), HomeRecommendContract.IHomeRec
      */
     override fun lazyLoad() {
         mPresenter.getRecommendData()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mPresenter.detachView()
     }
 
     /**

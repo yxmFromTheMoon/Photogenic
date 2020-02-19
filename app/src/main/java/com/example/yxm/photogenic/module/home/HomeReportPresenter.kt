@@ -1,35 +1,33 @@
 package com.example.yxm.photogenic.module.home
 
-import android.util.Log
 import com.example.yxm.photogenic.base.BasePresenter
 import com.example.yxm.photogenic.model.HomeModel
 
 /**
- *Created by yxm on 2020/2/15
- *@function
+ *Created by yxm on 2020/2/19
+ *@function 首页日报fragment Presenter
  */
-class HomeRecommendPresenter : BasePresenter<HomeRecommendContract.IHomeRecommendView>(), HomeRecommendContract.IHomeRecommendPresenter {
+class HomeReportPresenter : BasePresenter<HomeReportContract.IHomeReportView>(), HomeReportContract.IHomeReportPresenter {
 
     private val mModel: HomeModel by lazy {
         HomeModel()
     }
-
     private var nextPageUrl: String? = null
 
-    override fun getRecommendData() {
+    override fun getReportData() {
         checkViewAttached()
         mRootView?.showLoading()
-        val disposable = mModel.getHomeRecommend()
+        val disposable = mModel.getHomeReport()
                 .subscribe({
                     it.itemList.filter { issue ->
-                        issue.type == "banner2" || issue.data.text == "查看全部热门排行"
+                        issue.type == "pictureFollowCard" || issue.type == "autoPlayFollowCard"
                     }.forEach { issue ->
                         it.itemList.remove(issue)
                     }
-                    Log.e("HomePresenter", "${it.itemList.size}")
+                    it.itemList.removeAt(0)
                     mRootView?.apply {
-                        dismissLoading()
                         finishRefresh()
+                        dismissLoading()
                         showSuccess()
                         nextPageUrl = it.nextPageUrl
                         setData(it.itemList)
@@ -38,7 +36,7 @@ class HomeRecommendPresenter : BasePresenter<HomeRecommendContract.IHomeRecommen
                     mRootView?.apply {
                         finishRefresh()
                         dismissLoading()
-                        showError("请刷新重试")
+                        showError("获取日报失败")
                     }
                 })
         addSubscribe(disposable)
@@ -46,27 +44,20 @@ class HomeRecommendPresenter : BasePresenter<HomeRecommendContract.IHomeRecommen
 
     override fun loadMoreData() {
         nextPageUrl?.let { url ->
-            mRootView?.showLoading()
-            addSubscribe(dispose = mModel.getMoreHomeRecommend(url)
+            addSubscribe(dispose = mModel.getMoreHomeReport(url)
                     .subscribe({
-                        nextPageUrl = it.nextPageUrl
-                        it.itemList.filter { issue ->
-                            issue.data.text == "猜你喜欢"
-                        }.forEach { issue ->
-                            it.itemList.remove(issue)
-                        }
                         mRootView?.apply {
                             dismissLoading()
-                            showSuccess()
+                            nextPageUrl = it.nextPageUrl
                             setMoreData(it.itemList)
                         }
                     }, {
                         mRootView?.apply {
+                            finishRefresh()
                             dismissLoading()
-                            showError("")
+                            showError("加载更多失败")
                         }
                     }))
         }
     }
-
 }

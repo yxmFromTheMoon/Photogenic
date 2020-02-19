@@ -72,16 +72,25 @@ interface Api {
      * 首页推荐
      */
     @GET("v5/index/tab/allRec")
-    fun getHomePageRecommend(): Observable<HomeRecommendBean>
+    fun getHomePageRecommend(): Observable<HomeBean>
 
+    /**
+     * 首页推荐获取更多
+     */
     @GET
-    fun getMoreHomePageRecommend(@Url url: String): Observable<HomeRecommendBean>
+    fun getMoreHomePageRecommend(@Url url: String): Observable<HomeBean>
 
     /**
      * 首页日报
      */
     @GET("v5/index/tab/feed")
-    fun getHomePageDailyReport(): Observable<Any>
+    fun getHomePageDailyReport(): Observable<HomeBean>
+
+    /**
+     * 首页日报获取更多
+     */
+    @GET
+    fun getMoreHomePageDailyReport(@Url url: String): Observable<HomeBean>
 
     /**
      * 发现
