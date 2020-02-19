@@ -13,7 +13,6 @@ import com.example.yxm.photogenic.module.rank.RankPresenter
 import com.example.yxm.photogenic.widget.FooterView
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import kotlinx.android.synthetic.main.fragment_discovery.*
 import kotlinx.android.synthetic.main.fragment_discovery.refreshLayout
 import kotlinx.android.synthetic.main.fragment_rank.*
 

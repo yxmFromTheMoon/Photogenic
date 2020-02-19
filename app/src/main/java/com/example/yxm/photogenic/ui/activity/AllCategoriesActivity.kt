@@ -11,7 +11,6 @@ import com.example.lib_network.bean.CommonVideoBean
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.module.categorydetails.CategoryAllAdapter
-import com.example.yxm.photogenic.module.discovery.CategoryAdapter
 import com.example.yxm.photogenic.module.discovery.DiscoveryContract
 import com.example.yxm.photogenic.module.discovery.DiscoveryPresenter
 import com.example.yxm.photogenic.widget.FooterView
@@ -19,7 +18,6 @@ import com.example.yxm.photogenic.widget.LeftBackTitle
 import com.gyf.immersionbar.ktx.immersionBar
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.activity_all_categories.*
-import kotlinx.android.synthetic.main.fragment_discovery.*
 import kotlinx.android.synthetic.main.fragment_discovery.hot_category_rv
 import kotlinx.android.synthetic.main.fragment_discovery.refreshLayout
 import java.io.Serializable

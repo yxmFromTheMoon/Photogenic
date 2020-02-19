@@ -4,4 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:text="社区推荐"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </android.support.constraint.ConstraintLayout>

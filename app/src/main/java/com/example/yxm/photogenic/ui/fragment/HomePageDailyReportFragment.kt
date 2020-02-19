@@ -43,8 +43,6 @@ class HomePageDailyReportFragment: BaseFragment() {
         /**
          * 返回一个fragment实例
          */
-        fun newInstance(): HomePageDailyReportFragment{
-            return HomePageDailyReportFragment()
-        }
+        fun newInstance(): HomePageDailyReportFragment = HomePageDailyReportFragment()
     }
 }

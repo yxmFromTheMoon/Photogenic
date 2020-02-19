@@ -7,10 +7,8 @@ import android.view.KeyEvent
 import android.widget.FrameLayout
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
-import com.example.yxm.photogenic.ui.fragment.DiscoveryFragment
-import com.example.yxm.photogenic.ui.fragment.HomePageRecommendFragment
-import com.example.yxm.photogenic.ui.fragment.MineFragment
-import com.example.yxm.photogenic.ui.fragment.SplashFragment
+import com.example.yxm.photogenic.ui.fragment.*
+import com.example.yxm.photogenic.utils.KeyBoardHelper
 import com.gyf.immersionbar.ktx.immersionBar
 import com.gyf.immersionbar.ktx.showStatusBar
 import com.yinglan.alphatabs.AlphaTabView
@@ -30,9 +28,6 @@ class MainActivity : BaseActivity() {
     private lateinit var mAlphaIndicator: AlphaTabsIndicator
     private var mExitTime: Long = 0
     private var mSplashFragment: SplashFragment? = null
-    private var mHomePageRecommendFragment: HomePageRecommendFragment? = null
-    private var mDiscoveryFragment: DiscoveryFragment? = null
-    private var mMineFragment: MineFragment? = null
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
@@ -44,10 +39,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setStatusBarState() {
-        immersionBar {
-            showStatusBar()
-            statusBarDarkFont(true)
-        }
+
     }
 
     override fun initView() {
@@ -58,6 +50,7 @@ class MainActivity : BaseActivity() {
         mineTab = mine_tab
         mAlphaIndicator = alphaIndicator
         showSplash()
+        initFragment(R.id.home_page_tab)
     }
 
     override fun initData() {
@@ -73,6 +66,7 @@ class MainActivity : BaseActivity() {
     /**
      * 展示闪屏页
      */
+
     private fun showSplash() {
         val transaction = supportFragmentManager.beginTransaction()
         mSplashFragment = supportFragmentManager.findFragmentByTag(SplashFragment::class.java.simpleName) as SplashFragment?
@@ -102,37 +96,24 @@ class MainActivity : BaseActivity() {
         var fragment: Fragment? = null
         when (id) {
             R.id.home_page_tab -> {
-                showToast("首页")
+                fragment = HomeFragment.newInstance()
+                transaction.replace(R.id.content_layout, fragment)
             }
             R.id.community_tab -> {
-                showToast("社区")
+                fragment = CommunityFragment.newInstance()
+                transaction.replace(R.id.content_layout, fragment)
             }
             R.id.discovery_tab -> {
-                if(mDiscoveryFragment == null){
-                    mDiscoveryFragment = DiscoveryFragment.newInstance()
-                    fragment = mDiscoveryFragment
-                    transaction.add(R.id.content_layout,fragment!!)
-                }
+                fragment = DiscoveryFragment.newInstance()
+                transaction.replace(R.id.content_layout, fragment)
             }
             R.id.mine_tab -> {
-                showToast("我的")
+                fragment = MineFragment.newInstance()
+                transaction.replace(R.id.content_layout, fragment)
             }
         }
         fragment?.let {
-            hideFragment(transaction)
             transaction.show(fragment).commitAllowingStateLoss()
-        }
-    }
-
-    private fun hideFragment(transaction: FragmentTransaction) {
-        mHomePageRecommendFragment?.let {
-            transaction.hide(it)
-        }
-        mDiscoveryFragment?.let {
-            transaction.hide(it)
-        }
-        mMineFragment?.let {
-            transaction.hide(it)
         }
     }
 

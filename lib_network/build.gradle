@@ -36,6 +36,8 @@ dependencies {
     api rootProject.dependLibs.retrofit2
     api rootProject.dependLibs.glide
     api rootProject.dependLibs.retrofit2convertergson
+    //adapter
+    api rootProject.dependLibs.brvah
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {

@@ -2,17 +2,13 @@ package com.example.yxm.photogenic.ui.fragment
 
 import android.view.View
 import com.example.yxm.photogenic.R
-import com.example.yxm.photogenic.base.BaseImmersionFragment
+import com.example.yxm.photogenic.base.BaseFragment
 
 /**
  * Created by yxm on 2020-1-14
  * @function:社区推荐fragment
  */
-class CommunityRecommendFragment: BaseImmersionFragment() {
-
-    override fun initImmersionBar() {
-
-    }
+class CommunityRecommendFragment: BaseFragment() {
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_community_recommend
@@ -37,8 +33,6 @@ class CommunityRecommendFragment: BaseImmersionFragment() {
         /**
          * 返回一个fragment实例
          */
-        fun newInstance(): CommunityRecommendFragment{
-            return CommunityRecommendFragment()
-        }
+        fun newInstance(): CommunityRecommendFragment = CommunityRecommendFragment()
     }
 }

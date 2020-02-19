@@ -58,8 +58,7 @@ dependencies {
 
     //permission
     implementation rootProject.dependLibs.rxpermissons
-    //万能适配器
-    implementation rootProject.dependLibs.brvah
+
     //刷新
     implementation rootProject.dependLibs.smartrefresh
     implementation rootProject.dependLibs.classicsheader

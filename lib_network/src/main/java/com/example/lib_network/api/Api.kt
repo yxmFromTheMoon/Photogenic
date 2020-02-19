@@ -3,7 +3,6 @@ package com.example.lib_network.api
 import com.example.lib_network.bean.*
 import io.reactivex.Observable
 import okhttp3.ResponseBody
-import retrofit2.Call
 import retrofit2.http.*
 
 /**
@@ -73,7 +72,10 @@ interface Api {
      * 首页推荐
      */
     @GET("v5/index/tab/allRec")
-    fun getHomePageRecommend(): Observable<Any>
+    fun getHomePageRecommend(): Observable<HomeRecommendBean>
+
+    @GET
+    fun getMoreHomePageRecommend(@Url url: String): Observable<HomeRecommendBean>
 
     /**
      * 首页日报

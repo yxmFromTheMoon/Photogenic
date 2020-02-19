@@ -12,7 +12,6 @@ class CategoryDetailPresenter : BasePresenter<CategoryDetailContract.ICategoryDe
     private val mModel: VideoTypeModel by lazy {
         VideoTypeModel()
     }
-    private val idList = ArrayList<Long>()
 
     override fun getVideo(id: Int) {
         checkViewAttached()
@@ -23,9 +22,6 @@ class CategoryDetailPresenter : BasePresenter<CategoryDetailContract.ICategoryDe
                         dismissLoading()
                         finishRefresh()
                         setVideo(it.result)
-                    }
-                    it.result.forEach { bean ->
-                        idList.add(bean.id)
                     }
                 }, {
                     mRootView?.apply {

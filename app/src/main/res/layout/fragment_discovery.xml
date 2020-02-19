@@ -18,8 +18,6 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:fillViewport="true">
 
             <RelativeLayout
@@ -39,6 +37,8 @@
                         android:id="@+id/discovery_banner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         app:banner_default_image="@mipmap/test"
                         app:image_scale_type="fit_xy" />
 
@@ -49,7 +49,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/banner_layout"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
                     android:orientation="horizontal">
 
                     <com.example.yxm.photogenic.font.FontTextView
@@ -60,7 +62,7 @@
                         android:layout_weight="1"
                         android:text="@string/hot_category"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         app:fontType="@string/condensed_bold_font" />
 
                     <com.example.yxm.photogenic.widget.RightArrowSelectView
@@ -77,14 +79,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/hot_category_tv_layout"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp" />
 
                 <LinearLayout
                     android:id="@+id/discovery_featured"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/hot_category_rv"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
                     android:orientation="horizontal">
 
                     <com.example.yxm.photogenic.font.FontTextView
@@ -94,7 +100,7 @@
                         android:layout_weight="1"
                         android:text="@string/discovery_featured"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         app:fontType="@string/condensed_bold_font" />
 
                     <com.example.yxm.photogenic.widget.RightArrowSelectView

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.example.yxm.photogenic.font.FontTextView
+        android:layout_marginStart="10dp"
+        android:id="@+id/square_card_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="2dp"
+        android:text="开眼编辑精选"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:fontType="@string/condensed_bold_font" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/square_card_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/square_card_title" />
+
+</RelativeLayout>

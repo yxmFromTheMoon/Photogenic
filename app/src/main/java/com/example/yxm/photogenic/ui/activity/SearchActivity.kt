@@ -83,6 +83,7 @@ class SearchActivity : BaseActivity() {
         //取消
         queryCancelTv.setOnClickListener {
             queryEditText.setText("")
+            KeyBoardHelper.hideKeyBoard(queryEditText)
             finish()
         }
     }
@@ -142,6 +143,7 @@ class SearchActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
+        KeyBoardHelper.hideKeyBoard(queryEditText)
     }
 
     /**

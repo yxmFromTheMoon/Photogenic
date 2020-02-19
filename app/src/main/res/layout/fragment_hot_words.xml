@@ -15,7 +15,7 @@
         android:paddingTop="2dp"
         android:text="@string/key_word"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:fontType="@string/condensed_bold_font"
         app:layout_constraintVertical_weight="1" />
 
