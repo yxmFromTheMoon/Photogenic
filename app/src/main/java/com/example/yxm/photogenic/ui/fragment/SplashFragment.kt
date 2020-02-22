@@ -28,7 +28,7 @@ class SplashFragment: BaseImmersionFragment(),Observer<Long> {
     private lateinit var skipBtn: TextView
     private lateinit var splashImageView: ImageView
     private lateinit var mSubscribe: Disposable
-    private val defaultTime: Long = 0
+    private val defaultTime: Long = 3
     private var mOnSplashListener: OnSplashListener? = null
     private var mIsFinish = false
 
@@ -80,7 +80,7 @@ class SplashFragment: BaseImmersionFragment(),Observer<Long> {
     override fun initView(view: View) {
         splashImageView = splash_iv
         skipBtn = splash_skip
-        ImageLoaderManager.displayImageWithPlaceholder(Utils.getFullPic(),splashImageView,R.drawable.pic_all)
+        ImageLoaderManager.displayImageWithPlaceholder(Utils.getFullPic(),splashImageView,R.drawable.landing_background)
     }
 
     @SuppressLint("SetTextI18n")

@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.view.KeyEvent
 import android.widget.FrameLayout
+import com.example.lib_share.share.ShareDialog
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.ui.fragment.*
@@ -131,4 +132,5 @@ class MainActivity : BaseActivity() {
         }
         return super.onKeyDown(keyCode, event)
     }
+
 }

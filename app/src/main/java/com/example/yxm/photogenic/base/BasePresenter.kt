@@ -5,7 +5,7 @@ import io.reactivex.disposables.Disposable
 
 /**
  * Created by yxm on 2020-1-13
- * @function:
+ * @function: basePresenter
  */
 open class BasePresenter<T : BaseView> : IPresenter<T> {
     private var compositeDisposable = CompositeDisposable()

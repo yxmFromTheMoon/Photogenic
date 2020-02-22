@@ -27,7 +27,7 @@ class CommunityFollowModel {
      */
     fun getMoreCommunityFollowData(nextPageUrl: String): Observable<CommunityFollowBean>{
         return RetrofitManager.getApi(UrlConstants.baseUrlKaiYan)
-                .getMoreFollowData(nextPageUrl)
+                .getMoreCommunityFollow(nextPageUrl)
                 .compose(IoMainScheduler())
     }
 

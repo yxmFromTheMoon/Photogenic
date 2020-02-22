@@ -39,13 +39,6 @@ interface Api {
     @Headers("domain:kaiyan")
     fun getMoreVideoData(@Url url: String): Observable<CommonVideoBean>
 
-    /**
-     * 获取更多关注信息
-     * @param url nextPageUrl
-     */
-    @GET
-    fun getMoreFollowData(@Url url: String): Observable<CommunityFollowBean>
-
 
     /**
      * 社区关注
@@ -53,12 +46,26 @@ interface Api {
     @GET("v4/tabs/follow")
     fun getCommunityFollow(): Observable<CommunityFollowBean>
 
+    /**
+     * 获取更多社区关注信息
+     * @param url nextPageUrl
+     */
+    @GET
+    fun getMoreCommunityFollow(@Url url: String): Observable<CommunityFollowBean>
+
 
     /**
      *  社区推荐
      */
     @GET("v5/index/tab/ugcSelected")
-    fun getCommunityRecommend(): Observable<CommunityRecommendBean>
+    fun getCommunityRecommend(): Observable<CommunityBean>
+
+    /**
+     * 获取更多社区推荐信息
+     * @param url nextPageUrl
+     */
+    @GET
+    fun getMoreCommunityRecommend(@Url url: String): Observable<CommunityBean>
 
     /**
      * 热门搜索词

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_network.bean.HomeBean
+import com.example.lib_share.share.ShareDialog
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.module.home.HomeRecommendAdapter
@@ -73,6 +74,16 @@ class HomePageRecommendFragment : BaseFragment(), HomeRecommendContract.IHomeRec
                 }
                 HomeBean.Issue.SQUARE_CARD -> {
                     showErrorToast("type + $type")
+                }
+            }
+        }
+        
+        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+            when(view.id){
+                R.id.video_share_iv -> {
+                    val dialog = ShareDialog(mContext)
+                    dialog.mUrl = "https://www.baidu.com"
+                    dialog.show()
                 }
             }
         }

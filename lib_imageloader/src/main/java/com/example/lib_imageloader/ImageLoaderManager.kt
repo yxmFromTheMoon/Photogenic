@@ -113,4 +113,17 @@ object ImageLoaderManager {
             Glide.with(imageView).load(target).apply(RequestOptions().placeholder(placeholder)).into(imageView)
         }
     }
+
+    /**
+     * 加载指定宽高的图片
+     */
+    fun displayImageOverrideWidthAndHeight(imageView: ImageView, url: String, width: Int, height: Int) {
+        Glide.with(imageView.context)
+                .load(url)
+                .apply(RequestOptions()
+                        .placeholder(R.mipmap.test)
+                        .error(R.mipmap.test)
+                        .override(width, height))
+                .into(imageView)
+    }
 }

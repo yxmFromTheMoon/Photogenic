@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.HomeBean
+import com.example.lib_share.share.ShareDialog
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.utils.TimeHelper
 import es.dmoral.toasty.Toasty
@@ -58,7 +59,15 @@ class HomeRecommendAdapter(data: ArrayList<HomeBean.Issue>) : BaseMultiItemQuick
             }
             squareCardListAdapter.onItemClickListener = OnItemClickListener { adapter, view, position ->
                 val squareCardBean = adapter.getItem(position)
-                Toasty.error(view.context, "跳转播放页")
+                Toasty.error(mContext, "跳转播放页")
+            }
+            squareCardListAdapter.onItemChildClickListener = OnItemChildClickListener { adapter, view, position ->
+                when (view.id) {
+                    R.id.video_share_iv -> {
+                        val dialog = ShareDialog(mContext)
+                        dialog.show()
+                    }
+                }
             }
             squareCardListAdapter.setNewData(item.data.itemList)
         }

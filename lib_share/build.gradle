@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.mob.sdk'
 
 android {
     compileSdkVersion rootProject.android.compileSdkVersion
@@ -23,10 +24,63 @@ android {
 
 }
 
+MobSDK {
+    appKey "2dad90850f58a"
+    appSecret "e768f3cfa69418bd4f942ff44b66ae6f"
+
+    ShareSDK {
+        devInfo {
+            Wechat {
+                AppId = "wx9529c2408f3e0233"
+                AppSecret = "d4624c36b6795d1d99dcf0547af5443d"
+                BypassApproval = "false"
+                Enable = "true"
+                Id = "1"
+                ShareByAppClient = "true"
+                SortId = "1"
+            }
+            WechatMoments {
+                AppId = "wx9529c2408f3e0233"
+                AppSecret = "d4624c36b6795d1d99dcf0547af5443d"
+                BypassApproval = "false"
+                Enable = "true"
+                Id = "2"
+                ShareByAppClient = "true"
+                SortId = "2"
+            }
+            SinaWeibo {
+                appKey "513822359"
+                appSecret "958589407d56465495148204f20f083b"
+                shareByAppClient true
+                enable true
+                Id = "3"
+                SortId = "3"
+            }
+            QQ {
+                AppId = "101854958"
+                AppKey = "3a4bc61b55d1dc6d7d4f61a3e3252ff7"
+                Id = "4"
+                BypassApproval = "true"
+                ShareByAppClient = "true"
+                SortId = "4"
+            }
+            QZone {
+                AppId = "101854958"
+                AppKey = "3a4bc61b55d1dc6d7d4f61a3e3252ff7"
+                Id = "5"
+                ShareByAppClient = "true"
+                SortId = "5"
+            }
+        }
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    compileOnly rootProject.dependLibs.appcompt
+    compileOnly rootProject.dependLibs.design
+    compileOnly rootProject.dependLibs.brvah
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -34,4 +88,7 @@ dependencies {
 }
 repositories {
     mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }

@@ -13,8 +13,8 @@ data class CommunityFollowBean(val itemList: ArrayList<CommunityFollowResultBean
                                          val id: Int,val adIndex: Int){
 
         data class CommunityFollowResultDataBean(val dataType: String,val header: DataHeaderBean,
-                                                 val itemList: ArrayList<CommonVideoBean>,val count: Int,
-                                                 val adTrack: String?,val footer: String?){
+                                                 val itemList: ArrayList<CommonVideoBean.ResultBean>,val count: Int,
+                                                 val adTrack: String?,val footer: Any?){
 
             data class DataHeaderBean(val id: Int,val icon: String,val iconType:String,
                                       val title: String,val subTitle:String?,val description: String,

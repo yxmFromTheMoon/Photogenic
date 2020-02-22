@@ -46,7 +46,6 @@ class HomeRecommendPresenter : BasePresenter<HomeRecommendContract.IHomeRecommen
 
     override fun loadMoreData() {
         nextPageUrl?.let { url ->
-            mRootView?.showLoading()
             addSubscribe(dispose = mModel.getMoreHomeRecommend(url)
                     .subscribe({
                         nextPageUrl = it.nextPageUrl
@@ -56,14 +55,12 @@ class HomeRecommendPresenter : BasePresenter<HomeRecommendContract.IHomeRecommen
                             it.itemList.remove(issue)
                         }
                         mRootView?.apply {
-                            dismissLoading()
                             showSuccess()
                             setMoreData(it.itemList)
                         }
                     }, {
                         mRootView?.apply {
-                            dismissLoading()
-                            showError("")
+                            showError("${it.message}")
                         }
                     }))
         }

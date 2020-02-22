@@ -2,6 +2,7 @@ package com.example.yxm.photogenic.application
 
 import android.app.Application
 import android.os.Process
+import com.mob.MobApplication
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -10,7 +11,7 @@ import com.scwang.smart.refresh.layout.SmartRefreshLayout
  * Created by yxm on 2020-1-13
  * @function:
  */
-class MyApplication: Application() {
+class MyApplication: MobApplication() {
 
     init {
         instance = this

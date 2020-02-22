@@ -1,5 +1,6 @@
 package com.example.yxm.photogenic.module.categorydetails
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -21,12 +22,12 @@ import java.io.Serializable
  *Created by yxm on 2020/2/13
  *@function 标签相关视频adapter
  */
-class RelativeVideoAdapter: BaseQuickAdapter<CommonVideoBean.ResultBean,BaseViewHolder>(R.layout.item_category_details_video) {
+class RelativeVideoAdapter : BaseQuickAdapter<CommonVideoBean.ResultBean, BaseViewHolder>(R.layout.item_category_details_video) {
 
     override fun convert(helper: BaseViewHolder, item: CommonVideoBean.ResultBean) {
         with(helper) {
             Glide.with(getView(R.id.video_author_avatar) as CircleImageView)
-                    .load(item.data.author?.icon?:"")
+                    .load(item.data.author?.icon ?: "")
                     .into(getView(R.id.video_author_avatar) as CircleImageView)
             setText(R.id.video_header_description, item.data.category)
             setText(R.id.publish_time_tv, "${TimeHelper.timeStamp2Date(item.data.releaseTime)}发布：")
@@ -42,20 +43,22 @@ class RelativeVideoAdapter: BaseQuickAdapter<CommonVideoBean.ResultBean,BaseView
             }
             tagAdapter.onItemClickListener = OnItemClickListener { adapter, view, position ->
                 val tagBean = adapter.getItem(position)
-                view.context.startActivity(Intent(view.context, TagDetailActivity::class.java).apply {
-                    val bundle = Bundle()
-                    bundle.putSerializable("tagBean", tagBean as Serializable)
-                    putExtras(bundle)
-                })
+                if (view.context is Activity) {
+                    view.context.startActivity(Intent(view.context, TagDetailActivity::class.java).apply {
+                        val bundle = Bundle()
+                        bundle.putSerializable("tagBean", tagBean as Serializable)
+                        putExtras(bundle)
+                    })
+                }
             }
             tagAdapter.setNewData(item.data.tags)
 
             ImageLoaderManager.displayImageForView(getView(R.id.video_picture), item.data.cover.feed
                     ?: "")
             setText(R.id.video_duration, TimeHelper.secToTime(item.data.duration))
-            setText(R.id.video_like,"${item.data.consumption.realCollectionCount}")
-            setText(R.id.video_comment,"${item.data.consumption.replyCount}")
-            setText(R.id.video_collect,"${item.data.consumption.collectionCount}")
+            setText(R.id.video_like, "${item.data.consumption.realCollectionCount}")
+            setText(R.id.video_comment, "${item.data.consumption.replyCount}")
+            setText(R.id.video_collect, "${item.data.consumption.collectionCount}")
         }
     }
 }

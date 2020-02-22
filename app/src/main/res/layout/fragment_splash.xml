@@ -25,12 +25,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
-        android:textSize="14sp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:textColor="#fff"
-        android:textStyle="bold"/>
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/eye_loading_icon" />
 
 </FrameLayout>
