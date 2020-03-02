@@ -1,6 +1,5 @@
 package com.example.lib_network.bean
 
-import com.chad.library.adapter.base.entity.MultiItemEntity
 import java.io.Serializable
 
 /**
@@ -13,19 +12,6 @@ data class CommunityBean(val itemList: ArrayList<Issue>, val count: Int,
 
     data class Issue(val type: String, val data: IssueData,
                      val tag: Any?, val id: Long, val adIndex: Int) : Serializable {
-
-//        override fun getItemType(): Int {
-//            return when (type) {
-//                "pictureFollowCard" -> PICTURE
-//                "autoPlayFollowCard" -> VIDEO
-//                else -> 0
-//            }
-//        }
-//
-//        companion object {
-//            const val PICTURE = 1
-//            const val VIDEO = 2
-//        }
 
         data class IssueData(val dataType: String, val header: IssueHeader,
                              val content: IssueContent, val adTrack: Any?) : Serializable {

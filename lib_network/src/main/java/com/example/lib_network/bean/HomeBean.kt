@@ -53,5 +53,4 @@ data class HomeBean(val itemList: ArrayList<Issue>, val count: Int,
 
         }
     }
-
 }

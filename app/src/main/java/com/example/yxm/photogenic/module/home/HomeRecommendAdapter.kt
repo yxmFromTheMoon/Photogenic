@@ -1,14 +1,20 @@
 package com.example.yxm.photogenic.module.home
 
+import android.content.Intent
+import android.os.Bundle
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager
+import com.example.lib_network.bean.CategoryDetailBean
 import com.example.lib_network.bean.HomeBean
 import com.example.lib_share.share.ShareDialog
 import com.example.yxm.photogenic.R
+import com.example.yxm.photogenic.ui.activity.CategoryDetailActivity
+import com.example.yxm.photogenic.ui.activity.VideoPlayActivity
 import com.example.yxm.photogenic.utils.TimeHelper
 import es.dmoral.toasty.Toasty
 
@@ -58,14 +64,29 @@ class HomeRecommendAdapter(data: ArrayList<HomeBean.Issue>) : BaseMultiItemQuick
                 adapter = squareCardListAdapter
             }
             squareCardListAdapter.onItemClickListener = OnItemClickListener { adapter, view, position ->
-                val squareCardBean = adapter.getItem(position)
-                Toasty.error(mContext, "跳转播放页")
+                val bean = adapter.getItem(position) as CategoryDetailBean.FollowCardBean
+                val bundle = Bundle().apply {
+                    putSerializable("video", bean.data.content.data)
+                    putLong("relativeVideoId", bean.data.content.data.id)
+                    putInt("fromWhere", CategoryDetailActivity.CATEGORY_DETAIL)
+                }
+                mContext.startActivity(Intent(mContext, VideoPlayActivity::class.java).apply {
+                    putExtras(bundle)
+                })
             }
             squareCardListAdapter.onItemChildClickListener = OnItemChildClickListener { adapter, view, position ->
+                val followBean = adapter.getItem(position) as CategoryDetailBean.FollowCardBean
                 when (view.id) {
+                    //分享链接
                     R.id.video_share_iv -> {
                         val dialog = ShareDialog(mContext)
-                        dialog.show()
+                        dialog.apply {
+                            mShareText = followBean.data.content.data.description
+                            mShareTitle = followBean.data.content.data.title
+                            mShareImageUrl = followBean.data.content.data.cover.feed ?: ""
+                            mUrl = followBean.data.content.data.webUrl.raw
+                            show()
+                        }
                     }
                 }
             }

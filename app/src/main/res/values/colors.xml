@@ -20,5 +20,6 @@
     <color name="dimGray">#696969</color>
     <color name="statusBarColor">#EAECEE</color>
     <color name="tag_bg">#AFD7ED</color>
+    <color name="transparent">#00FFFFFF</color>
 
 </resources>

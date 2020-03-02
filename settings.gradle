@@ -1,1 +1,1 @@
-include ':app', ':lib_network', ':lib_imageloader', ':lib_share'
+include ':app', ':lib_network', ':lib_imageloader', ':lib_share', ':lib_pullalive'

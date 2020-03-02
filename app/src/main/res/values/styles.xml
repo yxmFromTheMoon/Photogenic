@@ -10,20 +10,33 @@
         <item name="android:windowBackground">@color/white</item>
     </style>
 
-    <style name="SearchActivityStyle" parent="AppTheme">
+    <style name="searchActivityStyle" parent="AppTheme">
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowAnimationStyle">@style/TopInTopOut</item>
+        <item name="android:windowAnimationStyle">@style/topInTopOut</item>
     </style>
 
-    <style name="TopInTopOut" parent="AppTheme">
+    <style name="topInTopOut" parent="AppTheme">
         <item name="android:activityOpenEnterAnimation">@anim/slide_down_from_top</item>
         <item name="android:activityOpenExitAnimation">@anim/anim_no</item>
         <item name="android:activityCloseEnterAnimation">@anim/anim_no</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_up_to_top</item>
     </style>
 
-    <style name="SplashAppTheme" parent="AppTheme">
+    <style name="bottomInBottomOut" parent="AppTheme">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_up_from_bottom</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_no</item>
+        <item name="android:activityCloseEnterAnimation">@anim/anim_no</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_down_to_bottom</item>
+    </style>
+
+    <style name="videoPlayActivity" parent="AppTheme">
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@style/bottomInBottomOut</item>
+    </style>
+
+    <style name="splashAppTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash_logo_welcome</item>
         <item name="android:windowFullscreen">true</item>
     </style>

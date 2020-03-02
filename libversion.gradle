@@ -39,7 +39,8 @@ ext {
             brvah                   : "2.9.46",
             smartrefresh            : "2.0.0-alpha-1",
             classicsheader          : "2.0.0-alpha-1",
-            classicsfooter          : "2.0.0-alpha-1"
+            classicsfooter          : "2.0.0-alpha-1",
+            gsyVideoVersion         : "6.0.3"
     ]
 
 
@@ -71,6 +72,7 @@ ext {
             brvah                   : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$dependLibsVersion.brvah",
             smartrefresh            : "com.scwang.smart:refresh-layout-kernel:${dependLibsVersion.smartrefresh}",
             classicsheader          : "com.scwang.smart:refresh-header-classics:${dependLibsVersion.classicsheader}",
-            classicsfooter          : "com.scwang.smart:refresh-footer-classics:${dependLibsVersion.classicsfooter}"
+            classicsfooter          : "com.scwang.smart:refresh-footer-classics:${dependLibsVersion.classicsfooter}",
+            gsyVideoPlayer          : "com.shuyu:GSYVideoPlayer:${dependLibsVersion.gsyVideoVersion}"
     ]
 }

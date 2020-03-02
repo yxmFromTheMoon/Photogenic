@@ -1,5 +1,7 @@
 package com.example.yxm.photogenic.ui.activity
 
+import android.content.Intent
+import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -8,14 +10,17 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.CommonVideoBean
+import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.font.FontTextView
 import com.example.yxm.photogenic.module.categorydetails.RelativeVideoAdapter
 import com.example.yxm.photogenic.module.categorydetails.TagDetailContract
 import com.example.yxm.photogenic.module.categorydetails.TagDetailPresenter
+import com.example.yxm.photogenic.ui.fragment.RankFragment
 import com.example.yxm.photogenic.utils.AppBarStateChangeListener
 import com.example.yxm.photogenic.widget.FooterView
 import com.gyf.immersionbar.ktx.immersionBar
@@ -32,6 +37,7 @@ class TagDetailActivity: BaseActivity(),TagDetailContract.ITagDetailView {
      * data
      */
     private lateinit var tagBean:CommonVideoBean.ResultBean.ResultData.TagBean
+
     private val mAdapter: RelativeVideoAdapter by lazy {
         RelativeVideoAdapter()
     }
@@ -131,6 +137,30 @@ class TagDetailActivity: BaseActivity(),TagDetailContract.ITagDetailView {
         mRefreshLayout.setOnRefreshListener {
             mTagDetailPresenter.getTagVideo(tagBean.id.toLong())
         }
+
+        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+            val bean = adapter.getItem(position) as CommonVideoBean.ResultBean
+            startActivity(Intent(mContext, VideoPlayActivity::class.java).apply {
+                val bundle = Bundle()
+                bundle.putSerializable("video", bean)
+                bundle.putLong("relativeVideoId", bean.data.id)
+                bundle.putInt("fromWhere", TAG_DETAIL)
+                putExtras(bundle)
+            })
+        }
+
+        //分享
+        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+            val item = adapter.getItem(position) as CommonVideoBean.ResultBean
+            if (view.id == R.id.video_share_iv) {
+                ShareManager.shareWebPage(mContext,
+                        item.data.description,
+                        item.data.title,
+                        item.data.cover.feed ?: "",
+                        item.data.webUrl.raw)
+            }
+        }
+
     }
 
     override fun initDataBeforeView() {
@@ -170,5 +200,9 @@ class TagDetailActivity: BaseActivity(),TagDetailContract.ITagDetailView {
     override fun onDestroy() {
         super.onDestroy()
         mTagDetailPresenter.detachView()
+    }
+
+    companion object{
+        const val TAG_DETAIL = 10
     }
 }

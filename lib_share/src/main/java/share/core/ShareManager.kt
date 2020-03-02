@@ -1,5 +1,6 @@
 package com.example.lib_share.share
 
+import android.content.Context
 import cn.sharesdk.framework.Platform
 import cn.sharesdk.framework.ShareSDK
 import cn.sharesdk.wechat.moments.WechatMoments
@@ -8,6 +9,7 @@ import cn.sharesdk.tencent.qzone.QZone
 import cn.sharesdk.tencent.qq.QQ
 import cn.sharesdk.framework.PlatformActionListener
 import cn.sharesdk.sina.weibo.SinaWeibo
+import share.adapter.ShareType
 
 
 /**
@@ -42,6 +44,42 @@ object ShareManager {
      * @author 应用程序需要的平台
      */
     enum class PlatofrmType {
-        QQ, QZone, WeChat, WechatMoments,WeiBo
+        QQ, QZone, WeChat, WechatMoments, WeiBo
     }
+
+    /**
+     *@param shareImageUrl 要分享的图片url
+     */
+    fun shareImage(context: Context,shareImageUrl: String) {
+        val dialog = ShareDialog(context)
+        dialog.apply {
+            mShareType = ShareType.SHARE_IMAGE
+            mShareImageUrl = shareImageUrl
+            show()
+        }
+    }
+
+    /**
+     * 分享图文链接
+     * @param shareText 链接文本
+     * @param shareTitle 链接标题
+     * @param shareImageUrl 链接网络图片url
+     * @param shareUrl 链接url
+     */
+    fun shareWebPage(context: Context, shareText: String,
+                     shareTitle: String, shareImageUrl: String, shareUrl: String) {
+        val dialog = ShareDialog(context)
+        dialog.apply {
+            mShareType = ShareType.SHARE_WEBPAGE
+            mShareText = shareText
+            mShareTitle = shareTitle
+            mShareImageUrl = shareImageUrl
+            mUrl = shareUrl
+            show()
+        }
+    }
+    /**
+     * ****************还可以自己添加更多类型的分享，分享类型见ShareType*******************************
+     */
+
 }

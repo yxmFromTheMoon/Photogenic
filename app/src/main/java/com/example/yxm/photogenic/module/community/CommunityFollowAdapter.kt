@@ -32,6 +32,7 @@ class CommunityFollowAdapter : BaseQuickAdapter<CommonVideoBean.ResultBean, Base
             setText(R.id.video_like, "${item.data.consumption.realCollectionCount}")
             setText(R.id.video_comment, "${item.data.consumption.replyCount}")
             setText(R.id.video_collect, "${item.data.consumption.collectionCount}")
+            addOnClickListener(R.id.video_share_iv)
         }
     }
 }

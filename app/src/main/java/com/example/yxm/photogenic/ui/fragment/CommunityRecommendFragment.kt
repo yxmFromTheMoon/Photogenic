@@ -130,6 +130,8 @@ class CommunityRecommendFragment: BaseFragment(),CommunityRecommendContract.ICom
      * 伴生对象
      */
     companion object {
+
+        const val COMMUNITY_RECOMMEND = 2
         /**
          * 返回一个fragment实例
          */

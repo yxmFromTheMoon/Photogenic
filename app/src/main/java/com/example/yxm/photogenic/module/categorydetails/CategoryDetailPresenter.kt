@@ -33,6 +33,9 @@ class CategoryDetailPresenter : BasePresenter<CategoryDetailContract.ICategoryDe
         addSubscribe(disposable)
     }
 
+    /**
+     * 暂无实现
+     */
     override fun loadMoreVideo(id: Long) {
         mRootView?.showLoading()
 

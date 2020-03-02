@@ -1,5 +1,7 @@
 package com.example.yxm.photogenic.ui.activity
 
+import android.content.Intent
+import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -8,15 +10,18 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.CategoriesBean
 import com.example.lib_network.bean.CategoryDetailBean
+import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.font.FontTextView
 import com.example.yxm.photogenic.module.categorydetails.CategoryDetailContract
 import com.example.yxm.photogenic.module.categorydetails.CategoryDetailPresenter
 import com.example.yxm.photogenic.module.categorydetails.CategoryVideoAdapter
+import com.example.yxm.photogenic.ui.fragment.HomePageDailyReportFragment
 import com.example.yxm.photogenic.utils.AppBarStateChangeListener
 import com.example.yxm.photogenic.widget.FooterView
 import com.gyf.immersionbar.ktx.immersionBar
@@ -28,7 +33,7 @@ import kotlinx.android.synthetic.main.activity_category_details.*
  *Created by yxm on 2020/2/10
  *@function 分类详情Activity
  */
-class CategoryDetailActivity: BaseActivity(),CategoryDetailContract.ICategoryDetailView {
+class CategoryDetailActivity : BaseActivity(), CategoryDetailContract.ICategoryDetailView {
 
     private val mAdapter: CategoryVideoAdapter by lazy {
         CategoryVideoAdapter()
@@ -83,7 +88,7 @@ class CategoryDetailActivity: BaseActivity(),CategoryDetailContract.ICategoryDet
     }
 
     override fun initData() {
-        ImageLoaderManager.displayImageForView(mCategoryBg,categoryBean.headerImage)
+        ImageLoaderManager.displayImageForView(mCategoryBg, categoryBean.headerImage)
         mCategoryName.text = categoryBean.name
         mToolBarTitle.text = categoryBean.name
         mCategoryTitle.text = categoryBean.description
@@ -97,9 +102,9 @@ class CategoryDetailActivity: BaseActivity(),CategoryDetailContract.ICategoryDet
         //appbar滑动状态监听
         mAppbar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
-                when(state){
+                when (state) {
                     //初始化状态
-                    State.IDLE ->{
+                    State.IDLE -> {
                         mToolBarTitle.visibility = View.GONE
                         immersionBar {
                             titleBar(mToolbar)
@@ -107,7 +112,7 @@ class CategoryDetailActivity: BaseActivity(),CategoryDetailContract.ICategoryDet
                         }
                     }
                     //折叠状态
-                    State.COLLAPSED ->{
+                    State.COLLAPSED -> {
                         mToolBarTitle.visibility = View.VISIBLE
                         mToolbar.setNavigationIcon(R.mipmap.ic_action_back_black)
                         immersionBar {
@@ -116,7 +121,7 @@ class CategoryDetailActivity: BaseActivity(),CategoryDetailContract.ICategoryDet
                         }
                     }
                     //展开状态
-                    State.EXPANDED ->{
+                    State.EXPANDED -> {
                         mToolBarTitle.visibility = View.GONE
                         mToolbar.setNavigationIcon(R.mipmap.ic_action_back_white)
                         immersionBar {
@@ -129,6 +134,27 @@ class CategoryDetailActivity: BaseActivity(),CategoryDetailContract.ICategoryDet
         })
         mRefreshLayout.setOnRefreshListener {
             mCategoryDetailPresenter.getVideo(categoryBean.id)
+        }
+
+        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+            val item = adapter.getItem(position) as CategoryDetailBean.FollowCardBean
+            val bundle = Bundle().apply {
+                putSerializable("video", item.data.content.data)
+                putLong("relativeVideoId", item.data.content.data.id)
+                putInt("fromWhere", CATEGORY_DETAIL)
+            }
+            startActivity(Intent(mContext, VideoPlayActivity::class.java).apply {
+                putExtras(bundle)
+            })
+        }
+        //分享
+        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+            val item = adapter.getItem(position) as CategoryDetailBean.FollowCardBean
+            ShareManager.shareWebPage(mContext,
+                    item.data.content.data.description,
+                    item.data.content.data.title,
+                    item.data.content.data.cover.feed ?: "",
+                    item.data.content.data.webUrl.raw)
         }
     }
 
@@ -167,5 +193,9 @@ class CategoryDetailActivity: BaseActivity(),CategoryDetailContract.ICategoryDet
     override fun onDestroy() {
         super.onDestroy()
         mCategoryDetailPresenter.detachView()
+    }
+
+    companion object {
+        const val CATEGORY_DETAIL = 8
     }
 }

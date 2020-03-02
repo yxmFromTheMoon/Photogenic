@@ -21,7 +21,6 @@ class RankPresenter: BasePresenter<RankContract.IRankView>(),RankContract.IRankP
                     mRootView?.apply {
                         finishRefresh()
                         dismissLoading()
-                        showSuccess()
                         setData(it.itemList)
                     }
                 },{
@@ -31,8 +30,6 @@ class RankPresenter: BasePresenter<RankContract.IRankView>(),RankContract.IRankP
                         showError("获取排行失败")
                     }
                 })
-
         addSubscribe(disposable)
-
     }
 }

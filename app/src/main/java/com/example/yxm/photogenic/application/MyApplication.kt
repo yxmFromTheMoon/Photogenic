@@ -1,6 +1,5 @@
 package com.example.yxm.photogenic.application
 
-import android.app.Application
 import android.os.Process
 import com.mob.MobApplication
 import com.scwang.smart.refresh.footer.ClassicsFooter

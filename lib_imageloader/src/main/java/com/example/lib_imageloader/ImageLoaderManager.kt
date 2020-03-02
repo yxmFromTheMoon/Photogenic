@@ -124,6 +124,7 @@ object ImageLoaderManager {
                         .placeholder(R.mipmap.test)
                         .error(R.mipmap.test)
                         .override(width, height))
+                .transition(DrawableTransitionOptions().crossFade())
                 .into(imageView)
     }
 }

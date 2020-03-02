@@ -31,8 +31,8 @@ MobSDK {
     ShareSDK {
         devInfo {
             Wechat {
-                AppId = "wx9529c2408f3e0233"
-                AppSecret = "d4624c36b6795d1d99dcf0547af5443d"
+                AppId = "wx450e9437f346c633"
+                AppSecret = "679ec1730022ab62f18cb4593121cb0c"
                 BypassApproval = "false"
                 Enable = "true"
                 Id = "1"
@@ -40,8 +40,8 @@ MobSDK {
                 SortId = "1"
             }
             WechatMoments {
-                AppId = "wx9529c2408f3e0233"
-                AppSecret = "d4624c36b6795d1d99dcf0547af5443d"
+                AppId = "wx450e9437f346c633"
+                AppSecret = "679ec1730022ab62f18cb4593121cb0c"
                 BypassApproval = "false"
                 Enable = "true"
                 Id = "2"

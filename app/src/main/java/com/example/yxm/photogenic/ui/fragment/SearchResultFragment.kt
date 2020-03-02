@@ -1,18 +1,22 @@
 package com.example.yxm.photogenic.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_network.bean.CommonVideoBean
+import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.font.FontTextView
 import com.example.yxm.photogenic.module.searchresult.SearchResultAdapter
 import com.example.yxm.photogenic.module.searchresult.SearchResultContract
 import com.example.yxm.photogenic.module.searchresult.SearchResultPresenter
+import com.example.yxm.photogenic.ui.activity.VideoPlayActivity
 import com.example.yxm.photogenic.widget.FooterView
 import kotlinx.android.synthetic.main.fragment_search_result.*
 
@@ -20,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_search_result.*
  * Created by yxm on 2020-1-16
  * @function:搜索结果fragment
  */
-class SearchResultFragment: BaseFragment(),SearchResultContract.ISearchResultView {
+class SearchResultFragment : BaseFragment(), SearchResultContract.ISearchResultView {
 
     private lateinit var searchResultRv: RecyclerView
     private lateinit var emptyView: FontTextView
@@ -35,7 +39,7 @@ class SearchResultFragment: BaseFragment(),SearchResultContract.ISearchResultVie
     }
 
     override val queryWords: String by lazy {
-        arguments ?.getString(QUERY_WORDS) ?: ""
+        arguments?.getString(QUERY_WORDS) ?: ""
     }
 
     init {
@@ -63,12 +67,35 @@ class SearchResultFragment: BaseFragment(),SearchResultContract.ISearchResultVie
                 super.onScrollStateChanged(recyclerView, newState)
                 val itemCount = searchResultRv.layoutManager!!.itemCount
                 val lastVisibleItem = (searchResultRv.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                if(!loadMore && (lastVisibleItem == (itemCount - 1))){
+                if (!loadMore && (lastVisibleItem == (itemCount - 1))) {
                     loadMore = true
                     searchResultPresenter.getMoreData()
                 }
             }
         })
+
+        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+            val bean = adapter.getItem(position) as CommonVideoBean.ResultBean
+            startActivity(Intent(mContext, VideoPlayActivity::class.java).apply {
+                val bundle = Bundle()
+                bundle.putSerializable("video", bean)
+                bundle.putLong("relativeVideoId", bean.data.id)
+                bundle.putInt("fromWhere", SEARCH_RESULT)
+                putExtras(bundle)
+            })
+        }
+
+        //分享
+        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+            val item = adapter.getItem(position) as CommonVideoBean.ResultBean
+            if (view.id == R.id.video_share_iv) {
+                ShareManager.shareWebPage(mContext,
+                        item.data.description,
+                        item.data.title,
+                        item.data.cover.feed ?: "",
+                        item.data.webUrl.raw)
+            }
+        }
     }
 
     override fun lazyLoad() {
@@ -115,12 +142,13 @@ class SearchResultFragment: BaseFragment(),SearchResultContract.ISearchResultVie
     companion object {
 
         const val QUERY_WORDS = "queryWords"
+        const val SEARCH_RESULT = 7
         /**
          * 返回一个fragment实例
          */
-        fun  newInstance(queryWords: String?) = SearchResultFragment().apply {
+        fun newInstance(queryWords: String?) = SearchResultFragment().apply {
             val bundle = Bundle()
-            bundle.putString(QUERY_WORDS,queryWords)
+            bundle.putString(QUERY_WORDS, queryWords)
             this.arguments = bundle
         }
     }

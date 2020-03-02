@@ -9,6 +9,7 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_network.bean.CategoriesBean
 import com.example.lib_network.bean.CommonVideoBean
+import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseImmersionFragment
 import com.example.yxm.photogenic.module.discovery.CategoryAdapter
@@ -18,6 +19,7 @@ import com.example.yxm.photogenic.module.discovery.DiscoveryVideoAdapter
 import com.example.yxm.photogenic.ui.activity.AllCategoriesActivity
 import com.example.yxm.photogenic.ui.activity.AllRankActivity
 import com.example.yxm.photogenic.ui.activity.CategoryDetailActivity
+import com.example.yxm.photogenic.ui.activity.VideoPlayActivity
 import com.example.yxm.photogenic.utils.GlideImageLoader
 import com.example.yxm.photogenic.widget.FooterView
 import com.example.yxm.photogenic.widget.RightArrowSelectView
@@ -33,7 +35,7 @@ import java.io.Serializable
  * Created by yxm on 2020-1-14
  * @function:发现fragment
  */
-class DiscoveryFragment: BaseImmersionFragment(),DiscoveryContract.IDiscoveryView {
+class DiscoveryFragment : BaseImmersionFragment(), DiscoveryContract.IDiscoveryView {
 
     /**
      * data
@@ -66,7 +68,7 @@ class DiscoveryFragment: BaseImmersionFragment(),DiscoveryContract.IDiscoveryVie
      * 设置分类目录
      */
     override fun setCategory(data: ArrayList<CategoriesBean>) {
-        data.removeAt(data.size-1)
+        data.removeAt(data.size - 1)
         mCategoryAdapter.setNewData(data)
     }
 
@@ -82,8 +84,7 @@ class DiscoveryFragment: BaseImmersionFragment(),DiscoveryContract.IDiscoveryVie
      */
     override fun setBannerList(data: ArrayList<String>) {
         mBanner.setOnBannerListener {
-            val url = data[it]
-            showErrorToast(url)
+            showErrorToast("暂无详情( ´◔ ‸◔`)")
         }
         mBanner.setImages(data).start()
     }
@@ -101,9 +102,11 @@ class DiscoveryFragment: BaseImmersionFragment(),DiscoveryContract.IDiscoveryVie
     }
 
     override fun showLoading() {
+        mDiscoveryVideoRv.visibility = View.GONE
     }
 
     override fun dismissLoading() {
+        mDiscoveryVideoRv.visibility = View.VISIBLE
     }
 
     override fun getLayoutId(): Int {
@@ -141,7 +144,7 @@ class DiscoveryFragment: BaseImmersionFragment(),DiscoveryContract.IDiscoveryVie
         }
 
         mCategoryRv.run {
-            layoutManager = GridLayoutManager(mContext,2,GridLayoutManager.HORIZONTAL,false)
+            layoutManager = GridLayoutManager(mContext, 2, GridLayoutManager.HORIZONTAL, false)
             adapter = mCategoryAdapter
         }
 
@@ -157,23 +160,39 @@ class DiscoveryFragment: BaseImmersionFragment(),DiscoveryContract.IDiscoveryVie
     override fun initListener() {
         mCategoryAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             val categoryBean = adapter.getItem(position) as Serializable
-            startActivity(Intent(mContext,CategoryDetailActivity::class.java).apply {
+            startActivity(Intent(mContext, CategoryDetailActivity::class.java).apply {
                 val bundle = Bundle()
-                bundle.putSerializable("categoryBean",categoryBean)
+                bundle.putSerializable("categoryBean", categoryBean)
                 putExtras(bundle)
             })
         }
         mDiscoveryVideoAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
-            val videoBean = adapter.getItem(position) as Serializable
-            showErrorToast("跳转播放页")
+            val videoBean = adapter.getItem(position) as CommonVideoBean.ResultBean.ResultData
+            startActivity(Intent(mContext, VideoPlayActivity::class.java).apply {
+                val bundle = Bundle().apply {
+                    putSerializable("video", videoBean)
+                    putInt("fromWhere", DISCOVERY)
+                    putLong("relativeVideoId", videoBean.id)
+                }
+                putExtras(bundle)
+            })
+        }
+
+        //分享
+        mDiscoveryVideoAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+            val item = adapter.getItem(position) as CommonVideoBean.ResultBean.ResultData
+            if(view.id == R.id.video_share_iv){
+                ShareManager.shareWebPage(mContext,
+                        item.description, item.title,item.cover.feed?:"",item.webUrl.raw)
+            }
         }
 
         mLookAllCategoryTv.setOnClickListener {
-             startActivity(Intent(mContext,AllCategoriesActivity::class.java))
+            startActivity(Intent(mContext, AllCategoriesActivity::class.java))
         }
 
         mLookAllFeaturedTv.setOnClickListener {
-            startActivity(Intent(mContext,AllRankActivity::class.java))
+            startActivity(Intent(mContext, AllRankActivity::class.java))
         }
 
         mRefreshLayout.setEnableLoadMore(false)
@@ -204,6 +223,7 @@ class DiscoveryFragment: BaseImmersionFragment(),DiscoveryContract.IDiscoveryVie
      * 伴生对象
      */
     companion object {
+        const val DISCOVERY = 3
         /**
          * 返回一个fragment实例
          */
