@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.CommonVideoBean
+import com.example.lib_network.bean.CommunityBean
 import com.example.lib_network.bean.HomeBean
 import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
@@ -21,6 +22,7 @@ import com.example.yxm.photogenic.module.videodetail.VideoDetailRelativeAdapter
 import com.example.yxm.photogenic.ui.activity.CategoryDetailActivity.Companion.CATEGORY_DETAIL
 import com.example.yxm.photogenic.ui.activity.TagDetailActivity.Companion.TAG_DETAIL
 import com.example.yxm.photogenic.ui.fragment.CommunityFollowFragment.Companion.COMMUNITY_FOLLOW
+import com.example.yxm.photogenic.ui.fragment.CommunityRecommendFragment.Companion.COMMUNITY_RECOMMEND
 import com.example.yxm.photogenic.ui.fragment.DiscoveryFragment.Companion.DISCOVERY
 import com.example.yxm.photogenic.ui.fragment.HomePageDailyReportFragment.Companion.HOME_REPORT
 import com.example.yxm.photogenic.ui.fragment.HomePageRecommendFragment.Companion.HOME_RECOMMEND
@@ -163,6 +165,18 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
                             ?: "")
                 }
             }
+            COMMUNITY_RECOMMEND -> {
+                val bean = video as CommunityBean.Issue
+                mVideoTitle.text = bean.data.content.data.title
+                mVideoAuthorTitle.text = bean.data.content.data.owner.nickname
+                mVideoCategory.text = "#${bean.data.header.issuerName}"
+                mVideoDescription.text = bean.data.content.data.owner.description
+                mVideoIntroduce.text = bean.data.content.data.description
+                Glide.with(this).load(bean.data.content.data.owner.avatar)
+                        .into(mAuthorAvatar)
+                ImageLoaderManager.displayImageForViewGroup(mBackgroundView, bean.data.content.data.cover.blurred
+                        ?: "")
+            }
         }
     }
 
@@ -171,7 +185,7 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
     }
 
     override fun playVideo(url: String, title: String) {
-        mVideoPlayer.setUp(url, true, title)
+        mVideoPlayer.setUp(url, false, title)
         //自动播放
         mVideoPlayer.startPlayLogic()
     }

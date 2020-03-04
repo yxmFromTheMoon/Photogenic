@@ -18,7 +18,7 @@ import es.dmoral.toasty.Toasty
  */
 abstract class BaseImmersionFragment: SimpleImmersionFragment(){
 
-    protected val mTag = this.javaClass.simpleName
+    protected val TAG = this.javaClass.simpleName
 
     protected val rxPermission: RxPermissions by lazy {
         RxPermissions(this)

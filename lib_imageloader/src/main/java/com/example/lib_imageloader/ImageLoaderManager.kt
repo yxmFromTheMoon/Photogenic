@@ -26,8 +26,20 @@ import io.reactivex.schedulers.Schedulers
  */
 object ImageLoaderManager {
 
+
     /**
-     * * 为view加载图片
+     * * 为view加载资源图片
+     * @param imageView
+     * @param resourceId
+     */
+    fun displayImageForView(imageView: ImageView, resourceId: Int) {
+        Glide.with(imageView.context)
+                .load(resourceId)
+                .into(imageView)
+    }
+
+    /**
+     * * 为view加载网络图片
      * @param imageView
      * @param url
      */
@@ -90,14 +102,13 @@ object ImageLoaderManager {
 
     /**
      * init Options
-     * @return
+     * @return options
      */
-    fun initCommonRequestOptions(): RequestOptions {
+    private fun initCommonRequestOptions(): RequestOptions {
         val options = RequestOptions()
         options.placeholder(R.mipmap.test)
                 .error(R.mipmap.test)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                .skipMemoryCache(false)
         return options
     }
 

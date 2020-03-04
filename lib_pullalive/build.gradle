@@ -28,4 +28,8 @@ dependencies {
 
     compileOnly rootProject.dependLibs.appcompt
     compileOnly rootProject.dependLibs.design
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

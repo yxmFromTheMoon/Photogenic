@@ -60,7 +60,7 @@ MobSDK {
                 AppId = "101854958"
                 AppKey = "3a4bc61b55d1dc6d7d4f61a3e3252ff7"
                 Id = "4"
-                BypassApproval = "true"
+                BypassApproval = "false"
                 ShareByAppClient = "true"
                 SortId = "4"
             }
@@ -68,6 +68,7 @@ MobSDK {
                 AppId = "101854958"
                 AppKey = "3a4bc61b55d1dc6d7d4f61a3e3252ff7"
                 Id = "5"
+                BypassApproval = "false"
                 ShareByAppClient = "true"
                 SortId = "5"
             }

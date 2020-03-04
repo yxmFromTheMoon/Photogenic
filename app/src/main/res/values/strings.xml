@@ -19,4 +19,24 @@
     <string name="discovery_featured">本周精选</string>
     <string name="key_word">热搜关键词</string>
     <string name="empty_text">很抱歉没有找到相匹配的内容，请尝试其他关键词</string>
+    <string name="login_guide">点击登录即可查看精彩内容</string>
+    <string name="my_github">我的GitHub</string>
+    <string name="email">联系方式</string>
+    <string name="join_me">我要投稿</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="version">Version 1.0</string>
+    <string name="git_title">万水千山总是情，给个star行不行( ´◔ ‸◔`)</string>
+    <string name="kaiyan_title">帮开眼打个广告( ´◔ ‸◔`)</string>
+    <string name="introduce">项目介绍：\n
+        Kotlin+MVP架构\n
+        用到的开源库及第三方平台:\n
+        网络请求模块使用Retrofit+RxJava2\n
+    图片加载库Glide\n
+    社会化分享平台ShareSDK\n
+    视频播放控件GSYVideoPlayer以及其他各种UI库\n
+    数据来源:开眼平台开放API。\n\n欢迎下载体验，能star一下就更好了，第一次使用kotlin实现的小demo，
+    写起来确实比java要方便些，但有些用法和java完全不一样(顺便吐槽一下kotlin的编译速度还是比java差点)\n\n
+    项目没有做适配，可能在某些手机上会出现奇怪的画面，适配以后我慢慢也会改进的，
+        关于此项目有任何问题的可以直接在issue中反馈，我会及时关注的，当然也可以通过邮箱联系\nyxmbest@163.com</string>
+    <string name="address">\n项目地址: https://github.com/yxmFromTheMoon/Photogenic</string>
 </resources>

@@ -54,6 +54,15 @@ abstract class BaseActivity: AppCompatActivity() {
         Toasty.error(mContext,msg).show()
     }
 
+    /**
+     * 获取APP版本号
+     */
+    protected fun getAppVersion():String{
+        val packageManager = mContext.packageManager
+        val packageInfo = packageManager.getPackageInfo(packageName,0)
+        return packageInfo.versionName
+    }
+
     override fun onDestroy() {
         super.onDestroy()
     }

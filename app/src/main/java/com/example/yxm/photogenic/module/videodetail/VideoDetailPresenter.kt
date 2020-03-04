@@ -1,6 +1,7 @@
 package com.example.yxm.photogenic.module.videodetail
 
 import com.example.lib_network.bean.CommonVideoBean
+import com.example.lib_network.bean.CommunityBean
 import com.example.lib_network.bean.HomeBean
 import com.example.yxm.photogenic.base.BasePresenter
 import com.example.yxm.photogenic.model.VideoTypeModel
@@ -8,6 +9,7 @@ import com.example.yxm.photogenic.ui.activity.CategoryDetailActivity.Companion.C
 import com.example.yxm.photogenic.ui.activity.TagDetailActivity.Companion.TAG_DETAIL
 import com.example.yxm.photogenic.ui.activity.VideoPlayActivity.Companion.VIDEO_DETAIL
 import com.example.yxm.photogenic.ui.fragment.CommunityFollowFragment.Companion.COMMUNITY_FOLLOW
+import com.example.yxm.photogenic.ui.fragment.CommunityRecommendFragment.Companion.COMMUNITY_RECOMMEND
 import com.example.yxm.photogenic.ui.fragment.DiscoveryFragment.Companion.DISCOVERY
 import com.example.yxm.photogenic.ui.fragment.HomePageDailyReportFragment.Companion.HOME_REPORT
 import com.example.yxm.photogenic.ui.fragment.HomePageRecommendFragment.Companion.HOME_RECOMMEND
@@ -62,7 +64,7 @@ class VideoDetailPresenter : BasePresenter<VideoDetailContract.IVideoDetailView>
                 getPlayInfo(bean.data, fromWhere, "")
             }
             //发现页,目录详情
-            DISCOVERY,CATEGORY_DETAIL -> {
+            DISCOVERY, CATEGORY_DETAIL -> {
                 val bean = video as CommonVideoBean.ResultBean.ResultData
                 getPlayInfo(bean, fromWhere, "")
             }
@@ -70,6 +72,15 @@ class VideoDetailPresenter : BasePresenter<VideoDetailContract.IVideoDetailView>
             HOME_RECOMMEND, HOME_REPORT -> {
                 val bean = video as HomeBean.Issue
                 getPlayInfo(bean, fromWhere)
+            }
+            //社区推荐
+            COMMUNITY_RECOMMEND -> {
+                val item = video as CommunityBean.Issue
+                mRootView?.apply {
+                    playVideo(item.data.content.data.playUrl
+                            ?: "", item.data.content.data.description)
+                    setVideoInfo(item, fromWhere, "")
+                }
             }
         }
     }

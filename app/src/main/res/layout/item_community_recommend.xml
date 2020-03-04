@@ -41,7 +41,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/picture_brief_introduce"
-        android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -69,7 +68,7 @@
                 android:id="@+id/like_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
+                android:layout_centerVertical="true"
                 android:text="20"
                 android:textSize="12sp" />
 
@@ -78,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/like_count"
-                android:src="@drawable/ic_action_favorites_grey_without_padding" />
+                android:src="@drawable/ic_action_share_grey" />
 
         </RelativeLayout>
 

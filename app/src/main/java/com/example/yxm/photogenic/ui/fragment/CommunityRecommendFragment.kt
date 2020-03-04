@@ -1,16 +1,22 @@
 package com.example.yxm.photogenic.ui.fragment
 
+import android.content.Intent
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_network.bean.CommunityBean
+import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.module.community.CommunityRecommendAdapter
 import com.example.yxm.photogenic.module.community.CommunityRecommendContract
 import com.example.yxm.photogenic.module.community.CommunityRecommendPresenter
+import com.example.yxm.photogenic.ui.activity.PicturePreviewActivity
+import com.example.yxm.photogenic.ui.activity.VideoPlayActivity
 import com.example.yxm.photogenic.utils.MathHelper
+import com.example.yxm.photogenic.utils.ScreenHelper
 import com.example.yxm.photogenic.widget.FooterView
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -20,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_community_recommend.*
  * Created by yxm on 2020-1-14
  * @function:社区推荐fragment
  */
-class CommunityRecommendFragment: BaseFragment(),CommunityRecommendContract.ICommunityRecommendView {
+class CommunityRecommendFragment : BaseFragment(), CommunityRecommendContract.ICommunityRecommendView {
 
     private lateinit var mRefreshLayout: SmartRefreshLayout
     private lateinit var mContentRv: RecyclerView
@@ -51,7 +57,7 @@ class CommunityRecommendFragment: BaseFragment(),CommunityRecommendContract.ICom
         mAdapter.setFooterView(FooterView(mContext))
 
         mContentRv.run {
-            layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             adapter = mAdapter
         }
     }
@@ -78,12 +84,43 @@ class CommunityRecommendFragment: BaseFragment(),CommunityRecommendContract.ICom
 
         mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             val issue = adapter.getItem(position) as CommunityBean.Issue
-            when(issue.type){
+            val bundle = Bundle().apply {
+                putSerializable("video", issue)
+                putLong("relativeVideoId", issue.id)
+                putInt("fromWhere", COMMUNITY_RECOMMEND)
+            }
+            when (issue.type) {
                 "pictureFollowCard" -> {
-                    showErrorToast("图片类型")
+                    startActivity(Intent(mContext, PicturePreviewActivity::class.java).apply {
+                        val urls = Bundle().apply {
+                            putStringArrayList("urls", issue.data.content.data.urls)
+                            putLong("width",issue.data.content.data.width)
+                            putLong("height",issue.data.content.data.height)
+                        }
+                        putExtras(urls)
+                    })
                 }
                 "autoPlayFollowCard" -> {
-                    showErrorToast("视频类型")
+                    startActivity(Intent(mContext, VideoPlayActivity::class.java).apply {
+                        putExtras(bundle)
+                    })
+                }
+            }
+        }
+
+        //分享
+        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+            val issue = adapter.getItem(position) as CommunityBean.Issue
+            when (issue.type) {
+                "pictureFollowCard" -> {
+                    ShareManager.shareImage(mContext, issue.data.content.data.url ?: "")
+                }
+                "autoPlayFollowCard" -> {
+                    ShareManager.shareWebPage(mContext,
+                            issue.data.content.data.description,
+                            "@${issue.data.header.issuerName}",
+                            issue.data.content.data.cover.feed ?: "",
+                            issue.data.content.data.playUrl ?: "")
                 }
             }
         }

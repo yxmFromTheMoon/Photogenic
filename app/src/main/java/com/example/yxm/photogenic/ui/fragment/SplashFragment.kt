@@ -64,7 +64,7 @@ class SplashFragment: BaseImmersionFragment(),Observer<Long> {
      */
     private fun finish(){
         fragmentManager?.let {
-            val fragment = it.findFragmentByTag(mTag)
+            val fragment = it.findFragmentByTag(TAG)
             if(fragment != null){
                 it.beginTransaction()
                         .setCustomAnimations(R.anim.slide_right_in,R.anim.slide_left_out)

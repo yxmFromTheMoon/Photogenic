@@ -38,12 +38,12 @@
         <activity
             android:name=".ui.activity.SearchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/searchActivityStyle"></activity>
+            android:theme="@style/searchActivityStyle" />
 
         <activity
             android:name=".ui.activity.CategoryDetailActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.activity.TagDetailActivity"
@@ -66,8 +66,16 @@
             android:theme="@style/videoPlayActivity" />
 
         <activity
-            android:name=".ui.activity.CommunityRecommendDetailActivity"
+            android:name=".ui.activity.PicturePreviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/videoPlayActivity" />
+
+        <activity
+            android:name=".module.webview.WebViewActivity"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".ui.activity.FeedBackActivity"
+            android:screenOrientation="portrait"/>
 
         <!--适配全面屏-->
         <meta-data

@@ -31,21 +31,21 @@ class CommunityRecommendAdapter : BaseQuickAdapter<CommunityBean.Issue, BaseView
      */
     private fun initPictureItem(helper: BaseViewHolder, item: CommunityBean.Issue) {
         with(helper) {
-            if(item.data.content.data.urls!!.size <= 1){
-                setGone(R.id.type_label,false)
-            }else{
-                setGone(R.id.type_label,true)
-                setImageResource(R.id.type_label,R.drawable.abc_ic_menu_copy_mtrl_am_alpha)
+            if (item.data.content.data.urls!!.size <= 1) {
+                setGone(R.id.type_label, false)
+            } else {
+                setGone(R.id.type_label, true)
+                setImageResource(R.id.type_label, R.drawable.abc_ic_menu_copy_mtrl_am_alpha)
             }
             displayScaleImage(getView<ImageView>(R.id.community_cover_image).layoutParams as FrameLayout.LayoutParams,
-                    getView(R.id.community_cover_image),item.data.content.data.cover.feed?:"",
-                    item.data.content.data.width.toInt(),item.data.content.data.height.toInt())
+                    getView(R.id.community_cover_image), item.data.content.data.cover.feed ?: "",
+                    item.data.content.data.width.toInt(), item.data.content.data.height.toInt())
             Glide.with(getView<CircleImageView>(R.id.author_avatar).context)
                     .load(item.data.header.icon)
                     .into(getView<CircleImageView>(R.id.author_avatar))
-            setText(R.id.picture_brief_introduce,item.data.content.data.description)
-            setText(R.id.author_name,item.data.header.issuerName)
-            setText(R.id.like_count,"${item.data.content.data.consumption.collectionCount}")
+            setText(R.id.picture_brief_introduce, item.data.content.data.description)
+            setText(R.id.author_name, item.data.header.issuerName)
+            setText(R.id.like_count, "${item.data.content.data.consumption.collectionCount}")
             addOnClickListener(R.id.like_iv)
         }
     }
@@ -55,17 +55,17 @@ class CommunityRecommendAdapter : BaseQuickAdapter<CommunityBean.Issue, BaseView
      */
     private fun initVideoItem(helper: BaseViewHolder, item: CommunityBean.Issue) {
         with(helper) {
-            setGone(R.id.type_label,true)
-            setImageResource(R.id.type_label,R.drawable.ic_play_circle_outline_white_48dp)
+            setGone(R.id.type_label, true)
+            setImageResource(R.id.type_label, R.drawable.ic_play_circle_outline_white_48dp)
             displayScaleImage(getView<ImageView>(R.id.community_cover_image).layoutParams as FrameLayout.LayoutParams,
-                    getView(R.id.community_cover_image),item.data.content.data.cover.feed?:"",
-                    item.data.content.data.width.toInt(),item.data.content.data.height.toInt())
+                    getView(R.id.community_cover_image), item.data.content.data.cover.feed ?: "",
+                    item.data.content.data.width.toInt(), item.data.content.data.height.toInt())
             Glide.with(getView<CircleImageView>(R.id.author_avatar).context)
                     .load(item.data.header.icon)
                     .into(getView<CircleImageView>(R.id.author_avatar))
-            setText(R.id.picture_brief_introduce,item.data.content.data.description)
-            setText(R.id.author_name,item.data.header.issuerName)
-            setText(R.id.like_count,"${item.data.content.data.consumption.collectionCount}")
+            setText(R.id.picture_brief_introduce, item.data.content.data.description)
+            setText(R.id.author_name, item.data.header.issuerName)
+            setText(R.id.like_count, "${item.data.content.data.consumption.collectionCount}")
             addOnClickListener(R.id.like_iv)
         }
     }
@@ -75,12 +75,12 @@ class CommunityRecommendAdapter : BaseQuickAdapter<CommunityBean.Issue, BaseView
      * @param originWidth 原始宽度
      * @param originHeight 原始高度
      */
-    private fun displayScaleImage(layoutParams: FrameLayout.LayoutParams,imageView: ImageView,url: String,originWidth: Int,originHeight: Int){
-        val itemWidth = (ScreenHelper.getScreenWidth(imageView.context) - 4*3)/2
+    private fun displayScaleImage(layoutParams: FrameLayout.LayoutParams, imageView: ImageView, url: String, originWidth: Int, originHeight: Int) {
+        val itemWidth = (ScreenHelper.getScreenWidth(imageView.context) - 4 * 3) / 2
         layoutParams.width = itemWidth
-        val scale = (itemWidth+0f) / originWidth
+        val scale = (itemWidth + 0f) / originWidth
         layoutParams.height = (originHeight * scale).toInt()
         imageView.layoutParams = layoutParams
-        ImageLoaderManager.displayImageOverrideWidthAndHeight(imageView,url,layoutParams.width,layoutParams.height)
+        ImageLoaderManager.displayImageOverrideWidthAndHeight(imageView, url, layoutParams.width, layoutParams.height)
     }
 }

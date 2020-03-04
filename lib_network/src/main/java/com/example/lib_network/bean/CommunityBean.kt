@@ -32,7 +32,7 @@ data class CommunityBean(val itemList: ArrayList<Issue>, val count: Int,
                                            val selectedTime: Any?, val checkStatus: String, val area: String, val city: String, val longitude: Double, val latitude: Double,
                                            val ifMock: Boolean, val validateStatus: String, val validateResult: String, val width: Long, val height: Long, val addWaterMark: Boolean,
                                            val recentOnceReply: RecentOnceReply?, val privateMessageActionUrl: String?, val url: String?, val urls: ArrayList<String>?,
-                                           val status: Any, val releaseTime: Long, val urlsWithWatermark: ArrayList<String>?, val duration: Int,
+                                           val status: Any, val releaseTime: Long, val urlsWithWatermark: ArrayList<String>?, val duration: Int,val playUrl: String?,
                                            val transId: Any?, val type: String?, val validateTaskId: String?, val playUrlWatermark: String?) : Serializable {
 
                     data class RecentOnceReply(val dataType: String, val message: String,
