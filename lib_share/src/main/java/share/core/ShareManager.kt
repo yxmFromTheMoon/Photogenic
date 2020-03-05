@@ -78,6 +78,27 @@ object ShareManager {
             show()
         }
     }
+
+    /**
+     * 分享图文链接
+     * @param shareText 链接文本
+     * @param shareTitle 链接标题
+     * @param shareImageUrl 本地图片url
+     * @param shareUrl 链接url
+     */
+    fun shareWebPageWithLocalImage(context: Context, shareText: String,
+                     shareTitle: String, shareImageUrl: String, shareUrl: String) {
+        val dialog = ShareDialog(context)
+        dialog.apply {
+            mShareType = ShareType.SHARE_WEBPAGE
+            mShareText = shareText
+            mShareTitle = shareTitle
+            mSharePhoto = shareImageUrl
+            mUrl = shareUrl
+            show()
+        }
+    }
+
     /**
      * ****************还可以自己添加更多类型的分享，分享类型见ShareType*******************************
      */

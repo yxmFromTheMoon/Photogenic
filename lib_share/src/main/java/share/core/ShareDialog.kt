@@ -88,15 +88,15 @@ class ShareDialog : Dialog {
 
     private val mListener = object : PlatformActionListener {
         override fun onComplete(platform: Platform, i: Int, hashMap: HashMap<String, Any>) {
-            Toast.makeText(context, "分享成功", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "分享成功", Toast.LENGTH_SHORT).show()
         }
 
         override fun onError(platform: Platform, i: Int, throwable: Throwable) {
-            Toast.makeText(context, "分享失败${throwable.message}", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "分享失败${throwable.message}", Toast.LENGTH_SHORT).show()
         }
 
         override fun onCancel(platform: Platform, i: Int) {
-            Toast.makeText(context, "分享取消", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "分享取消", Toast.LENGTH_SHORT).show()
         }
     }
 

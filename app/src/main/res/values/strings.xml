@@ -24,6 +24,10 @@
     <string name="email">联系方式</string>
     <string name="join_me">我要投稿</string>
     <string name="clear_cache">清除缓存</string>
+    <string name="share_app">分享给好友</string>
+    <string name="share_title">好友给你分享了一个应用，快去试试吧</string>
+    <string name="share_text">汇聚全球最火的短视频</string>
+    <string name="share_image">http://img.kaiyanapp.com/727bd34a770ba32dd2b7fa225df0cd9b.png?imageMogr2/quality/60/format/jpg</string>
     <string name="version">Version 1.0</string>
     <string name="git_title">万水千山总是情，给个star行不行( ´◔ ‸◔`)</string>
     <string name="kaiyan_title">帮开眼打个广告( ´◔ ‸◔`)</string>

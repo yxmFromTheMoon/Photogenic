@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.example.lib_imageloader.ImageLoaderManager
+import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseImmersionFragment
 import com.example.yxm.photogenic.module.webview.WebViewActivity
@@ -31,6 +32,7 @@ class MineFragment : BaseImmersionFragment(), View.OnClickListener {
     private lateinit var mJoinTv: TextView
     private lateinit var mVersion: TextView
     private lateinit var mClearCache: TextView
+    private lateinit var mShareTv: TextView
 
     private var isLogin = false
 
@@ -53,10 +55,12 @@ class MineFragment : BaseImmersionFragment(), View.OnClickListener {
         mJoinTv = join_tv
         mVersion = version_tv
         mClearCache = clear_cache_tv
+        mShareTv = share_app_tv
         EventBus.getDefault().register(this)
     }
 
     override fun initListener() {
+        mShareTv.setOnClickListener(this)
         mAvatar.setOnClickListener(this)
         mGitTv.setOnClickListener(this)
         mContact.setOnClickListener(this)
@@ -82,7 +86,7 @@ class MineFragment : BaseImmersionFragment(), View.OnClickListener {
                 WebViewActivity.start(mContext, resources.getString(R.string.git_title), url)
             }
             R.id.email_tv -> {
-                startActivity(Intent(mContext,FeedBackActivity::class.java))
+                startActivity(Intent(mContext, FeedBackActivity::class.java))
             }
             R.id.join_tv -> {
                 val url = "http://open.eyepetizer.net/#!/landing"
@@ -91,6 +95,12 @@ class MineFragment : BaseImmersionFragment(), View.OnClickListener {
             R.id.clear_cache_tv -> {
                 GSYVideoManager.instance().clearAllDefaultCache(mContext)
                 Toast.makeText(mContext, "清除缓存成功", Toast.LENGTH_SHORT).show()
+            }
+            R.id.share_app_tv -> {
+                val url = "https://www.pgyer.com/P0lV"
+                ShareManager.shareWebPage(mContext, resources.getString(R.string.share_text)
+                        , resources.getString(R.string.share_title)
+                        , resources.getString(R.string.share_image), url)
             }
         }
     }
