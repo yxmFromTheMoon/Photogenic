@@ -36,7 +36,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:padding="2dp"
-                    android:text="感谢KFC,让每根手指都拥有自己的快乐"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:fontType="@string/condensed_bold_font" />
@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:text="#广告 / 开眼精选"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
@@ -60,7 +60,7 @@
                     android:layout_marginEnd="10dp"
                     android:ellipsize="end"
                     android:maxEms="100"
-                    android:text="你有没有想过，每根手指都有一个自己的名字，除了小拇指？还好，感谢有肯德基,谢有肯德基感谢有肯德基感谢有肯德基感谢有肯德基感谢有肯德基感谢有肯德基感谢有肯德基感谢有肯德基谢有肯德基感谢有肯德基感谢有肯德基感谢有肯德基感谢有肯德基感谢有肯德基感谢有肯德基感谢有肯德基感谢有肯德基感谢有肯德基"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
@@ -113,7 +113,7 @@
                             android:ellipsize="end"
                             android:maxEms="20"
                             android:padding="2dp"
-                            android:text="开眼广告精选"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             app:fontType="@string/condensed_bold_font" />
@@ -124,7 +124,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:padding="2dp"
-                            android:text="为广告人的精彩创意点赞"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="14sp" />
                     </LinearLayout>

@@ -18,7 +18,7 @@ import com.example.yxm.photogenic.ui.fragment.SearchResultFragment.Companion.SEA
 
 /**
  *Created by yxm on 2020/2/25
- *@function
+ *@function 视频详情
  */
 class VideoDetailPresenter : BasePresenter<VideoDetailContract.IVideoDetailView>(), VideoDetailContract.IVideoDetailPresenter {
 
@@ -55,6 +55,7 @@ class VideoDetailPresenter : BasePresenter<VideoDetailContract.IVideoDetailView>
      * @param video 视频实体类
      */
     override fun loadVideoInfo(video: Any, fromWhere: Int) {
+
         checkViewAttached()
         when (fromWhere) {
             //社区关注，视频播放页,排行,搜索结果

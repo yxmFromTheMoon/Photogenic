@@ -14,6 +14,7 @@ import com.example.lib_network.bean.CommunityBean
 import com.example.lib_network.bean.HomeBean
 import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
+import com.example.yxm.photogenic.application.MyApplication
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.font.FontTextView
 import com.example.yxm.photogenic.module.videodetail.VideoDetailContract
@@ -36,6 +37,7 @@ import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
 import de.hdodenhof.circleimageview.CircleImageView
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_video_play.*
 
 /**
@@ -59,6 +61,7 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
     private var isPlay = false
     private var fromWhere: Int = 0
     private var relativeVideoId: Long = 187512
+    private var permission: Disposable? = null
 
     /**
      * UI
@@ -114,7 +117,12 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
     }
 
     override fun initData() {
-        mPresenter.loadVideoInfo(video, fromWhere)
+        permission = rxPermission.request("android.permission.READ_EXTERNAL_STORAGE")
+                .subscribe {
+                    if (it) {
+                        mPresenter.loadVideoInfo(video, fromWhere)
+                    }
+                }
         mPresenter.loadRelativeVideo(relativeVideoId)
     }
 
@@ -185,7 +193,7 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
     }
 
     override fun playVideo(url: String, title: String) {
-        mVideoPlayer.setUp(url, false, title)
+        mVideoPlayer.setUp(url, true, title)
         //自动播放
         mVideoPlayer.startPlayLogic()
     }
@@ -223,6 +231,7 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
             getCurrentPlay().release()
         }
         orientationUtils?.releaseListener()
+        permission?.dispose()
     }
 
     override fun onBackPressed() {

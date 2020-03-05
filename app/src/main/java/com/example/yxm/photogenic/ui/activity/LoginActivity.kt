@@ -38,7 +38,7 @@ class LoginActivity : BaseActivity() {
         login.setOnClickListener {
             val username = userNameEdit.text.toString()
             if (username.isEmpty()) {
-                showToast("随便输一个")
+                showToast("随便输一个呗")
             } else {
                 EventBus.getDefault().post(username)
                 finish()
