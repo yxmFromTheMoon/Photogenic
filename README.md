@@ -11,6 +11,8 @@
 ### 感谢开源数据支持，开源，让你变得更强大
 
 ### 附二维码
+#### 安装密码123456
+#### 每天只能下载100次，如却有需要可在项目中直接下载apk文件安装
 ![image](https://github.com/yxmFromTheMoon/Photogenic/blob/master/screenshot/photogenic_qr_code.png)
 
 ### License
