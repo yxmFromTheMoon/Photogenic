@@ -60,6 +60,18 @@ object ShareManager {
     }
 
     /**
+     * @param url 分享的链接
+     */
+    fun shareUrl(context: Context,url: String){
+        val dialog = ShareDialog(context)
+        dialog.apply {
+            mShareType = ShareType.SHARE_TEXT
+            mShareText = url
+            show()
+        }
+    }
+
+    /**
      * 分享图文链接
      * @param shareText 链接文本
      * @param shareTitle 链接标题

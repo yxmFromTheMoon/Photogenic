@@ -97,10 +97,10 @@ class MineFragment : BaseImmersionFragment(), View.OnClickListener {
                 Toast.makeText(mContext, "清除缓存成功", Toast.LENGTH_SHORT).show()
             }
             R.id.share_app_tv -> {
-                val url = "https://www.pgyer.com/P0lV"
                 ShareManager.shareWebPage(mContext, resources.getString(R.string.share_text)
                         , resources.getString(R.string.share_title)
-                        , resources.getString(R.string.share_image), url)
+                        , resources.getString(R.string.share_image),
+                        "https://github.com/yxmFromTheMoon/Photogenic")
             }
         }
     }
