@@ -60,18 +60,24 @@ object ScreenHelper {
             val scale = (screenWidth + 0f) / width
             layoutParams.width = screenWidth
             layoutParams.height = (height * scale).toInt()
+//            Log.d("Picture","缩放类型:1,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
+//                    "$height,缩放比例:$scale")
         }
         //图片宽度小于屏幕，但高度大于屏幕，宽度缩放，高度缩小至屏高
         if (width <= screenWidth && height >= screenHeight) {
             val scale = (screenHeight + 0f) / height
             layoutParams.width = (width * scale).toInt()
             layoutParams.height = screenHeight
+//            Log.d("Picture","缩放类型:2,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
+//                    "$height,缩放比例:$scale")
         }
         //图片高度和宽度都小于屏幕，宽度放大至屏幕宽，高度缩放
         if (width < screenWidth && height < screenHeight) {
-            val scale = (width + 0f) / screenWidth
+            val scale = (screenWidth + 0f) / width
             layoutParams.width = screenWidth
             layoutParams.height = (height * scale).toInt()
+//            Log.d("Picture","缩放类型:3,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
+//                    "$height,缩放比例:$scale")
         }
         //图片高度和宽度都大于屏幕,则对宽高进行同比例缩放
         if (width > screenWidth && height > screenHeight) {
@@ -80,6 +86,8 @@ object ScreenHelper {
             val scale = if (widthScale > heightScale) heightScale else widthScale
             layoutParams.width = (width * scale).toInt()
             layoutParams.height = (height * scale).toInt()
+//            Log.d("Picture","缩放类型:4,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
+//                    "$height,缩放比例:$scale")
         }
         return layoutParams
     }
