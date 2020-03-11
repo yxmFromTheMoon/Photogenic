@@ -20,7 +20,6 @@ import com.example.yxm.photogenic.font.FontTextView
 import com.example.yxm.photogenic.module.categorydetails.RelativeVideoAdapter
 import com.example.yxm.photogenic.module.categorydetails.TagDetailContract
 import com.example.yxm.photogenic.module.categorydetails.TagDetailPresenter
-import com.example.yxm.photogenic.ui.fragment.RankFragment
 import com.example.yxm.photogenic.utils.AppBarStateChangeListener
 import com.example.yxm.photogenic.widget.FooterView
 import com.gyf.immersionbar.ktx.immersionBar

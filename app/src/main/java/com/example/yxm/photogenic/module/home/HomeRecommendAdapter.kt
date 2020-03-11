@@ -2,10 +2,10 @@ package com.example.yxm.photogenic.module.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
+import com.chad.library.adapter.base.BaseQuickAdapter.OnItemChildClickListener
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager
@@ -16,7 +16,6 @@ import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.ui.activity.CategoryDetailActivity
 import com.example.yxm.photogenic.ui.activity.VideoPlayActivity
 import com.example.yxm.photogenic.utils.TimeHelper
-import es.dmoral.toasty.Toasty
 
 /**
  *Created by yxm on 2020/2/16

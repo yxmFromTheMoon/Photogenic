@@ -14,7 +14,6 @@ import com.example.lib_network.bean.CommunityBean
 import com.example.lib_network.bean.HomeBean
 import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
-import com.example.yxm.photogenic.application.MyApplication
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.font.FontTextView
 import com.example.yxm.photogenic.module.videodetail.VideoDetailContract

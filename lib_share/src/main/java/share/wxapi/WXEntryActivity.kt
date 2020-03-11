@@ -1,9 +1,9 @@
 package com.example.lib_share
 
-import cn.sharesdk.wechat.utils.WechatHandlerActivity
 import android.widget.Toast
 import cn.sharesdk.wechat.utils.WXAppExtendObject
 import cn.sharesdk.wechat.utils.WXMediaMessage
+import cn.sharesdk.wechat.utils.WechatHandlerActivity
 
 /**
  *Created by yxm on 2020/2/22

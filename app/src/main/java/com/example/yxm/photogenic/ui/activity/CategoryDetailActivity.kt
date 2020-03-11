@@ -21,7 +21,6 @@ import com.example.yxm.photogenic.font.FontTextView
 import com.example.yxm.photogenic.module.categorydetails.CategoryDetailContract
 import com.example.yxm.photogenic.module.categorydetails.CategoryDetailPresenter
 import com.example.yxm.photogenic.module.categorydetails.CategoryVideoAdapter
-import com.example.yxm.photogenic.ui.fragment.HomePageDailyReportFragment
 import com.example.yxm.photogenic.utils.AppBarStateChangeListener
 import com.example.yxm.photogenic.widget.FooterView
 import com.gyf.immersionbar.ktx.immersionBar

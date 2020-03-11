@@ -1,9 +1,7 @@
 package com.example.yxm.photogenic.utils
 
 import android.content.Context
-import android.util.Log
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import com.example.yxm.photogenic.application.MyApplication
 
 

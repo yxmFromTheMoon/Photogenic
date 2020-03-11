@@ -5,17 +5,11 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.view.KeyEvent
 import android.widget.FrameLayout
-import com.example.lib_share.share.ShareDialog
 import com.example.yxm.photogenic.R
-import com.example.yxm.photogenic.application.MyApplication
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.ui.fragment.*
-import com.example.yxm.photogenic.utils.KeyBoardHelper
-import com.gyf.immersionbar.ktx.immersionBar
-import com.gyf.immersionbar.ktx.showStatusBar
 import com.yinglan.alphatabs.AlphaTabView
 import com.yinglan.alphatabs.AlphaTabsIndicator
-import com.yxm.lib_pullalive.AliveJobService
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**

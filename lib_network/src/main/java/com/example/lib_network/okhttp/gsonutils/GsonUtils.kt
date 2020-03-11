@@ -1,7 +1,6 @@
 package com.example.lib_network.okhttp.gsonutils
 
 import com.google.gson.Gson
-import org.json.JSONObject
 
 /**
  * Created by yxm on 2020-1-9

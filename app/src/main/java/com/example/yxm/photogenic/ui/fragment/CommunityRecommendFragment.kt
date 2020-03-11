@@ -16,7 +16,6 @@ import com.example.yxm.photogenic.module.community.CommunityRecommendPresenter
 import com.example.yxm.photogenic.ui.activity.PicturePreviewActivity
 import com.example.yxm.photogenic.ui.activity.VideoPlayActivity
 import com.example.yxm.photogenic.utils.MathHelper
-import com.example.yxm.photogenic.utils.ScreenHelper
 import com.example.yxm.photogenic.widget.FooterView
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout

@@ -11,7 +11,6 @@ import com.example.yxm.photogenic.base.adapter.CommonViewPagerAdapter
 import com.example.yxm.photogenic.ui.activity.SearchActivity
 import com.gyf.immersionbar.ktx.immersionBar
 import com.kekstudio.dachshundtablayout.DachshundTabLayout
-import com.yxm.lib_pullalive.AliveJobService
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**

@@ -2,9 +2,7 @@ package com.example.yxm.photogenic.module.community
 
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
-import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager

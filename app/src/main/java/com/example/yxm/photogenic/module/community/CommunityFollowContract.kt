@@ -1,7 +1,6 @@
 package com.example.yxm.photogenic.module.community
 
 import com.example.lib_network.bean.CommonVideoBean
-import com.example.lib_network.bean.CommunityFollowBean
 import com.example.yxm.photogenic.base.BaseView
 import com.example.yxm.photogenic.base.IPresenter
 

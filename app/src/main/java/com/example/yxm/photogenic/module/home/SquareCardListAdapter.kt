@@ -5,7 +5,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.CategoryDetailBean
-import com.example.lib_network.bean.CommonVideoBean
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.utils.TimeHelper
 import de.hdodenhof.circleimageview.CircleImageView

@@ -4,15 +4,14 @@ import android.app.Dialog
 import android.content.Context
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.example.lib_share.R
-import android.view.Gravity
 import android.util.DisplayMetrics
-import android.widget.Toast
+import android.view.Gravity
 import cn.sharesdk.framework.Platform
+import cn.sharesdk.framework.PlatformActionListener
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.example.lib_share.R
 import share.adapter.PlatformBean
 import share.adapter.SharePlatformAdapter
-import cn.sharesdk.framework.PlatformActionListener
 import share.adapter.ShareType
 
 /**

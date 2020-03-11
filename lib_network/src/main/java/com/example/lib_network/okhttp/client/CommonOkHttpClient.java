@@ -1,6 +1,5 @@
 package com.example.lib_network.okhttp.client;
 
-import com.example.lib_network.api.constants.ChangeBaseUrlInterceptor;
 import com.example.lib_network.okhttp.cookie.SimpleCookieJar;
 import com.example.lib_network.okhttp.https.HttpsUtils;
 import com.example.lib_network.okhttp.listeners.DisposeDataHandle;

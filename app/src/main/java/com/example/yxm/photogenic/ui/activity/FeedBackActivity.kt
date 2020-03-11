@@ -5,7 +5,6 @@ import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.gyf.immersionbar.ktx.immersionBar
 import kotlinx.android.synthetic.main.activity_feed_back.*
-import kotlinx.android.synthetic.main.activity_web_view.*
 
 /**
  *Created by yxm on 2020/3/4

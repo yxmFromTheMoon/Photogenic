@@ -8,8 +8,6 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
-import com.example.yxm.photogenic.R.id.picture_layout
-import com.example.yxm.photogenic.application.MyApplication
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.module.picturepreview.PicturePagerAdapter
 import com.example.yxm.photogenic.module.picturepreview.PicturePreviewContract

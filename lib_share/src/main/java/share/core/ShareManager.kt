@@ -2,13 +2,13 @@ package com.example.lib_share.share
 
 import android.content.Context
 import cn.sharesdk.framework.Platform
-import cn.sharesdk.framework.ShareSDK
-import cn.sharesdk.wechat.moments.WechatMoments
-import cn.sharesdk.wechat.friends.Wechat
-import cn.sharesdk.tencent.qzone.QZone
-import cn.sharesdk.tencent.qq.QQ
 import cn.sharesdk.framework.PlatformActionListener
+import cn.sharesdk.framework.ShareSDK
 import cn.sharesdk.sina.weibo.SinaWeibo
+import cn.sharesdk.tencent.qq.QQ
+import cn.sharesdk.tencent.qzone.QZone
+import cn.sharesdk.wechat.friends.Wechat
+import cn.sharesdk.wechat.moments.WechatMoments
 import share.adapter.ShareType
 
 
