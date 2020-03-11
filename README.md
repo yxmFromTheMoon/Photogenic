@@ -9,6 +9,10 @@
 
 <img src="https://github.com/yxmFromTheMoon/Photogenic/blob/master/screenshot/3.png" width="300" height="600" alt="发现">  <img src="https://github.com/yxmFromTheMoon/Photogenic/blob/master/screenshot/4.png" width="300" height="600" alt="视频播放页">
 
+#### 图片打不开？
+[CSDN](https://blog.csdn.net/qq_37029648/article/details/104790963)
+[简书](https://www.jianshu.com/p/203c4a5ac547)
+
 ### 感谢开源数据支持，开源，让你变得更强大
 
 ### 附二维码
@@ -18,7 +22,7 @@
 
 ### License
 
-Copyright (c) 2020 RobinYxm(尹向明)
+Copyright (c) 2020 RobinYxm(尹之恒)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

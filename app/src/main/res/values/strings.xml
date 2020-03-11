@@ -38,9 +38,12 @@
     图片加载库Glide\n
     社会化分享平台ShareSDK\n
     视频播放控件GSYVideoPlayer以及其他各种UI库\n
-    数据来源:开眼平台开放API。\n\n欢迎下载体验，能star一下就更好了，第一次使用kotlin实现的小demo，
+    数据来源:开眼API。\n\n欢迎下载体验，能star一下就更好了，第一次使用kotlin实现的小demo，
     写起来确实比java要方便些，但有些用法和java完全不一样(顺便吐槽一下kotlin的编译速度还是比java差点)\n\n
     项目没有做适配，可能在某些手机上会出现奇怪的画面，适配以后我慢慢也会改进的，
-        关于此项目有任何问题的可以直接在issue中反馈，我会及时关注的，当然也可以通过邮箱联系\nyxmbest@163.com</string>
+        关于此项目有任何问题的可以直接在issue中反馈，我会及时关注的，当然也可以通过邮箱联系\nQQ:1165760348\n邮箱:yxmbest@163.com
+    </string>
     <string name="address">\n项目地址: https://github.com/yxmFromTheMoon/Photogenic</string>
+    <string name="csdn">CSDN: https://blog.csdn.net/qq_37029648/article/details/104790963</string>
+    <string name="jianshu">简书: https://www.jianshu.com/p/203c4a5ac547</string>
 </resources>

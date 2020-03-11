@@ -1,5 +1,6 @@
 package com.example.yxm.photogenic.module.community
 
+import android.util.Log
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
