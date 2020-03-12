@@ -14,7 +14,7 @@
     <string name="discovery">发现</string>
     <string name="mine">我的</string>
     <string name="query_hint">输入关键词搜索</string>
-    <string name="cancel">取消</string>
+    <string name="cancel_text">取消</string>
     <string name="hot_category">热门分类</string>
     <string name="discovery_featured">本周精选</string>
     <string name="key_word">热搜关键词</string>
@@ -46,4 +46,5 @@
     <string name="address">\n项目地址: https://github.com/yxmFromTheMoon/Photogenic</string>
     <string name="csdn">CSDN: https://blog.csdn.net/qq_37029648/article/details/104790963</string>
     <string name="jianshu">简书: https://www.jianshu.com/p/203c4a5ac547</string>
+    <string name="save">保存</string>
 </resources>

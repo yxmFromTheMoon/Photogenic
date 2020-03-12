@@ -41,7 +41,7 @@
             android:gravity="center"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:text="@string/cancel"
+            android:text="@string/cancel_text"
             android:textColor="@color/skyBlue"
             android:textSize="14sp" />
     </LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/save_picture"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/sheet_dialog_button_bg"
+        android:gravity="center"
+        android:text="@string/save"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#efefef" />
+
+    <TextView
+        android:id="@+id/cancel_save"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/cancel_text"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+</LinearLayout>

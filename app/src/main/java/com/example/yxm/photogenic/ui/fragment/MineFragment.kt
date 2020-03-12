@@ -100,7 +100,7 @@ class MineFragment : BaseImmersionFragment(), View.OnClickListener {
                 ShareManager.shareWebPage(mContext, resources.getString(R.string.share_text)
                         , resources.getString(R.string.share_title)
                         , resources.getString(R.string.share_image),
-                        "https://github.com/yxmFromTheMoon/Photogenic")
+                        "https://blog.csdn.net/qq_37029648/article/details/104790963")
             }
         }
     }

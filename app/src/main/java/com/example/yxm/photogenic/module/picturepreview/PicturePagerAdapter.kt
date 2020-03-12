@@ -4,6 +4,7 @@ import android.support.v4.view.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.yxm.photogenic.application.MyApplication
 import com.example.yxm.photogenic.widget.SlideDownCloseImageView
@@ -35,9 +36,14 @@ class PicturePagerAdapter(urls: ArrayList<String>) : PagerAdapter() {
             }
 
             override fun onViewClick() {
-                mListener?.onPhotoViewClick()
+                mListener?.onImageViewClick()
+            }
+
+            override fun onLongClick() {
+                mListener?.onImageViewLongClick()
             }
         })
+
         ImageLoaderManager.displayImageForView(imageView, mUrls[position])
         container.addView(imageView)
         return imageView
@@ -54,7 +60,9 @@ class PicturePagerAdapter(urls: ArrayList<String>) : PagerAdapter() {
 
     interface OnPhotoViewClickListener {
 
-        fun onPhotoViewClick()
+        fun onImageViewClick()
+
+        fun onImageViewLongClick()
 
         fun onSlideDown()
     }

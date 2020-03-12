@@ -14,6 +14,7 @@ import com.example.yxm.photogenic.module.picturepreview.PicturePreviewContract
 import com.example.yxm.photogenic.module.picturepreview.PicturePreviewPresenter
 import com.example.yxm.photogenic.utils.ScreenHelper
 import com.example.yxm.photogenic.utils.ScreenHelper.scaleImage
+import com.example.yxm.photogenic.widget.SavePictureSheetDialog
 import com.gyf.immersionbar.ktx.immersionBar
 import kotlinx.android.synthetic.main.activity_preview_picture.*
 
@@ -112,12 +113,23 @@ class PicturePreviewActivity : BaseActivity(), PicturePreviewContract.IPictureVi
             toggleUi()
         }
         mPagerAdapter?.setOnPhotoViewClickListener(object : PicturePagerAdapter.OnPhotoViewClickListener {
-            override fun onPhotoViewClick() {
+            override fun onImageViewClick() {
                 toggleUi()
             }
 
             override fun onSlideDown() {
                 this@PicturePreviewActivity.finish()
+            }
+
+            override fun onImageViewLongClick() {
+                val disposable = rxPermission.request("android.permission.WRITE_EXTERNAL_STORAGE")
+                        .subscribe {
+                            if (it) {
+                                SavePictureSheetDialog(mContext, urls[currentPosition])
+                                        .show()
+                            }
+                        }
+                disposable.dispose()
             }
         })
     }

@@ -104,7 +104,9 @@ class SlideDownCloseImageView @JvmOverloads constructor(context: Context, attrib
         return false
     }
 
-    override fun onLongPress(e: MotionEvent?) {}
+    override fun onLongPress(e: MotionEvent?) {
+        mListener?.onLongClick()
+    }
 
     fun setOnSlideDownListener(listener: OnSlideOverListener){
         mListener = listener
@@ -114,8 +116,10 @@ class SlideDownCloseImageView @JvmOverloads constructor(context: Context, attrib
         //下滑结束
         fun onSlideOver()
         //点击view,onTouchEvent级别高于onClick，所以点击view时并不会触发onClick事件，
-        //这里监听单击手势，使用接口回调解决
+        //这里监听单击手势，使用接口回调解决.长按事件同理
         fun onViewClick()
+
+        fun onLongClick()
     }
 
 }
