@@ -6,7 +6,8 @@ import java.io.Serializable
  * Created by yxm on 2020-1-14
  * @function: 分类videoBean，广告、创意等等
  */
-data class CategoryDetailBean(val code: Int, val message: String, val result: ArrayList<FollowCardBean>) {
+data class CategoryDetailBean(val count: Int, val nextPageUrl: String, val itemList: ArrayList<FollowCardBean>,
+                              val total: Int, val adExist: Boolean) {
 
     data class FollowCardBean(val data: FollowCardDataBean, val adIndex: Int, val tag: Any?, val id: Long, val type: String) : Serializable {
 

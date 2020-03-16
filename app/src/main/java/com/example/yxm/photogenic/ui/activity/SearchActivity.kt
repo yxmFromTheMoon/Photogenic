@@ -82,7 +82,6 @@ class SearchActivity : BaseActivity() {
         })
         //取消
         queryCancelTv.setOnClickListener {
-            queryEditText.setText("")
             KeyBoardHelper.hideKeyBoard(queryEditText)
             finish()
         }

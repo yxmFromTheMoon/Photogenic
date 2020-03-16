@@ -12,22 +12,19 @@ class TagDetailPresenter : BasePresenter<TagDetailContract.ITagDetailView>(), Ta
     private val mModel: VideoTypeModel by lazy {
         VideoTypeModel()
     }
+    private var nextPageUrl: String? = null
 
-    override fun getTagVideo(id: Long) {
+    override fun getTagsVideo(id: Long) {
         mRootView?.showLoading()
-        val disposable = mModel.getRelatedVideoData(id)
+        val disposable = mModel.getTagVideoData(id)
                 .subscribe({
                     val itemList = it.itemList
-                    itemList.filter {item ->
-                        item.type == "textCard"
-                    }.forEach {item ->
-                        itemList.remove(item)
-                    }
                     mRootView?.apply {
                         showSuccess()
                         dismissLoading()
                         finishRefresh()
-                        setVideo(itemList)
+                        nextPageUrl = it.nextPageUrl
+                        setTagVideo(itemList)
                     }
                 }, {
                     mRootView?.apply {
@@ -39,4 +36,20 @@ class TagDetailPresenter : BasePresenter<TagDetailContract.ITagDetailView>(), Ta
         addSubscribe(disposable)
     }
 
+    override fun loadMoreVideo() {
+        nextPageUrl?.let { url ->
+            addSubscribe(dispose = mModel.loadMoreTagVideoData(url)
+                    .subscribe({
+                        val itemList = it.itemList
+                        mRootView?.apply {
+                            nextPageUrl = it.nextPageUrl
+                            loadMoreVideo(itemList)
+                        }
+                    }, {
+                        mRootView?.apply {
+                            showError("加载更多失败")
+                        }
+                    }))
+        }
+    }
 }

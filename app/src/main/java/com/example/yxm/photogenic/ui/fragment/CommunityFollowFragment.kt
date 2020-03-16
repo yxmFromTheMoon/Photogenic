@@ -62,7 +62,7 @@ class CommunityFollowFragment : BaseFragment(), CommunityFollowContract.ICommuni
     }
 
     override fun initListener() {
-        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as CommonVideoBean.ResultBean
             startActivity(Intent(mContext, VideoPlayActivity::class.java).apply {
                 val bundle = Bundle()

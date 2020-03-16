@@ -158,7 +158,7 @@ class DiscoveryFragment : BaseImmersionFragment(), DiscoveryContract.IDiscoveryV
     }
 
     override fun initListener() {
-        mCategoryAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        mCategoryAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             val categoryBean = adapter.getItem(position) as Serializable
             startActivity(Intent(mContext, CategoryDetailActivity::class.java).apply {
                 val bundle = Bundle()
@@ -166,7 +166,7 @@ class DiscoveryFragment : BaseImmersionFragment(), DiscoveryContract.IDiscoveryV
                 putExtras(bundle)
             })
         }
-        mDiscoveryVideoAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        mDiscoveryVideoAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             val videoBean = adapter.getItem(position) as CommonVideoBean.ResultBean.ResultData
             startActivity(Intent(mContext, VideoPlayActivity::class.java).apply {
                 val bundle = Bundle().apply {

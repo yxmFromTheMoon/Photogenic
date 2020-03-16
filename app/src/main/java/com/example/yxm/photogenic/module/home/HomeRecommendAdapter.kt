@@ -62,7 +62,7 @@ class HomeRecommendAdapter(data: ArrayList<HomeBean.Issue>) : BaseMultiItemQuick
                 layoutManager = LinearLayoutManager(context)
                 adapter = squareCardListAdapter
             }
-            squareCardListAdapter.onItemClickListener = OnItemClickListener { adapter, view, position ->
+            squareCardListAdapter.onItemClickListener = OnItemClickListener { adapter, _, position ->
                 val bean = adapter.getItem(position) as CategoryDetailBean.FollowCardBean
                 val bundle = Bundle().apply {
                     putSerializable("video", bean.data.content.data)

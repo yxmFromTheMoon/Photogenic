@@ -87,7 +87,7 @@ class RankFragment : BaseFragment(), RankContract.IRankView {
             mRankPresenter.getRankData(strategy)
         }
 
-        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             val bean = adapter.getItem(position) as CommonVideoBean.ResultBean
             startActivity(Intent(mContext, VideoPlayActivity::class.java).apply {
                 val bundle = Bundle()

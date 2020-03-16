@@ -60,12 +60,12 @@ class VideoDetailPresenter : BasePresenter<VideoDetailContract.IVideoDetailView>
         when (fromWhere) {
             //社区关注，视频播放页,排行,搜索结果
             COMMUNITY_FOLLOW, VIDEO_DETAIL,
-            RANK_FRAGMENT, SEARCH_RESULT, TAG_DETAIL -> {
+            RANK_FRAGMENT, SEARCH_RESULT -> {
                 val bean = video as CommonVideoBean.ResultBean
                 getPlayInfo(bean.data, fromWhere, "")
             }
             //发现页,目录详情
-            DISCOVERY, CATEGORY_DETAIL -> {
+            DISCOVERY, CATEGORY_DETAIL, TAG_DETAIL -> {
                 val bean = video as CommonVideoBean.ResultBean.ResultData
                 getPlayInfo(bean, fromWhere, "")
             }

@@ -109,16 +109,6 @@ interface Api {
     @GET("v5/index/tab/discovery")
     fun getDiscovery(): Observable<ResponseBody>
 
-
-    /**
-     * https://api.apiopen.top/videoCategoryDetails?id=14
-     * 视频分类推荐接口
-     *
-     */
-    @Headers("domain:apiopen")
-    @GET("videoCategoryDetails?")
-    fun getVideoRecommend(@Query("id")id: Int): Observable<CategoryDetailBean>
-
     /**
      * 根据item id获取相关推荐视频
      * id从视频分类推荐接口中获取
@@ -126,5 +116,25 @@ interface Api {
     @Headers("domain:kaiyan")
     @GET("v4/video/related?")
     fun getRelatedVideoData(@Query("id") id: Long): Observable<CommonVideoBean>
+
+    /**
+     * 根据tagId获取相关视频
+     * id从每个视频的标签里获取
+     */
+    @GET("v1/tag/videos?")
+    fun getTagsData(@Query("id") id: Long): Observable<CategoryDetailBean>
+
+    /**
+     * 获取更多tag视频数据
+     */
+    @GET
+    fun getMoreTagVideoData(@Url url: String):Observable<CategoryDetailBean>
+
+    /**
+     * 获取广场页数据
+     * id和tag接口保持一致
+     */
+    @GET("v6/tag/dynamics?")
+    fun getDynamics(@Query("id")id: Long):Observable<CommunityBean>
 
 }

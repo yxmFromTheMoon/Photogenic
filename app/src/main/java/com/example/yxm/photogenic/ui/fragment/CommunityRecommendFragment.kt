@@ -81,7 +81,7 @@ class CommunityRecommendFragment : BaseFragment(), CommunityRecommendContract.IC
             }
         })
 
-        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             val issue = adapter.getItem(position) as CommunityBean.Issue
             val bundle = Bundle().apply {
                 putSerializable("video", issue)
@@ -108,7 +108,7 @@ class CommunityRecommendFragment : BaseFragment(), CommunityRecommendContract.IC
         }
 
         //分享
-        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, _, position ->
             val issue = adapter.getItem(position) as CommunityBean.Issue
             when (issue.type) {
                 "pictureFollowCard" -> {

@@ -66,7 +66,7 @@ class HotWordsFragment: BaseFragment(), HotWordsContract.IHotWordsView{
     }
 
     override fun initListener() {
-        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as String
             KeyBoardHelper.hideKeyBoard(hotWordsRv)
             EventBus.getDefault().post(HotWordsEvent(item))

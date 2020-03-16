@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -12,14 +13,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_imageloader.ImageLoaderManager
+import com.example.lib_network.bean.CategoryDetailBean
 import com.example.lib_network.bean.CommonVideoBean
+import com.example.lib_network.bean.HomeBean
 import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.font.FontTextView
-import com.example.yxm.photogenic.module.categorydetails.RelativeVideoAdapter
 import com.example.yxm.photogenic.module.categorydetails.TagDetailContract
 import com.example.yxm.photogenic.module.categorydetails.TagDetailPresenter
+import com.example.yxm.photogenic.module.categorydetails.TagVideoAdapter
 import com.example.yxm.photogenic.utils.AppBarStateChangeListener
 import com.example.yxm.photogenic.widget.FooterView
 import com.gyf.immersionbar.ktx.immersionBar
@@ -31,18 +34,19 @@ import kotlinx.android.synthetic.main.activity_category_details.*
  *Created by yxm on 2020/2/10
  *@function 标签详情页,点击视频tag跳转此页
  */
-class TagDetailActivity: BaseActivity(),TagDetailContract.ITagDetailView {
+class TagDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView {
     /**
      * data
      */
-    private lateinit var tagBean:CommonVideoBean.ResultBean.ResultData.TagBean
+    private lateinit var tagBean: CommonVideoBean.ResultBean.ResultData.TagBean
 
-    private val mAdapter: RelativeVideoAdapter by lazy {
-        RelativeVideoAdapter()
+    private val mAdapter: TagVideoAdapter by lazy {
+        TagVideoAdapter()
     }
     private val mTagDetailPresenter: TagDetailPresenter by lazy {
         TagDetailPresenter()
     }
+
     init {
         mTagDetailPresenter.attachView(this)
     }
@@ -50,7 +54,7 @@ class TagDetailActivity: BaseActivity(),TagDetailContract.ITagDetailView {
     /**
      * UI
      */
-    private lateinit var mHintTv:FontTextView
+    private lateinit var mHintTv: FontTextView
     private lateinit var mToolbar: Toolbar
     private lateinit var mAppbar: AppBarLayout
     private lateinit var mCollapsingToolbarLayout: CollapsingToolbarLayout
@@ -60,7 +64,7 @@ class TagDetailActivity: BaseActivity(),TagDetailContract.ITagDetailView {
     private lateinit var mCategoryName: FontTextView
     private lateinit var mCategoryTitle: TextView
     private lateinit var mRefreshLayout: SmartRefreshLayout
-
+    private var loadMore = false
     override fun getLayoutId(): Int {
         return R.layout.activity_category_details
     }
@@ -78,7 +82,7 @@ class TagDetailActivity: BaseActivity(),TagDetailContract.ITagDetailView {
         mCategoryName = category_name
         mCategoryTitle = category_title
         mRefreshLayout = refreshLayout
-        mRefreshLayout.setEnableLoadMore(false)
+
         mRefreshLayout.setRefreshHeader(ClassicsHeader(mContext))
 
         mCategoryDetailRv.run {
@@ -89,23 +93,34 @@ class TagDetailActivity: BaseActivity(),TagDetailContract.ITagDetailView {
     }
 
     override fun initData() {
-        ImageLoaderManager.displayImageForView(mCategoryBg,tagBean.headerImage)
+        ImageLoaderManager.displayImageForView(mCategoryBg, tagBean.headerImage)
         mCategoryName.text = tagBean.name
         mToolBarTitle.text = tagBean.name
         mCategoryTitle.text = tagBean.desc
-        mTagDetailPresenter.getTagVideo(tagBean.id.toLong())
+        mTagDetailPresenter.getTagsVideo(tagBean.id.toLong())
     }
 
     override fun initListener() {
+
+        //解决recyclerview和nestscrollview滑动冲突，
+        //首先给recyclerview设置isNestedScrollingEnabled = false,将滑动时将交给nestscrollview去处理
+        //再监听nestscrollview的滑动事件去加载更多
+        nested_scroll_view.setOnScrollChangeListener { nestedScrollView: NestedScrollView, _: Int, scrollY: Int, _: Int, _: Int ->
+            //判断是否滑到底部
+            if (scrollY == (nestedScrollView.getChildAt(0).measuredHeight - nestedScrollView.measuredHeight)) {
+                mTagDetailPresenter.loadMoreVideo()
+            }
+        }
+
         mToolbar.setNavigationOnClickListener {
             finish()
         }
         //appbar滑动状态监听
         mAppbar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
-                when(state){
+                when (state) {
                     //初始化状态
-                    State.IDLE ->{
+                    State.IDLE -> {
                         mToolBarTitle.visibility = View.GONE
                         immersionBar {
                             titleBar(mToolbar)
@@ -113,7 +128,7 @@ class TagDetailActivity: BaseActivity(),TagDetailContract.ITagDetailView {
                         }
                     }
                     //折叠状态
-                    State.COLLAPSED ->{
+                    State.COLLAPSED -> {
                         mToolBarTitle.visibility = View.VISIBLE
                         mToolbar.setNavigationIcon(R.mipmap.ic_action_back_black)
                         immersionBar {
@@ -122,7 +137,7 @@ class TagDetailActivity: BaseActivity(),TagDetailContract.ITagDetailView {
                         }
                     }
                     //展开状态
-                    State.EXPANDED ->{
+                    State.EXPANDED -> {
                         mToolBarTitle.visibility = View.GONE
                         mToolbar.setNavigationIcon(R.mipmap.ic_action_back_white)
                         immersionBar {
@@ -133,16 +148,18 @@ class TagDetailActivity: BaseActivity(),TagDetailContract.ITagDetailView {
                 }
             }
         })
+
         mRefreshLayout.setOnRefreshListener {
-            mTagDetailPresenter.getTagVideo(tagBean.id.toLong())
+            mTagDetailPresenter.getTagsVideo(tagBean.id.toLong())
         }
 
-        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
-            val bean = adapter.getItem(position) as CommonVideoBean.ResultBean
+        //点击跳转播放
+        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
+            val bean = adapter.getItem(position) as CategoryDetailBean.FollowCardBean
             startActivity(Intent(mContext, VideoPlayActivity::class.java).apply {
                 val bundle = Bundle()
-                bundle.putSerializable("video", bean)
-                bundle.putLong("relativeVideoId", bean.data.id)
+                bundle.putSerializable("video", bean.data.content.data)
+                bundle.putLong("relativeVideoId", bean.data.content.data.id)
                 bundle.putInt("fromWhere", TAG_DETAIL)
                 putExtras(bundle)
             })
@@ -150,13 +167,13 @@ class TagDetailActivity: BaseActivity(),TagDetailContract.ITagDetailView {
 
         //分享
         mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
-            val item = adapter.getItem(position) as CommonVideoBean.ResultBean
+            val item = adapter.getItem(position) as HomeBean.Issue
             if (view.id == R.id.video_share_iv) {
                 ShareManager.shareWebPage(mContext,
-                        item.data.description,
-                        item.data.title,
-                        item.data.cover.feed ?: "",
-                        item.data.webUrl.raw)
+                        item.data.content?.data?.description ?: "",
+                        item.data.content?.data?.title ?: "",
+                        item.data.content?.data?.cover?.feed ?: "",
+                        item.data.content?.data?.webUrl?.raw ?: "")
             }
         }
 
@@ -179,17 +196,21 @@ class TagDetailActivity: BaseActivity(),TagDetailContract.ITagDetailView {
     }
 
     override fun showLoading() {
-        mCategoryDetailRv.visibility = View.GONE
-        mHintTv.visibility = View.GONE
+
     }
 
     override fun dismissLoading() {
-        mCategoryDetailRv.visibility = View.VISIBLE
-        mHintTv.visibility = View.VISIBLE
+
     }
 
-    override fun setVideo(data: ArrayList<CommonVideoBean.ResultBean>) {
+    override fun setTagVideo(data: ArrayList<CategoryDetailBean.FollowCardBean>) {
         mAdapter.setNewData(data)
+    }
+
+    override fun loadMoreVideo(data: ArrayList<CategoryDetailBean.FollowCardBean>) {
+        loadMore = false
+        mAdapter.addData(data)
+        //mCategoryDetailRv.isNestedScrollingEnabled = false
     }
 
     override fun finishRefresh() {
@@ -201,7 +222,7 @@ class TagDetailActivity: BaseActivity(),TagDetailContract.ITagDetailView {
         mTagDetailPresenter.detachView()
     }
 
-    companion object{
+    companion object {
         const val TAG_DETAIL = 10
     }
 }

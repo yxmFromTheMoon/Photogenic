@@ -126,7 +126,7 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
     }
 
     override fun initListener() {
-        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as CommonVideoBean.ResultBean
             playVideo(item.data.playUrl, item.data.title)
             mPresenter.loadRelativeVideo(item.data.id)
@@ -151,7 +151,7 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
     override fun setVideoInfo(video: Any, fromWhere: Int, type: String) {
         when (fromWhere) {
             COMMUNITY_FOLLOW, VIDEO_DETAIL, RANK_FRAGMENT,
-            DISCOVERY, SEARCH_RESULT, TAG_DETAIL, CATEGORY_DETAIL -> {
+            DISCOVERY, SEARCH_RESULT, CATEGORY_DETAIL, TAG_DETAIL -> {
                 val bean = video as CommonVideoBean.ResultBean.ResultData
                 setVideoInfo(bean)
             }
@@ -192,7 +192,7 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
     }
 
     override fun playVideo(url: String, title: String) {
-        mVideoPlayer.setUp(url, true, title)
+        mVideoPlayer.setUp(url, false, title)
         //自动播放
         mVideoPlayer.startPlayLogic()
     }
@@ -307,7 +307,7 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
                     showErrorToast("播放失败")
                 }
             })
-            setLockClickListener { view, lock ->
+            setLockClickListener { _, lock ->
                 orientationUtils?.isEnable = !lock
             }
         }

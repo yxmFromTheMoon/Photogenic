@@ -87,7 +87,7 @@ class HomePageDailyReportFragment : BaseFragment(), HomeReportContract.IHomeRepo
             adapter = mAdapter
         }
 
-        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             val type = adapter.getItemViewType(position)
             val item = adapter.getItem(position) as HomeBean.Issue
             val bundle = Bundle().apply {

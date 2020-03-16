@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -18,9 +19,7 @@ import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.font.FontTextView
-import com.example.yxm.photogenic.module.categorydetails.CategoryDetailContract
-import com.example.yxm.photogenic.module.categorydetails.CategoryDetailPresenter
-import com.example.yxm.photogenic.module.categorydetails.CategoryVideoAdapter
+import com.example.yxm.photogenic.module.categorydetails.*
 import com.example.yxm.photogenic.utils.AppBarStateChangeListener
 import com.example.yxm.photogenic.widget.FooterView
 import com.gyf.immersionbar.ktx.immersionBar
@@ -32,14 +31,14 @@ import kotlinx.android.synthetic.main.activity_category_details.*
  *Created by yxm on 2020/2/10
  *@function 分类详情Activity
  */
-class CategoryDetailActivity : BaseActivity(), CategoryDetailContract.ICategoryDetailView {
+class CategoryDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView {
 
-    private val mAdapter: CategoryVideoAdapter by lazy {
-        CategoryVideoAdapter()
+    private val mAdapter: TagVideoAdapter by lazy {
+        TagVideoAdapter()
     }
 
-    private val mCategoryDetailPresenter: CategoryDetailPresenter by lazy {
-        CategoryDetailPresenter()
+    private val mCategoryDetailPresenter: TagDetailPresenter by lazy {
+        TagDetailPresenter()
     }
 
     init {
@@ -76,7 +75,7 @@ class CategoryDetailActivity : BaseActivity(), CategoryDetailContract.ICategoryD
         mCategoryName = category_name
         mCategoryTitle = category_title
         mRefreshLayout = refreshLayout
-        mRefreshLayout.setEnableLoadMore(false)
+
         mRefreshLayout.setRefreshHeader(ClassicsHeader(mContext))
 
         mCategoryDetailRv.run {
@@ -91,13 +90,24 @@ class CategoryDetailActivity : BaseActivity(), CategoryDetailContract.ICategoryD
         mCategoryName.text = categoryBean.name
         mToolBarTitle.text = categoryBean.name
         mCategoryTitle.text = categoryBean.description
-        mCategoryDetailPresenter.getVideo(categoryBean.id)
+        mCategoryDetailPresenter.getTagsVideo(categoryBean.tagId.toLong())
     }
 
     override fun initListener() {
         mToolbar.setNavigationOnClickListener {
             finish()
         }
+
+        //解决recyclerview和nestscrollview滑动冲突，
+        //首先给recyclerview设置isNestedScrollingEnabled = false,将滑动时将交给nestscrollview去处理
+        //再监听nestscrollview的滑动事件去加载更多
+        nested_scroll_view.setOnScrollChangeListener { nestedScrollView: NestedScrollView, _: Int, scrollY: Int, _: Int, _: Int ->
+            //判断是否滑到底部
+            if (scrollY == (nestedScrollView.getChildAt(0).measuredHeight - nestedScrollView.measuredHeight)) {
+                mCategoryDetailPresenter.loadMoreVideo()
+            }
+        }
+
         //appbar滑动状态监听
         mAppbar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
@@ -132,10 +142,10 @@ class CategoryDetailActivity : BaseActivity(), CategoryDetailContract.ICategoryD
             }
         })
         mRefreshLayout.setOnRefreshListener {
-            mCategoryDetailPresenter.getVideo(categoryBean.id)
+            mCategoryDetailPresenter.getTagsVideo(categoryBean.tagId.toLong())
         }
 
-        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as CategoryDetailBean.FollowCardBean
             val bundle = Bundle().apply {
                 putSerializable("video", item.data.content.data)
@@ -147,7 +157,7 @@ class CategoryDetailActivity : BaseActivity(), CategoryDetailContract.ICategoryD
             })
         }
         //分享
-        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as CategoryDetailBean.FollowCardBean
             ShareManager.shareWebPage(mContext,
                     item.data.content.data.description,
@@ -162,11 +172,12 @@ class CategoryDetailActivity : BaseActivity(), CategoryDetailContract.ICategoryD
         categoryBean = intent.getSerializableExtra("categoryBean") as CategoriesBean
     }
 
-    override fun setVideo(data: ArrayList<CategoryDetailBean.FollowCardBean>) {
+    override fun setTagVideo(data: ArrayList<CategoryDetailBean.FollowCardBean>) {
         mAdapter.setNewData(data)
     }
 
-    override fun setMoreVideo(data: ArrayList<CategoryDetailBean.FollowCardBean>) {
+    override fun loadMoreVideo(data: ArrayList<CategoryDetailBean.FollowCardBean>) {
+        mAdapter.addData(data)
     }
 
     override fun finishRefresh() {

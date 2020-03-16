@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
@@ -93,7 +94,10 @@ class MineFragment : BaseImmersionFragment(), View.OnClickListener {
                 WebViewActivity.start(mContext, resources.getString(R.string.kaiyan_title), url)
             }
             R.id.clear_cache_tv -> {
+                //清除视频缓存
                 GSYVideoManager.instance().clearAllDefaultCache(mContext)
+                //清除图片缓存
+                ImageLoaderManager.clearAllImageCache(mContext)
                 Toast.makeText(mContext, "清除缓存成功", Toast.LENGTH_SHORT).show()
             }
             R.id.share_app_tv -> {

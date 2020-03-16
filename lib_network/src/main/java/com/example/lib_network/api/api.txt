@@ -66,8 +66,13 @@ http://baobab.kaiyanapp.com/api/v5/index/tab/allRec?page=0
 http://baobab.kaiyanapp.com/api/v5/index/tab/ugcSelected
 
 根据ID推荐接口：
-https://api.apiopen.top/videoRecommend?id=127398
-http://baobab.kaiyanapp.com/api/v4/video/related?&id=1584 该接口很多id都没有数据！！
+http://baobab.kaiyanapp.com/api/v4/video/related?&id=1584
 id从视频分类推荐接口中获取
 
-首页，社区，发现，我的
+id从标签中获取
+http://baobab.kaiyanapp.com/api/v1/tag/videos?id=16 标签视频
+广场
+http://baobab.kaiyanapp.com/api/v6/tag/dynamics?id=16
+
+点击分类所需接口，id为tagId,从分类接口中获取，通过该接口获取上述两个接口
+http://baobab.kaiyanapp.com/api/v6/tag/index?id=16

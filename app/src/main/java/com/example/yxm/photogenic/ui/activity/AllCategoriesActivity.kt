@@ -77,7 +77,7 @@ class AllCategoriesActivity: BaseActivity(),DiscoveryContract.IDiscoveryView {
             mPresenter.getCategoryData()
         }
 
-        mCategoryAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        mCategoryAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             val categoryBean = adapter.getItem(position) as Serializable
             startActivity(Intent(mContext,CategoryDetailActivity::class.java).apply {
                 val bundle = Bundle()

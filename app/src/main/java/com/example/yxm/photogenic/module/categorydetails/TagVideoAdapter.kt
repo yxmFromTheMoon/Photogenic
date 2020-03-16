@@ -1,5 +1,6 @@
 package com.example.yxm.photogenic.module.categorydetails
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -7,10 +8,10 @@ import android.support.v7.widget.RecyclerView
 import android.widget.LinearLayout
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.CategoryDetailBean
+import com.example.lib_network.bean.HomeBean
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.ui.activity.TagDetailActivity
 import com.example.yxm.photogenic.utils.TimeHelper
@@ -18,10 +19,10 @@ import de.hdodenhof.circleimageview.CircleImageView
 import java.io.Serializable
 
 /**
- *Created by yxm on 2020/2/10
- *@function 分类详情视频adapter
+ *Created by yxm on 2020/3/16
+ *@function tagVideoAdapter
  */
-class CategoryVideoAdapter : BaseQuickAdapter<CategoryDetailBean.FollowCardBean, BaseViewHolder>(R.layout.item_category_details_video) {
+class TagVideoAdapter : BaseQuickAdapter<CategoryDetailBean.FollowCardBean, BaseViewHolder>(R.layout.item_category_details_video) {
 
     override fun convert(helper: BaseViewHolder, item: CategoryDetailBean.FollowCardBean) {
         with(helper) {
@@ -53,9 +54,9 @@ class CategoryVideoAdapter : BaseQuickAdapter<CategoryDetailBean.FollowCardBean,
             ImageLoaderManager.displayImageForView(getView(R.id.video_picture), item.data.content.data.cover.feed
                     ?: "")
             setText(R.id.video_duration, TimeHelper.secToTime(item.data.content.data.duration))
-            setText(R.id.video_like,"${item.data.content.data.consumption.realCollectionCount}")
-            setText(R.id.video_comment,"${item.data.content.data.consumption.replyCount}")
-            setText(R.id.video_collect,"${item.data.content.data.consumption.collectionCount}")
+            setText(R.id.video_like, "${item.data.content.data.consumption.realCollectionCount}")
+            setText(R.id.video_comment, "${item.data.content.data.consumption.replyCount}")
+            setText(R.id.video_collect, "${item.data.content.data.consumption.collectionCount}")
             addOnClickListener(R.id.video_share_iv)
         }
     }
