@@ -65,6 +65,7 @@ class TagDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView {
     private lateinit var mCategoryTitle: TextView
     private lateinit var mRefreshLayout: SmartRefreshLayout
     private var loadMore = false
+
     override fun getLayoutId(): Int {
         return R.layout.activity_category_details
     }
@@ -72,7 +73,7 @@ class TagDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView {
     override fun initView() {
         mToolbar = tool_bar
         mAppbar = app_bar
-        mHintTv = category_title_tv
+        //mHintTv = category_title_tv
         mToolBarTitle = toolbar_title
         setSupportActionBar(mToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -102,19 +103,23 @@ class TagDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView {
 
     override fun initListener() {
 
-        //解决recyclerview和nestscrollview滑动冲突，
-        //首先给recyclerview设置isNestedScrollingEnabled = false,将滑动时将交给nestscrollview去处理
-        //再监听nestscrollview的滑动事件去加载更多
-        nested_scroll_view.setOnScrollChangeListener { nestedScrollView: NestedScrollView, _: Int, scrollY: Int, _: Int, _: Int ->
-            //判断是否滑到底部
-            if (scrollY == (nestedScrollView.getChildAt(0).measuredHeight - nestedScrollView.measuredHeight)) {
-                mTagDetailPresenter.loadMoreVideo()
-            }
-        }
-
         mToolbar.setNavigationOnClickListener {
             finish()
         }
+
+        mCategoryDetailRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val manager = mCategoryDetailRv.layoutManager as LinearLayoutManager
+                val itemCount = mCategoryDetailRv.layoutManager!!.itemCount
+                val lastVisibleItem = (manager).findLastVisibleItemPosition()
+                if (!loadMore && (lastVisibleItem == (itemCount - 1))) {
+                    loadMore = true
+                    mTagDetailPresenter.loadMoreVideo()
+                }
+            }
+        })
+
         //appbar滑动状态监听
         mAppbar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
@@ -186,12 +191,10 @@ class TagDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView {
 
     override fun showError(msg: String) {
         showErrorToast(msg)
-        mHintTv.visibility = View.GONE
         mCategoryDetailRv.visibility = View.GONE
     }
 
     override fun showSuccess() {
-        mHintTv.visibility = View.VISIBLE
         mCategoryDetailRv.visibility = View.VISIBLE
     }
 
@@ -210,7 +213,6 @@ class TagDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView {
     override fun loadMoreVideo(data: ArrayList<CategoryDetailBean.FollowCardBean>) {
         loadMore = false
         mAdapter.addData(data)
-        //mCategoryDetailRv.isNestedScrollingEnabled = false
     }
 
     override fun finishRefresh() {

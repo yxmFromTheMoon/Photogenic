@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smart.refresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.scwang.smart.refresh.layout.SmartRefreshLayout
     android:id="@+id/refreshLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
@@ -90,42 +92,13 @@
 
         </android.support.design.widget.AppBarLayout>
 
-
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/nested_scroll_view"
+        <com.example.yxm.photogenic.widget.CustomRecyclerView
+            android:id="@+id/category_detail_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <com.example.yxm.photogenic.font.FontTextView
-                    android:id="@+id/category_title_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:paddingTop="2dp"
-                    android:text="精选视频"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:fontType="@string/condensed_bold_font" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/category_detail_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:nestedScrollingEnabled="false" />
-
-            </LinearLayout>
-
-        </android.support.v4.widget.NestedScrollView>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_marginTop="5dp" />
 
     </android.support.design.widget.CoordinatorLayout>
 
 </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-

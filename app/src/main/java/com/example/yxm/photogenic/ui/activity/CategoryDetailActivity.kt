@@ -58,6 +58,7 @@ class CategoryDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView 
     private lateinit var mCategoryName: FontTextView
     private lateinit var mCategoryTitle: TextView
     private lateinit var mRefreshLayout: SmartRefreshLayout
+    private var loadMore = false
 
     override fun getLayoutId(): Int {
         return R.layout.activity_category_details
@@ -82,6 +83,7 @@ class CategoryDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView 
             layoutManager = LinearLayoutManager(mContext)
             adapter = mAdapter
         }
+
         mAdapter.setFooterView(FooterView(mContext))
     }
 
@@ -98,15 +100,18 @@ class CategoryDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView 
             finish()
         }
 
-        //解决recyclerview和nestscrollview滑动冲突，
-        //首先给recyclerview设置isNestedScrollingEnabled = false,将滑动时将交给nestscrollview去处理
-        //再监听nestscrollview的滑动事件去加载更多
-        nested_scroll_view.setOnScrollChangeListener { nestedScrollView: NestedScrollView, _: Int, scrollY: Int, _: Int, _: Int ->
-            //判断是否滑到底部
-            if (scrollY == (nestedScrollView.getChildAt(0).measuredHeight - nestedScrollView.measuredHeight)) {
-                mCategoryDetailPresenter.loadMoreVideo()
+        mCategoryDetailRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val manager = mCategoryDetailRv.layoutManager as LinearLayoutManager
+                val itemCount = mCategoryDetailRv.layoutManager!!.itemCount
+                val lastVisibleItem = (manager).findLastVisibleItemPosition()
+                if (!loadMore && (lastVisibleItem == (itemCount - 1))) {
+                    loadMore = true
+                    mCategoryDetailPresenter.loadMoreVideo()
+                }
             }
-        }
+        })
 
         //appbar滑动状态监听
         mAppbar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
@@ -177,6 +182,7 @@ class CategoryDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView 
     }
 
     override fun loadMoreVideo(data: ArrayList<CategoryDetailBean.FollowCardBean>) {
+        loadMore = false
         mAdapter.addData(data)
     }
 
