@@ -111,7 +111,9 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
             adapter = mAdapter
         }
 
-        mAdapter.setFooterView(FooterView(mContext))
+        mAdapter.setFooterView(FooterView(mContext).apply {
+            setFooterColor(R.color.white)
+        })
         initVideoPlayer()
     }
 
