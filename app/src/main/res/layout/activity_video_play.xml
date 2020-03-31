@@ -18,144 +18,154 @@
         android:background="@drawable/recommend_bg_unlike"
         android:fillViewport="true">
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#60000000">
+            android:background="#60000000"
+            android:orientation="vertical">
+
+            <com.example.yxm.photogenic.font.FontTextView
+                android:id="@+id/video_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:padding="2dp"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:fontType="@string/condensed_bold_font" />
+
+            <TextView
+                android:id="@+id/video_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/video_title"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/video_introduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/video_category"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:maxEms="100"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/under_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/video_introduce"
+                android:layout_marginTop="5dp"
+                android:background="@color/transparent" />
 
             <LinearLayout
+                android:id="@+id/video_author_info_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/under_line"
+                android:orientation="horizontal">
 
-                <com.example.yxm.photogenic.font.FontTextView
-                    android:id="@+id/video_title"
-                    android:layout_width="wrap_content"
+                <FrameLayout
+                    android:id="@+id/video_author_avatar_layout"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:padding="2dp"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:fontType="@string/condensed_bold_font" />
+                    android:layout_weight="1"
+                    android:padding="3dp">
 
-                <TextView
-                    android:id="@+id/video_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/video_author_avatar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/recommend_share_icon" />
 
-                <TextView
-                    android:id="@+id/video_introduce"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:ellipsize="end"
-                    android:maxEms="100"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="bottom|end"
+                        android:src="@drawable/author_icon" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/transparent" />
+                </FrameLayout>
 
                 <LinearLayout
-                    android:id="@+id/video_author_info_layout"
-                    android:layout_width="match_parent"
+                    android:id="@+id/video_description_layout"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="7"
+                    android:orientation="vertical">
 
-                    <FrameLayout
-                        android:id="@+id/video_author_avatar_layout"
+                    <com.example.yxm.photogenic.font.FontTextView
+                        android:id="@+id/video_author_title"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp">
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/video_author_avatar"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/recommend_share_icon" />
-
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:layout_gravity="bottom|end"
-                            android:src="@drawable/author_icon" />
-
-                    </FrameLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:orientation="vertical">
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:maxEms="20"
+                        android:padding="2dp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:fontType="@string/condensed_bold_font" />
 
-                        <com.example.yxm.photogenic.font.FontTextView
-                            android:id="@+id/video_author_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:ellipsize="end"
-                            android:maxEms="20"
-                            android:padding="2dp"
-                            android:text=""
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            app:fontType="@string/condensed_bold_font" />
-
-                        <TextView
-                            android:id="@+id/video_description"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:padding="2dp"
-                            android:text=""
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/video_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:padding="2dp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#fafafa" />
-
-                <com.example.yxm.photogenic.font.FontTextView
-                    android:id="@+id/hot_category_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:text="相关推荐"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    app:fontType="@string/condensed_bold_font" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/relative_video_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp" />
-
             </LinearLayout>
-        </FrameLayout>
+
+
+            <View
+                android:id="@+id/under_line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/video_author_info_layout"
+                android:layout_marginTop="10dp"
+                android:background="#fafafa" />
+
+            <com.example.yxm.photogenic.font.FontTextView
+                android:id="@+id/hot_category_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/under_line2"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="相关推荐"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:fontType="@string/condensed_bold_font" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/relative_video_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hot_category_tv"
+                android:layout_marginTop="5dp" />
+
+        </RelativeLayout>
+
     </android.support.v4.widget.NestedScrollView>
 
 </RelativeLayout>
