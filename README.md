@@ -23,7 +23,7 @@
 
 ### License
 
-Copyright (c) 2020 RobinYxm(尹之恒)
+Copyright (c) 2020 RobinYxm
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
