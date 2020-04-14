@@ -16,6 +16,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        tools:ignore="LockedOrientationActivity"
         tools:replace="android:name">
 
         <activity
@@ -74,8 +75,9 @@
             android:name=".module.webview.WebViewActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.activity.FeedBackActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.FeedBackActivity"
+            android:screenOrientation="portrait" />
 
         <!--适配全面屏-->
         <meta-data
