@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BIND_JOB_SERVICE"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name=".application.MyApplication"
@@ -78,6 +80,8 @@
         <activity
             android:name=".ui.activity.FeedBackActivity"
             android:screenOrientation="portrait" />
+
+        <service android:name="com.yxm.lib_pullalive.AliveJobService"/>
 
         <!--适配全面屏-->
         <meta-data

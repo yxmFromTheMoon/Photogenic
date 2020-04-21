@@ -15,7 +15,7 @@ class MyApplication: MobApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        //AliveJobService.start(this)
+        AliveJobService.start(this)
     }
 
     companion object {

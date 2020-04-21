@@ -81,7 +81,7 @@ class AliveJobService: JobService() {
 
     companion object{
         fun start(context: Context){
-            context.startActivity(Intent(context,AliveJobService::class.java))
+            context.startService(Intent(context,AliveJobService::class.java))
         }
     }
 }
