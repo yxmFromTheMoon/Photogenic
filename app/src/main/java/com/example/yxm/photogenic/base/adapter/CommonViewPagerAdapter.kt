@@ -14,7 +14,7 @@ class CommonViewPagerAdapter(fragmentManager: FragmentManager,titles:Array<Strin
     //添加fragment
     fun addFragment(fragment: Fragment) {
         mFragments.add(fragment)
-    }
+}
 
     override fun getItem(position: Int): Fragment {
         return mFragments[position]

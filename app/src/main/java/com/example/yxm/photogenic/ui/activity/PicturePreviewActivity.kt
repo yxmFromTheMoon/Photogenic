@@ -4,19 +4,24 @@ import android.support.v4.view.ViewPager
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.RelativeLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
-import com.example.yxm.photogenic.module.picturepreview.PicturePagerAdapter
+import com.example.yxm.photogenic.base.BaseFragment
+import com.example.yxm.photogenic.event.ToggleUiEvent
+import com.example.yxm.photogenic.module.picturepreview.PictureAdapter
 import com.example.yxm.photogenic.module.picturepreview.PicturePreviewContract
 import com.example.yxm.photogenic.module.picturepreview.PicturePreviewPresenter
+import com.example.yxm.photogenic.ui.fragment.PictureFragment
 import com.example.yxm.photogenic.utils.ScreenHelper
 import com.example.yxm.photogenic.utils.ScreenHelper.scaleImage
-import com.example.yxm.photogenic.widget.SavePictureSheetDialog
 import com.gyf.immersionbar.ktx.immersionBar
 import kotlinx.android.synthetic.main.activity_preview_picture.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by yxm on 2020/3/1
@@ -36,7 +41,7 @@ class PicturePreviewActivity : BaseActivity(), PicturePreviewContract.IPictureVi
 
     private lateinit var urls: ArrayList<String>
 
-    private var mPagerAdapter: PicturePagerAdapter? = null
+    private var mPictureAdapter: PictureAdapter? = null
 
     private val mPresenter: PicturePreviewPresenter by lazy {
         PicturePreviewPresenter()
@@ -72,17 +77,22 @@ class PicturePreviewActivity : BaseActivity(), PicturePreviewContract.IPictureVi
     }
 
     override fun initView() {
+        EventBus.getDefault().register(this)
         mCloseIv = close_iv
         mShareIv = picture_share_iv
         mPictureIndex = picture_index
         mViewPager = picture_vp
-        mPagerAdapter = PicturePagerAdapter(urls)
+        val fragments = ArrayList<BaseFragment>()
+        urls.forEach {
+            fragments.add(PictureFragment.newInstance(it))
+        }
+        mPictureAdapter = PictureAdapter(supportFragmentManager, fragments)
 
         mViewPager.apply {
-            adapter = mPagerAdapter
+            adapter = mPictureAdapter
             offscreenPageLimit = urls.size
             currentItem = 0
-            layoutParams = scaleImage(this.layoutParams as RelativeLayout.LayoutParams, pictureWidth, pictureHeight)
+            layoutParams = scaleImage(this.layoutParams as LinearLayout.LayoutParams, pictureWidth, pictureHeight)
         }
         if (urls.size == 1) {
             mPictureIndex.visibility = View.INVISIBLE
@@ -112,26 +122,6 @@ class PicturePreviewActivity : BaseActivity(), PicturePreviewContract.IPictureVi
         picture_layout.setOnClickListener {
             toggleUi()
         }
-        mPagerAdapter?.setOnPhotoViewClickListener(object : PicturePagerAdapter.OnPhotoViewClickListener {
-            override fun onImageViewClick() {
-                toggleUi()
-            }
-
-            override fun onSlideDown() {
-                this@PicturePreviewActivity.finish()
-            }
-
-            override fun onImageViewLongClick() {
-                val disposable = rxPermission.request("android.permission.WRITE_EXTERNAL_STORAGE")
-                        .subscribe {
-                            if (it) {
-                                SavePictureSheetDialog(mContext, urls[currentPosition])
-                                        .show()
-                            }
-                        }
-                disposable.dispose()
-            }
-        })
     }
 
     override fun initData() {}
@@ -154,6 +144,11 @@ class PicturePreviewActivity : BaseActivity(), PicturePreviewContract.IPictureVi
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun toggleUI(event: ToggleUiEvent) {
+        toggleUi()
+    }
+
     override fun showError(msg: String) {}
     override fun showLoading() {}
     override fun dismissLoading() {}
@@ -161,6 +156,7 @@ class PicturePreviewActivity : BaseActivity(), PicturePreviewContract.IPictureVi
 
     override fun onDestroy() {
         super.onDestroy()
+        EventBus.getDefault().unregister(this)
         mPresenter.detachView()
     }
 

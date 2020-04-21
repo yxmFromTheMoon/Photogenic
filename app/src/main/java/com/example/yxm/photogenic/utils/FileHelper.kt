@@ -1,10 +1,13 @@
 package com.example.yxm.photogenic.utils
 
+import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
+import android.provider.MediaStore
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -55,6 +58,37 @@ object FileHelper {
         })
         Toast.makeText(mContext, "保存成功", Toast.LENGTH_SHORT).show()
     }
+
+    /**
+     * 适配Android10作用域存储,需将targetSDK指定为29及以上，本项目暂时未升级到29
+     * 后续升级到29后只需用此方法替换上面方法即可
+     *
+     * @param bitmap
+     */
+//    private fun addBitmapToAlbum(bitmap: Bitmap) {
+//        val contentValues = ContentValues()
+//        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, System.currentTimeMillis().toString() + ".jpg")
+//        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//            contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+//        } else {
+//            contentValues.put(MediaStore.MediaColumns.DATA, Environment.getExternalStorageDirectory().path + "/" + Environment.DIRECTORY_PICTURES + "/" + System.currentTimeMillis() + ".jpg")
+//        }
+//        val uri = mContext.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+//        if (uri != null) {
+//            try {
+//                mContext.contentResolver.openOutputStream(uri).use { outputStream ->
+//                    if (outputStream != null) {
+//                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+//                        outputStream.close()
+//                    }
+//                }
+//            } catch (e: IOException) {
+//                e.printStackTrace()
+//            }
+//        }
+//        Toast.makeText(mContext, "保存成功", Toast.LENGTH_SHORT).show()
+//    }
 
     /**
      * 使用glide下载图片并保存到本地图库
