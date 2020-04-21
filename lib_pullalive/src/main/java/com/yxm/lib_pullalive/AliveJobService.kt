@@ -58,16 +58,16 @@ class AliveJobService: JobService() {
         val builder = JobInfo.Builder(startId,
                 ComponentName(packageName,AliveJobService::class.java.name))
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-            builder.setMinimumLatency(JobInfo.DEFAULT_INITIAL_BACKOFF_MILLIS)
-                    .setOverrideDeadline(JobInfo.DEFAULT_INITIAL_BACKOFF_MILLIS)
+            builder.setMinimumLatency(JobInfo.DEFAULT_INITIAL_BACKOFF_MILLIS)//执行后台任务的最小延迟时间
+                    .setOverrideDeadline(JobInfo.DEFAULT_INITIAL_BACKOFF_MILLIS)//执行的最长延时时间
                     .setBackoffCriteria(JobInfo.DEFAULT_INITIAL_BACKOFF_MILLIS
-                    ,JobInfo.BACKOFF_POLICY_LINEAR)
+                    ,JobInfo.BACKOFF_POLICY_LINEAR) //线性重试方案
         }else{
             builder.setPeriodic(JobInfo.DEFAULT_INITIAL_BACKOFF_MILLIS)
         }
-        builder.setPersisted(false)//是否持久化
-                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_NONE)
-                .setRequiresCharging(false)
+        builder.setPersisted(false)// 设置设备重启时，执行该任务
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_NONE)//任何网络下都执行该任务
+                .setRequiresCharging(true)  // 当插入充电器，执行该任务
         return builder.build()
     }
     override fun onStopJob(params: JobParameters?): Boolean {
