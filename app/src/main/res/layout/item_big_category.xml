@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     app:cardCornerRadius="3dp"
-    android:elevation="0dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
@@ -13,7 +12,7 @@
         android:layout_height="match_parent"
         android:padding="3dp"
         android:scaleType="fitXY"
-        android:src="@mipmap/test" />
+        android:src="@mipmap/blackholder" />
 
     <com.example.yxm.photogenic.font.FontTextView
         android:id="@+id/category_name"

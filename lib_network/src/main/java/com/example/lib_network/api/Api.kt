@@ -15,12 +15,10 @@ import retrofit2.http.Url
 interface Api {
 
     //获取分类
-    @Headers("domain:kaiyan")
     @GET("v4/categories")
     fun getCategories(): Observable<ArrayList<CategoriesBean>>
 
     //获取排行
-    @Headers("domain:kaiyan")
     @GET("v4/rankList/videos")
     fun getRanks(@Query("strategy")strategy: String): Observable<CommonVideoBean>
 
@@ -30,7 +28,6 @@ interface Api {
      * @num 搜索的个数
      * @query 搜索的关键词
      */
-    @Headers("domain:kaiyan")
     @GET("v1/search?&start=1&num=10")
     fun getSearchInfo(@Query("query")query: String): Observable<CommonVideoBean>
 
@@ -39,7 +36,6 @@ interface Api {
      * @param url nextPageUrl
      */
     @GET
-    @Headers("domain:kaiyan")
     fun getMoreVideoData(@Url url: String): Observable<CommonVideoBean>
 
 
@@ -73,7 +69,6 @@ interface Api {
     /**
      * 热门搜索词
      */
-    @Headers("domain:kaiyan")
     @GET("v3/queries/hot")
     fun getHotWords(): Observable<ArrayList<String>>
 
@@ -105,7 +100,6 @@ interface Api {
     /**
      * 发现
      */
-    @Headers("domain:kaiyan")
     @GET("v5/index/tab/discovery")
     fun getDiscovery(): Observable<ResponseBody>
 
@@ -113,7 +107,6 @@ interface Api {
      * 根据item id获取相关推荐视频
      * id从视频分类推荐接口中获取
      */
-    @Headers("domain:kaiyan")
     @GET("v4/video/related?")
     fun getRelatedVideoData(@Query("id") id: Long): Observable<CommonVideoBean>
 

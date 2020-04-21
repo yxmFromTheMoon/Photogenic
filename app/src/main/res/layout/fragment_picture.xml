@@ -9,6 +9,6 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:scaleType="fitXY"
-        android:src="@mipmap/test" />
+        android:src="@mipmap/blackholder" />
 
 </RelativeLayout>

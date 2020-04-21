@@ -1,5 +1,6 @@
 package com.example.yxm.photogenic.module.categorydetails
 
+import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager

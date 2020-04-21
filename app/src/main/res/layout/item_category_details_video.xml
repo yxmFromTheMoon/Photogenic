@@ -9,7 +9,7 @@
         android:id="@+id/video_author_avatar"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@mipmap/test"
+        android:src="@mipmap/blackholder"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.example.yxm.photogenic.font.FontTextView
@@ -84,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@mipmap/test" />
+            android:src="@mipmap/blackholder" />
 
         <TextView
             android:id="@+id/video_duration"

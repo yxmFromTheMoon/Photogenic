@@ -39,7 +39,7 @@ object ImageLoaderManager {
      * @param resourceId
      */
     fun displayImageForView(imageView: ImageView, resourceId: Int) {
-        Glide.with(imageView.context)
+        GlideApp.with(imageView.context)
                 .load(resourceId)
                 .into(imageView)
     }
@@ -50,10 +50,8 @@ object ImageLoaderManager {
      * @param url
      */
     fun displayImageForView(imageView: ImageView, url: String) {
-        Glide.with(imageView.context)
+        GlideApp.with(imageView.context)
                 .load(url)
-                .apply(initCommonRequestOptions())
-                .transition(DrawableTransitionOptions().crossFade())
                 .into(imageView)
     }
 
@@ -64,12 +62,10 @@ object ImageLoaderManager {
      * @param url
      */
     fun displayImageForCircle(imageView: ImageView, url: String) {
-        Glide.with(imageView.context)
+        GlideApp.with(imageView.context)
                 .asBitmap()
                 .centerCrop()
                 .load(url)
-                .apply(initCommonRequestOptions())
-                .transition(BitmapTransitionOptions.withCrossFade())
                 .into(object : BitmapImageViewTarget(imageView) {
                     override fun setResource(resource: Bitmap?) {
                         val drawable = RoundedBitmapDrawableFactory.create(imageView.resources, resource)
@@ -86,11 +82,9 @@ object ImageLoaderManager {
      * @param url
      */
     fun displayImageForViewGroup(viewGroup: ViewGroup, url: String) {
-        Glide.with(viewGroup.context)
+        GlideApp.with(viewGroup.context)
                 .asBitmap()
                 .load(url)
-                .apply(initCommonRequestOptions())
-                .transition(BitmapTransitionOptions.withCrossFade())
                 .into(object : SimpleTarget<Bitmap>() {
                     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                         val disposable = Observable.just(resource)
@@ -107,18 +101,6 @@ object ImageLoaderManager {
     }
 
     /**
-     * init Options
-     * @return options
-     */
-    private fun initCommonRequestOptions(): RequestOptions {
-        val options = RequestOptions()
-        options.placeholder(R.mipmap.test)
-                .error(R.mipmap.test)
-                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-        return options
-    }
-
-    /**
      * 自定义placeholder加载
      */
     fun displayImageWithPlaceholder(any: Any, imageView: ImageView?, @DrawableRes placeholder: Int) {
@@ -127,7 +109,12 @@ object ImageLoaderManager {
             if (!Utils.isNetworkConnected(imageView.context)) {
                 target = ContextCompat.getDrawable(imageView.context, placeholder) as Drawable
             }
-            Glide.with(imageView).load(target).apply(RequestOptions().placeholder(placeholder)).into(imageView)
+            GlideApp.with(imageView)
+                    .load(target)
+                    .apply(RequestOptions()
+                            .placeholder(placeholder)
+                            .error(placeholder))
+                    .into(imageView)
         }
     }
 
@@ -135,13 +122,10 @@ object ImageLoaderManager {
      * 加载指定宽高的图片
      */
     fun displayImageOverrideWidthAndHeight(imageView: ImageView, url: String, width: Int, height: Int) {
-        Glide.with(imageView.context)
+        GlideApp.with(imageView.context)
                 .load(url)
                 .apply(RequestOptions()
-                        .placeholder(R.mipmap.test)
-                        .error(R.mipmap.test)
                         .override(width, height))
-                .transition(DrawableTransitionOptions().crossFade())
                 .into(imageView)
     }
 
@@ -153,10 +137,10 @@ object ImageLoaderManager {
         try {
             if (Looper.myLooper() == Looper.getMainLooper()) {
                 Thread(Runnable {
-                    Glide.get(context).clearDiskCache()
+                    GlideApp.get(context).clearDiskCache()
                 }).start()
             } else {
-                Glide.get(context).clearDiskCache()
+                GlideApp.get(context).clearDiskCache()
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -169,7 +153,7 @@ object ImageLoaderManager {
      */
     private fun clearMemoryCache(context: Context) {
         if (Looper.myLooper() == Looper.getMainLooper()) {
-            Glide.get(context).clearMemory()
+            GlideApp.get(context).clearMemory()
         }
     }
 
@@ -207,6 +191,6 @@ object ImageLoaderManager {
         clearMemoryCache(context)
         clearDiskCache(context)
         val imageCacheDir = "${context.externalCacheDir}${ExternalPreferredCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR}"
-        deleteFolderFile(imageCacheDir,true)
+        deleteFolderFile(imageCacheDir, true)
     }
 }

@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin:'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.android.compileSdkVersion
@@ -27,7 +28,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation rootProject.dependLibs.appcompt
-    api rootProject.dependLibs.glide
+    implementation rootProject.dependLibs.glide
+    kapt rootProject.dependLibs.glidecompiler
     implementation rootProject.dependLibs.rxjava2
     implementation rootProject.dependLibs.rxandroid
     testImplementation 'junit:junit:4.12'
