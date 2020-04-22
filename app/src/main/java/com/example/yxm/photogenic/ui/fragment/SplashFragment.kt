@@ -80,7 +80,7 @@ class SplashFragment: BaseImmersionFragment(),Observer<Long> {
     override fun initView(view: View) {
         splashImageView = splash_iv
         skipBtn = splash_skip
-        ImageLoaderManager.displayImageWithPlaceholder(Utils.getFullPic(),splashImageView,R.drawable.pic_all)
+        ImageLoaderManager.displayImageForView(splashImageView,R.mipmap.splash)
     }
 
     @SuppressLint("SetTextI18n")
