@@ -5,7 +5,7 @@
     </item>
 
     <item>
-        <bitmap android:src="@drawable/pic_all"
+        <bitmap android:src="@mipmap/splash"
             android:gravity="fill"
             android:scaleType="fitXY"
             android:tileMode="disabled"/>
