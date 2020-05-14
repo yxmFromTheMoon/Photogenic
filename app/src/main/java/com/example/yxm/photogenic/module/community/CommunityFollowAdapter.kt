@@ -2,12 +2,12 @@ package com.example.yxm.photogenic.module.community
 
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.CommonVideoBean
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.utils.TimeHelper
-import de.hdodenhof.circleimageview.CircleImageView
+import com.example.yxm.photogenic.widget.CircleImageView
 
 /**
  *Created by yxm on 2020/2/22
@@ -15,8 +15,8 @@ import de.hdodenhof.circleimageview.CircleImageView
  */
 class CommunityFollowAdapter : BaseQuickAdapter<CommonVideoBean.ResultBean, BaseViewHolder>(R.layout.item_category_details_video) {
 
-    override fun convert(helper: BaseViewHolder, item: CommonVideoBean.ResultBean) {
-        with(helper) {
+    override fun convert(holder: BaseViewHolder, item: CommonVideoBean.ResultBean) {
+        with(holder) {
             setGone(R.id.tags_rv, false)
             Glide.with(getView(R.id.video_author_avatar) as CircleImageView)
                     .load(item.data.author?.icon ?: "")
@@ -32,7 +32,7 @@ class CommunityFollowAdapter : BaseQuickAdapter<CommonVideoBean.ResultBean, Base
             setText(R.id.video_like, "${item.data.consumption.realCollectionCount}")
             setText(R.id.video_comment, "${item.data.consumption.replyCount}")
             setText(R.id.video_collect, "${item.data.consumption.collectionCount}")
-            addOnClickListener(R.id.video_share_iv)
+            addChildClickViewIds(R.id.video_share_iv)
         }
     }
 }

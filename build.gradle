@@ -8,9 +8,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath 'com.android.tools.build:gradle:3.6.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+        classpath 'com.didichuxing.doraemonkit:doraemonkit-plugin:3.1.5'
         classpath 'com.mob.sdk:MobSDK:2018.0319.1724'
 
         // NOTE: Do not place your application dependencies here; they belong

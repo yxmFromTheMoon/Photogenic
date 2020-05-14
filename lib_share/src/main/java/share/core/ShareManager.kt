@@ -1,4 +1,4 @@
-package com.example.lib_share.share
+package share.core
 
 import android.content.Context
 import cn.sharesdk.framework.Platform
@@ -9,6 +9,7 @@ import cn.sharesdk.tencent.qq.QQ
 import cn.sharesdk.tencent.qzone.QZone
 import cn.sharesdk.wechat.friends.Wechat
 import cn.sharesdk.wechat.moments.WechatMoments
+import com.example.lib_share.share.ShareData
 import share.adapter.ShareType
 
 
@@ -28,11 +29,11 @@ object ShareManager {
      */
     fun shareData(shareData: ShareData, listener: PlatformActionListener) {
         when (shareData.mPlatformType) {
-            ShareManager.PlatofrmType.QQ -> mCurrentPlatform = ShareSDK.getPlatform(QQ.NAME)
-            ShareManager.PlatofrmType.QZone -> mCurrentPlatform = ShareSDK.getPlatform(QZone.NAME)
-            ShareManager.PlatofrmType.WeChat -> mCurrentPlatform = ShareSDK.getPlatform(Wechat.NAME)
-            ShareManager.PlatofrmType.WechatMoments -> mCurrentPlatform = ShareSDK.getPlatform(WechatMoments.NAME)
-            ShareManager.PlatofrmType.WeiBo -> mCurrentPlatform = ShareSDK.getPlatform(SinaWeibo.NAME)
+            PlatofrmType.QQ -> mCurrentPlatform = ShareSDK.getPlatform(QQ.NAME)
+            PlatofrmType.QZone -> mCurrentPlatform = ShareSDK.getPlatform(QZone.NAME)
+            PlatofrmType.WeChat -> mCurrentPlatform = ShareSDK.getPlatform(Wechat.NAME)
+            PlatofrmType.WechatMoments -> mCurrentPlatform = ShareSDK.getPlatform(WechatMoments.NAME)
+            PlatofrmType.WeiBo -> mCurrentPlatform = ShareSDK.getPlatform(SinaWeibo.NAME)
             else -> {
             }
         }

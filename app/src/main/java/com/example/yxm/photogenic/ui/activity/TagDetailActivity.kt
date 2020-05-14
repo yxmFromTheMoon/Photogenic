@@ -2,21 +2,18 @@ package com.example.yxm.photogenic.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.v4.widget.NestedScrollView
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.CategoryDetailBean
 import com.example.lib_network.bean.CommonVideoBean
 import com.example.lib_network.bean.HomeBean
-import com.example.lib_share.share.ShareManager
+import share.core.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.font.FontTextView
@@ -25,6 +22,8 @@ import com.example.yxm.photogenic.module.categorydetails.TagDetailPresenter
 import com.example.yxm.photogenic.module.categorydetails.TagVideoAdapter
 import com.example.yxm.photogenic.utils.AppBarStateChangeListener
 import com.example.yxm.photogenic.widget.FooterView
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.gyf.immersionbar.ktx.immersionBar
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -73,7 +72,6 @@ class TagDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView {
     override fun initView() {
         mToolbar = tool_bar
         mAppbar = app_bar
-        //mHintTv = category_title_tv
         mToolBarTitle = toolbar_title
         setSupportActionBar(mToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -159,7 +157,7 @@ class TagDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView {
         }
 
         //点击跳转播放
-        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
+        mAdapter.setOnItemClickListener { adapter, _, position ->
             val bean = adapter.getItem(position) as CategoryDetailBean.FollowCardBean
             startActivity(Intent(mContext, VideoPlayActivity::class.java).apply {
                 val bundle = Bundle()
@@ -171,7 +169,7 @@ class TagDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView {
         }
 
         //分享
-        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+        mAdapter.setOnItemChildClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as HomeBean.Issue
             if (view.id == R.id.video_share_iv) {
                 ShareManager.shareWebPage(mContext,

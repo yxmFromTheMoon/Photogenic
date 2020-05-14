@@ -2,9 +2,9 @@ package com.example.yxm.photogenic.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_network.bean.CategoriesBean
 import com.example.lib_network.bean.CommonVideoBean
@@ -77,7 +77,7 @@ class AllCategoriesActivity: BaseActivity(),DiscoveryContract.IDiscoveryView {
             mPresenter.getCategoryData()
         }
 
-        mCategoryAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
+        mCategoryAdapter.setOnItemClickListener { adapter, _, position ->
             val categoryBean = adapter.getItem(position) as Serializable
             startActivity(Intent(mContext,CategoryDetailActivity::class.java).apply {
                 val bundle = Bundle()

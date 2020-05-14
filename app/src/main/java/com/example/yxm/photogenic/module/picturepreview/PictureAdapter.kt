@@ -1,8 +1,9 @@
 package com.example.yxm.photogenic.module.picturepreview
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.adapter.FragmentViewHolder
 import com.example.yxm.photogenic.base.BaseFragment
 
 /**
@@ -10,15 +11,15 @@ import com.example.yxm.photogenic.base.BaseFragment
  * 2020/4/21 13:51
  * @function 查看图片adapter
  */
-class PictureAdapter(fm: FragmentManager, fragments: ArrayList<BaseFragment>) : FragmentStatePagerAdapter(fm) {
+class PictureAdapter(context: FragmentActivity, fragments: ArrayList<BaseFragment>) : FragmentStateAdapter(context) {
 
     private val mFragments = fragments
 
-    override fun getItem(p0: Int): Fragment {
-        return mFragments[p0]
+    override fun getItemCount(): Int {
+        return mFragments.size
     }
 
-    override fun getCount(): Int {
-        return mFragments.size
+    override fun createFragment(position: Int): Fragment {
+        return mFragments[position]
     }
 }

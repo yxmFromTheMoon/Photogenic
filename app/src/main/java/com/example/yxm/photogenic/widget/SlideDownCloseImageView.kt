@@ -2,12 +2,13 @@ package com.example.yxm.photogenic.widget
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
+import androidx.appcompat.widget.AppCompatImageView
 import com.example.yxm.photogenic.utils.ScreenHelper
+import kotlin.math.abs
 
 /**
  *Created by yxm on 2020/3/3
@@ -16,7 +17,8 @@ import com.example.yxm.photogenic.utils.ScreenHelper
 class SlideDownCloseImageView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyle: Int = 0) :
         AppCompatImageView(context, attributeSet, defStyle), GestureDetector.OnGestureListener {
 
-    var mListener: OnSlideOverListener? = null
+    private var mListener: OnSlideOverListener? = null
+
     private val detector: GestureDetector by lazy {
         GestureDetector(context, this)
     }
@@ -46,7 +48,7 @@ class SlideDownCloseImageView @JvmOverloads constructor(context: Context, attrib
                 isFinish = false
                 val movX = event.rawX - oldX
                 movY = event.rawY - oldY
-                if (Math.abs(movX) > Math.abs(movY)) {
+                if (abs(movX) > abs(movY)) {
                     if (movX < 0) {
                         Log.e("ldd------", "左滑动")
                     } else {
@@ -56,7 +58,7 @@ class SlideDownCloseImageView @JvmOverloads constructor(context: Context, attrib
                     if (movY < 0) {
                         Log.e("ldd------", "上滑动")
                     } else {
-                        if (movY > screenHeight / 6) {
+                        if (movY > screenHeight / 10) {
                             isFinish = true
                             Log.e("ldd------", "下滑动")
                         }
@@ -83,7 +85,7 @@ class SlideDownCloseImageView @JvmOverloads constructor(context: Context, attrib
     override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
         val movX = e2.rawX - e1.rawX
         val movY = e2.rawY - e1.rawY
-        if (Math.abs(movX) > Math.abs(movY)) {
+        if (abs(movX) > abs(movY)) {
             if (movX < 0) {
                 Log.e("ldd------2", "左滑动")
             } else {

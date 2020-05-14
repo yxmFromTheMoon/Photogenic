@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.mob.sdk'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.didi.dokit'
 
 android {
     compileSdkVersion this.rootProject.android.compileSdkVersion
@@ -12,13 +13,14 @@ android {
         versionCode this.rootProject.android.versionCode
         versionName this.rootProject.android.versionName
         multiDexEnabled this.rootProject.android.multiDexEnabled
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         ndk {
             //APP的build.gradle设置支持的SO库架构
             abiFilters 'armeabi', 'armeabi-v7a', 'x86'
         }
     }
+    buildToolsVersion rootProject.android.buildToolsVersion
 
     signingConfigs {
         config {
@@ -40,6 +42,7 @@ android {
         debug {
             minifyEnabled false
             debuggable true
+            applicationIdSuffix '.debug'
             signingConfig signingConfigs.config
         }
     }
@@ -72,6 +75,7 @@ dependencies {
     implementation project(':lib_pullalive')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation "androidx.viewpager2:viewpager2:1.1.0-alpha01"
 
     //support
     implementation rootProject.dependLibs.appcompt
@@ -108,9 +112,9 @@ dependencies {
     implementation rootProject.dependLibs.classicsfooter
 
     //videoPlayer
-    implementation (rootProject.dependLibs.gsyVideoPlayer) {
-        exclude module: 'support-v4'
-        exclude group: 'com.android.support'
-    }
+    implementation (rootProject.dependLibs.gsyVideoPlayer)
+
+    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:3.1.5'
+    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:3.1.5'
 
 }

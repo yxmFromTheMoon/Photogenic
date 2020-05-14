@@ -2,10 +2,10 @@ package com.example.yxm.photogenic.base
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.tbruyelle.rxpermissions2.RxPermissions
 import es.dmoral.toasty.Toasty
 
@@ -18,16 +18,11 @@ abstract class BaseFragment: Fragment() {
     protected val rxPermission: RxPermissions by lazy {
         RxPermissions(this)
     }
-
     protected lateinit var mContext: Context
     /**
-     * 视图是否加载完毕
+     * 是否第一次加载数据
      */
-    private var isViewPrepare = false
-    /**
-     * 数据是否加载过了
-     */
-    private var hasLoadData = false
+    private var isFirstLoad = true
     /**
      * 布局ID
      */
@@ -51,26 +46,18 @@ abstract class BaseFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mContext = activity as Context
-        isViewPrepare = true
         initView(view)
         initListener()
-        lazyLoadDataIfPrepared()
-    }
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if(isVisibleToUser){
-            lazyLoadDataIfPrepared()
-        }
     }
 
     /**
-     * view准备完毕并且没有加载过数据
+     * androidx使用此方式便可实现懒加载
      */
-    private fun lazyLoadDataIfPrepared(){
-        if(userVisibleHint && isViewPrepare && !hasLoadData){
+    override fun onResume() {
+        super.onResume()
+        if(isFirstLoad){
             lazyLoad()
-            hasLoadData = true
+            isFirstLoad = false
         }
     }
 

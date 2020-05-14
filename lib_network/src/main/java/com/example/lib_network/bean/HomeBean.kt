@@ -12,15 +12,14 @@ data class HomeBean(val itemList: ArrayList<Issue>, val count: Int,
 
     data class Issue(val type: String, val data: Data, val tag: String?, val id: Int, val adIndex: Int): MultiItemEntity, Serializable{
 
-        override fun getItemType(): Int {
-            return when(type){
+        override val itemType: Int
+            get() = when(type){
                 "squareCardCollection" -> SQUARE_CARD
                 "textCard" -> TEXT_CARD
                 "followCard" -> FOLLOW_CARD
                 "videoSmallCard" -> VIDEO_CARD
                 else -> 0
             }
-        }
 
         companion object{
             const val SQUARE_CARD = 1

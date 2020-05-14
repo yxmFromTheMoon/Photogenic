@@ -1,6 +1,6 @@
 package com.example.yxm.photogenic.ui.activity
 
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.gyf.immersionbar.ktx.immersionBar

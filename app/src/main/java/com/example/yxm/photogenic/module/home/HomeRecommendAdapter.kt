@@ -2,16 +2,14 @@ package com.example.yxm.photogenic.module.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
-import com.chad.library.adapter.base.BaseQuickAdapter.OnItemChildClickListener
-import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.CategoryDetailBean
 import com.example.lib_network.bean.HomeBean
-import com.example.lib_share.share.ShareDialog
+import share.core.ShareDialog
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.ui.activity.CategoryDetailActivity
 import com.example.yxm.photogenic.ui.activity.VideoPlayActivity
@@ -31,21 +29,21 @@ class HomeRecommendAdapter(data: ArrayList<HomeBean.Issue>) : BaseMultiItemQuick
         addItemType(HomeBean.Issue.VIDEO_CARD, R.layout.item_small_video_bean)
     }
 
-    override fun convert(helper: BaseViewHolder, item: HomeBean.Issue) {
+    override fun convert(holder: BaseViewHolder, item: HomeBean.Issue) {
         //根据viewType渲染不同的item
-        with(helper) {
+        with(holder) {
             when (itemViewType) {
                 HomeBean.Issue.SQUARE_CARD -> {
-                    initSquareCard(helper, item)
+                    initSquareCard(holder, item)
                 }
                 HomeBean.Issue.TEXT_CARD -> {
-                    initTextCard(helper, item)
+                    initTextCard(holder, item)
                 }
                 HomeBean.Issue.FOLLOW_CARD -> {
-                    initFollowCard(helper, item)
+                    initFollowCard(holder, item)
                 }
                 HomeBean.Issue.VIDEO_CARD -> {
-                    initVideoCard(helper, item)
+                    initVideoCard(holder, item)
                 }
             }
         }
@@ -62,23 +60,23 @@ class HomeRecommendAdapter(data: ArrayList<HomeBean.Issue>) : BaseMultiItemQuick
                 layoutManager = LinearLayoutManager(context)
                 adapter = squareCardListAdapter
             }
-            squareCardListAdapter.onItemClickListener = OnItemClickListener { adapter, _, position ->
+            squareCardListAdapter.setOnItemClickListener{ adapter, _, position ->
                 val bean = adapter.getItem(position) as CategoryDetailBean.FollowCardBean
                 val bundle = Bundle().apply {
                     putSerializable("video", bean.data.content.data)
                     putLong("relativeVideoId", bean.data.content.data.id)
                     putInt("fromWhere", CategoryDetailActivity.CATEGORY_DETAIL)
                 }
-                mContext.startActivity(Intent(mContext, VideoPlayActivity::class.java).apply {
+                context.startActivity(Intent(context, VideoPlayActivity::class.java).apply {
                     putExtras(bundle)
                 })
             }
-            squareCardListAdapter.onItemChildClickListener = OnItemChildClickListener { adapter, view, position ->
+            squareCardListAdapter.setOnItemChildClickListener { adapter, view, position ->
                 val followBean = adapter.getItem(position) as CategoryDetailBean.FollowCardBean
                 when (view.id) {
                     //分享链接
                     R.id.video_share_iv -> {
-                        val dialog = ShareDialog(mContext)
+                        val dialog = ShareDialog(context)
                         dialog.apply {
                             mShareText = followBean.data.content.data.description
                             mShareTitle = followBean.data.content.data.title
@@ -89,7 +87,7 @@ class HomeRecommendAdapter(data: ArrayList<HomeBean.Issue>) : BaseMultiItemQuick
                     }
                 }
             }
-            squareCardListAdapter.setNewData(item.data.itemList)
+            squareCardListAdapter.setList(item.data.itemList)
         }
     }
 
@@ -113,7 +111,7 @@ class HomeRecommendAdapter(data: ArrayList<HomeBean.Issue>) : BaseMultiItemQuick
             setText(R.id.video_duration, TimeHelper.secToTime(item.data.content?.data?.duration
                     ?: 0))
             setText(R.id.video_secondary_title, "#${item.data.content?.data?.category}")
-            addOnClickListener(R.id.video_share_iv)
+            addChildClickViewIds(R.id.video_share_iv)
         }
     }
 
@@ -128,7 +126,7 @@ class HomeRecommendAdapter(data: ArrayList<HomeBean.Issue>) : BaseMultiItemQuick
             setText(R.id.video_duration, TimeHelper.secToTime(item.data.duration
                     ?: 0))
             setText(R.id.video_secondary_title, "#${item.data.category}")
-            addOnClickListener(R.id.video_share_iv)
+            addChildClickViewIds(R.id.video_share_iv)
         }
     }
 }

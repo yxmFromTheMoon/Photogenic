@@ -1,13 +1,13 @@
 package com.example.yxm.photogenic.base.adapter
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 
 /**
  *Created by yxm on 2020/2/14
  *@function 通用viewpager adapter
  */
-class CommonViewPagerAdapter(fragmentManager: FragmentManager,titles:Array<String>): BaseFragmentAdapter(fragmentManager,titles){
+class CommonViewPagerAdapter(fragmentManager: FragmentManager, titles:Array<String>): BaseFragmentAdapter(fragmentManager,titles){
 
     private val mFragments = ArrayList<Fragment>()
 

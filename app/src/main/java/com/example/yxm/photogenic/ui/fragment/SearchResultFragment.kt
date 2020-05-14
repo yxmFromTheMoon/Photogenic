@@ -2,14 +2,14 @@ package com.example.yxm.photogenic.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_network.bean.CommonVideoBean
-import com.example.lib_share.share.ShareManager
+import share.core.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.font.FontTextView
@@ -74,7 +74,7 @@ class SearchResultFragment : BaseFragment(), SearchResultContract.ISearchResultV
             }
         })
 
-        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
+        mAdapter.setOnItemClickListener { adapter, _, position ->
             val bean = adapter.getItem(position) as CommonVideoBean.ResultBean
             startActivity(Intent(mContext, VideoPlayActivity::class.java).apply {
                 val bundle = Bundle()
@@ -86,7 +86,7 @@ class SearchResultFragment : BaseFragment(), SearchResultContract.ISearchResultV
         }
 
         //分享
-        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+        mAdapter.setOnItemChildClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as CommonVideoBean.ResultBean
             if (view.id == R.id.video_share_iv) {
                 ShareManager.shareWebPage(mContext,

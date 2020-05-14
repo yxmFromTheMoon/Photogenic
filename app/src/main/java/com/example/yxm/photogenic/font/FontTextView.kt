@@ -2,8 +2,8 @@ package com.example.yxm.photogenic.font
 
 import android.content.Context
 import android.graphics.Typeface
-import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatTextView
 import com.example.yxm.photogenic.R
 
 /**

@@ -1,7 +1,7 @@
 package com.example.lib_share.share
 
 import cn.sharesdk.framework.Platform.ShareParams
-
+import share.core.ShareManager
 
 
 /**

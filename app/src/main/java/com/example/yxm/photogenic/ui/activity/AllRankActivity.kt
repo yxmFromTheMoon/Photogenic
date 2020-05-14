@@ -1,6 +1,6 @@
 package com.example.yxm.photogenic.ui.activity
 
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.base.adapter.CommonViewPagerAdapter

@@ -1,17 +1,14 @@
 package com.example.yxm.photogenic.module.categorydetails
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.widget.LinearLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.CategoryDetailBean
-import com.example.lib_network.bean.HomeBean
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.ui.activity.TagDetailActivity
 import com.example.yxm.photogenic.utils.TimeHelper
@@ -24,8 +21,8 @@ import java.io.Serializable
  */
 class TagVideoAdapter : BaseQuickAdapter<CategoryDetailBean.FollowCardBean, BaseViewHolder>(R.layout.item_category_details_video) {
 
-    override fun convert(helper: BaseViewHolder, item: CategoryDetailBean.FollowCardBean) {
-        with(helper) {
+    override fun convert(holder: BaseViewHolder, item: CategoryDetailBean.FollowCardBean) {
+        with(holder) {
             Glide.with(getView(R.id.video_author_avatar) as CircleImageView)
                     .load(item.data.header.icon)
                     .into(getView(R.id.video_author_avatar) as CircleImageView)
@@ -38,10 +35,10 @@ class TagVideoAdapter : BaseQuickAdapter<CategoryDetailBean.FollowCardBean, Base
              */
             val tagAdapter = TagAdapter()
             getView<RecyclerView>(R.id.tags_rv).apply {
-                layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
+                layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                 adapter = tagAdapter
             }
-            tagAdapter.onItemClickListener = OnItemClickListener { adapter, view, position ->
+            tagAdapter.setOnItemClickListener{ adapter, view, position ->
                 val tagBean = adapter.getItem(position)
                 view.context.startActivity(Intent(view.context, TagDetailActivity::class.java).apply {
                     val bundle = Bundle()
@@ -49,7 +46,7 @@ class TagVideoAdapter : BaseQuickAdapter<CategoryDetailBean.FollowCardBean, Base
                     putExtras(bundle)
                 })
             }
-            tagAdapter.setNewData(item.data.content.data.tags)
+            tagAdapter.setList(item.data.content.data.tags)
 
             ImageLoaderManager.displayImageForView(getView(R.id.video_picture), item.data.content.data.cover.feed
                     ?: "")
@@ -57,7 +54,7 @@ class TagVideoAdapter : BaseQuickAdapter<CategoryDetailBean.FollowCardBean, Base
             setText(R.id.video_like, "${item.data.content.data.consumption.realCollectionCount}")
             setText(R.id.video_comment, "${item.data.content.data.consumption.replyCount}")
             setText(R.id.video_collect, "${item.data.content.data.consumption.collectionCount}")
-            addOnClickListener(R.id.video_share_iv)
+            addChildClickViewIds(R.id.video_share_iv)
         }
     }
 }

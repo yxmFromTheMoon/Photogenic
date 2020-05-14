@@ -3,6 +3,7 @@ package com.example.lib_imageloader;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -11,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -228,6 +232,7 @@ public class Utils {
 
     /**
      * 获取window宽度和高度
+     *
      * @param window window
      * @return integer[]
      */
@@ -249,6 +254,7 @@ public class Utils {
 
     /**
      * 获取随机图片
+     *
      * @return string
      */
     public static String getPic() {
@@ -258,6 +264,7 @@ public class Utils {
 
     /**
      * 获取多张图片
+     *
      * @return list
      */
     public static ArrayList<String> getPics() {
@@ -265,7 +272,6 @@ public class Utils {
     }
 
     /**
-     *
      * @param num
      * @return list
      */
@@ -284,6 +290,7 @@ public class Utils {
 
     /**
      * 获取大图
+     *
      * @return
      */
     public static String getFullPic() {
@@ -293,6 +300,7 @@ public class Utils {
 
     /**
      * 网络是否可用
+     *
      * @param context
      * @return
      */
@@ -310,6 +318,7 @@ public class Utils {
 
     /**
      * dip转px
+     *
      * @param c
      * @param dpValue
      * @return
@@ -320,7 +329,20 @@ public class Utils {
     }
 
     /**
+     * px转dp
+     *
+     * @param c
+     * @param pxValue
+     * @return
+     */
+    public static int px2dp(Context c, float pxValue) {
+        final float scale = c.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
+    /**
      * 使view增加一个状态栏的高度
+     *
      * @param activity
      * @param view
      */
@@ -336,13 +358,28 @@ public class Utils {
 
     /**
      * 获取状态栏高度
+     *
      * @param activity
      * @return
      */
-    private static int getStatusBarHeight(Activity activity){
+    public static int getStatusBarHeight(Activity activity) {
         // 获得状态栏高度
         int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
         return activity.getResources().getDimensionPixelSize(resourceId);
+    }
+
+    /**
+     * 提前获取图片的宽高
+     *
+     * @param url
+     * @return
+     * @throws IOException
+     */
+    public static int[] getImageSizeAhead(String url) throws IOException {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(new URL(url).openStream(), null, options);
+        return new int[]{options.outWidth, options.outHeight};
     }
 
 }

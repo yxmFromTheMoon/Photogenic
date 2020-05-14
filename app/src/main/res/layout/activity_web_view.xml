@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/web_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:theme="@style/Base.ThemeOverlay.AppCompat.Dark">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/web_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -29,7 +29,7 @@
                 android:textColor="@color/black"
                 android:text="Photogenic"
                 android:textSize="18sp" />
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
         <ProgressBar
             android:id="@+id/web_progressBar"
@@ -39,7 +39,7 @@
             android:layout_gravity="center"
             android:paddingTop="0dp"
             android:visibility="visible" />
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <WebView
         android:id="@+id/web_view"

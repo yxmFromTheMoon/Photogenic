@@ -10,7 +10,7 @@
         android:layout_height="240dp"
         android:layout_centerHorizontal="true" />
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/video_detail_nested_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -86,7 +86,7 @@
                     android:layout_weight="1"
                     android:padding="3dp">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <com.example.yxm.photogenic.widget.CircleImageView
                         android:id="@+id/video_author_avatar"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
@@ -157,7 +157,7 @@
                 android:textSize="14sp"
                 app:fontType="@string/condensed_bold_font" />
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/relative_video_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -166,6 +166,6 @@
 
         </RelativeLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

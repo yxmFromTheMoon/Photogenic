@@ -1,25 +1,25 @@
 package com.example.yxm.photogenic.ui.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import com.bumptech.glide.Glide
 import com.example.lib_imageloader.ImageLoaderManager
-import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseImmersionFragment
 import com.example.yxm.photogenic.module.webview.WebViewActivity
 import com.example.yxm.photogenic.ui.activity.FeedBackActivity
 import com.example.yxm.photogenic.ui.activity.LoginActivity
 import com.example.yxm.photogenic.utils.PackageHelper
+import com.example.yxm.photogenic.widget.CircleImageView
 import com.gyf.immersionbar.ImmersionBar
 import com.shuyu.gsyvideoplayer.GSYVideoManager
-import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_mine.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import share.core.ShareManager
 
 /**
  * Created by yxm on 2020-1-14
@@ -70,6 +70,7 @@ class MineFragment : BaseImmersionFragment(), View.OnClickListener {
         mClearCache.setOnClickListener(this)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun lazyLoad() {
         mVersion.text = "Version ${PackageHelper.getAppVersion()}"
     }
@@ -127,7 +128,7 @@ class MineFragment : BaseImmersionFragment(), View.OnClickListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun userLogin(event: String) {
         isLogin = true
-        ImageLoaderManager.displayImageForView(mAvatar, R.drawable.account_default_avatar)
+        mAvatar.setImageResource(R.drawable.account_default_avatar)
         login_guide.text = event
     }
 }

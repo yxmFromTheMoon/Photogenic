@@ -2,33 +2,30 @@ package com.example.yxm.photogenic.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.chad.library.adapter.base.BaseQuickAdapter
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.lib_network.bean.CategoriesBean
 import com.example.lib_network.bean.CommonVideoBean
-import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseImmersionFragment
-import com.example.yxm.photogenic.module.discovery.CategoryAdapter
-import com.example.yxm.photogenic.module.discovery.DiscoveryContract
-import com.example.yxm.photogenic.module.discovery.DiscoveryPresenter
-import com.example.yxm.photogenic.module.discovery.DiscoveryVideoAdapter
+import com.example.yxm.photogenic.module.discovery.*
 import com.example.yxm.photogenic.ui.activity.AllCategoriesActivity
 import com.example.yxm.photogenic.ui.activity.AllRankActivity
 import com.example.yxm.photogenic.ui.activity.CategoryDetailActivity
 import com.example.yxm.photogenic.ui.activity.VideoPlayActivity
-import com.example.yxm.photogenic.utils.GlideImageLoader
 import com.example.yxm.photogenic.widget.FooterView
 import com.example.yxm.photogenic.widget.RightArrowSelectView
 import com.gyf.immersionbar.ImmersionBar
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.youth.banner.Banner
-import com.youth.banner.BannerConfig
+import com.youth.banner.config.IndicatorConfig
+import com.youth.banner.indicator.CircleIndicator
+import com.youth.banner.transformer.DepthPageTransformer
 import kotlinx.android.synthetic.main.fragment_discovery.*
+import share.core.ShareManager
 import java.io.Serializable
 
 /**
@@ -54,7 +51,7 @@ class DiscoveryFragment : BaseImmersionFragment(), DiscoveryContract.IDiscoveryV
      * UI
      */
     private lateinit var mRefreshLayout: SmartRefreshLayout
-    private lateinit var mBanner: Banner
+    private lateinit var mBanner: Banner<*, *>
     private lateinit var mLookAllCategoryTv: RightArrowSelectView
     private lateinit var mCategoryRv: RecyclerView
     private lateinit var mLookAllFeaturedTv: RightArrowSelectView
@@ -69,24 +66,30 @@ class DiscoveryFragment : BaseImmersionFragment(), DiscoveryContract.IDiscoveryV
      */
     override fun setCategory(data: ArrayList<CategoriesBean>) {
         data.removeAt(data.size - 1)
-        mCategoryAdapter.setNewData(data)
+        mCategoryAdapter.setList(data)
     }
 
     /**
      * 设置本周精选
      */
     override fun setVideoData(data: ArrayList<CommonVideoBean.ResultBean.ResultData>) {
-        mDiscoveryVideoAdapter.setNewData(data)
+        mDiscoveryVideoAdapter.setList(data)
     }
 
     /**
      * 设置banner
      */
     override fun setBannerList(data: ArrayList<String>) {
-        mBanner.setOnBannerListener {
+
+        mBanner.adapter = BannerImageAdapter(data)
+        mBanner.setIndicator(CircleIndicator(mContext))
+                .setIndicatorGravity(IndicatorConfig.Direction.LEFT)
+                .setDelayTime(4000)
+                .setPageTransformer(DepthPageTransformer())
+                .start()
+        mBanner.setOnBannerListener { url, position ->
             showErrorToast("暂无详情( ´◔ ‸◔`)")
         }
-        mBanner.setImages(data).start()
     }
 
     override fun showError(msg: String) {
@@ -137,10 +140,7 @@ class DiscoveryFragment : BaseImmersionFragment(), DiscoveryContract.IDiscoveryV
         mRefreshLayout = refreshLayout
 
         mBanner.apply {
-            setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
-            setDelayTime(4000)
-            setImageLoader(GlideImageLoader())
-            setIndicatorGravity(BannerConfig.LEFT)
+
         }
 
         mCategoryRv.run {
@@ -158,7 +158,7 @@ class DiscoveryFragment : BaseImmersionFragment(), DiscoveryContract.IDiscoveryV
     }
 
     override fun initListener() {
-        mCategoryAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
+        mCategoryAdapter.setOnItemClickListener { adapter, _, position ->
             val categoryBean = adapter.getItem(position) as Serializable
             startActivity(Intent(mContext, CategoryDetailActivity::class.java).apply {
                 val bundle = Bundle()
@@ -166,7 +166,7 @@ class DiscoveryFragment : BaseImmersionFragment(), DiscoveryContract.IDiscoveryV
                 putExtras(bundle)
             })
         }
-        mDiscoveryVideoAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
+        mDiscoveryVideoAdapter.setOnItemClickListener { adapter, _, position ->
             val videoBean = adapter.getItem(position) as CommonVideoBean.ResultBean.ResultData
             startActivity(Intent(mContext, VideoPlayActivity::class.java).apply {
                 val bundle = Bundle().apply {
@@ -179,11 +179,11 @@ class DiscoveryFragment : BaseImmersionFragment(), DiscoveryContract.IDiscoveryV
         }
 
         //分享
-        mDiscoveryVideoAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+        mDiscoveryVideoAdapter.setOnItemChildClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as CommonVideoBean.ResultBean.ResultData
-            if(view.id == R.id.video_share_iv){
+            if (view.id == R.id.video_share_iv) {
                 ShareManager.shareWebPage(mContext,
-                        item.description, item.title,item.cover.feed?:"",item.webUrl.raw)
+                        item.description, item.title, item.cover.feed ?: "", item.webUrl.raw)
             }
         }
 

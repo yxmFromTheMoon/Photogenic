@@ -2,12 +2,12 @@ package com.example.yxm.photogenic.module.home
 
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.HomeBean
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.utils.TimeHelper
-import de.hdodenhof.circleimageview.CircleImageView
+import com.example.yxm.photogenic.widget.CircleImageView
 
 /**
  *Created by yxm on 2020/2/19
@@ -20,15 +20,15 @@ class HomeReportAdapter(data: ArrayList<HomeBean.Issue>) : BaseMultiItemQuickAda
         addItemType(HomeBean.Issue.FOLLOW_CARD, R.layout.item_big_video_bean)
     }
 
-    override fun convert(helper: BaseViewHolder, item: HomeBean.Issue) {
+    override fun convert(holder: BaseViewHolder, item: HomeBean.Issue) {
         //根据viewType渲染不同的item
-        with(helper) {
+        with(holder) {
             when (itemViewType) {
                 HomeBean.Issue.TEXT_CARD -> {
-                    initTextCard(helper, item)
+                    initTextCard(holder, item)
                 }
                 HomeBean.Issue.FOLLOW_CARD -> {
-                    initFollowCard(helper, item)
+                    initFollowCard(holder, item)
                 }
             }
         }
@@ -57,7 +57,7 @@ class HomeReportAdapter(data: ArrayList<HomeBean.Issue>) : BaseMultiItemQuickAda
             setText(R.id.video_duration, TimeHelper.secToTime(item.data.content?.data?.duration
                     ?: 0))
             setText(R.id.video_secondary_title, "#${item.data.content?.data?.category}")
-            addOnClickListener(R.id.video_share_iv)
+            addChildClickViewIds(R.id.video_share_iv)
         }
     }
 }

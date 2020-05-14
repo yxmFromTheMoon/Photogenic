@@ -1,12 +1,14 @@
 package com.example.yxm.photogenic.ui.activity
 
-import android.support.v4.view.ViewPager
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.example.lib_share.share.ShareManager
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
+import share.core.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.base.BaseFragment
@@ -34,12 +36,7 @@ class PicturePreviewActivity : BaseActivity(), PicturePreviewContract.IPictureVi
      */
     private var currentPosition = 0
 
-    //图片原始宽
-    private var pictureWidth = 0L
-    //图片原始高
-    private var pictureHeight = 0L
-
-    private lateinit var urls: ArrayList<String>
+    private var urls: ArrayList<String>? = null
 
     private var mPictureAdapter: PictureAdapter? = null
 
@@ -51,7 +48,7 @@ class PicturePreviewActivity : BaseActivity(), PicturePreviewContract.IPictureVi
     private lateinit var mCloseIv: ImageView
     private lateinit var mShareIv: ImageView
     private lateinit var mPictureIndex: TextView
-    private lateinit var mViewPager: ViewPager
+    private lateinit var mViewPager: ViewPager2
 
     init {
         mPresenter.attachView(this)
@@ -68,8 +65,6 @@ class PicturePreviewActivity : BaseActivity(), PicturePreviewContract.IPictureVi
     override fun initDataBeforeView() {
         super.initDataBeforeView()
         urls = intent.getStringArrayListExtra("urls")
-        pictureWidth = intent.getLongExtra("width", ScreenHelper.getScreenWidth(mContext).toLong())
-        pictureHeight = intent.getLongExtra("height", ScreenHelper.getScreenHeight(mContext).toLong())
     }
 
     override fun getLayoutId(): Int {
@@ -83,21 +78,20 @@ class PicturePreviewActivity : BaseActivity(), PicturePreviewContract.IPictureVi
         mPictureIndex = picture_index
         mViewPager = picture_vp
         val fragments = ArrayList<BaseFragment>()
-        urls.forEach {
+        urls?.forEach {
             fragments.add(PictureFragment.newInstance(it))
         }
-        mPictureAdapter = PictureAdapter(supportFragmentManager, fragments)
+        mPictureAdapter = PictureAdapter(mContext as FragmentActivity, fragments)
 
         mViewPager.apply {
             adapter = mPictureAdapter
-            offscreenPageLimit = urls.size
+            offscreenPageLimit = urls?.size ?: 1
             currentItem = 0
-            layoutParams = scaleImage(this.layoutParams as LinearLayout.LayoutParams, pictureWidth, pictureHeight)
         }
-        if (urls.size == 1) {
+        if (urls?.size == 1) {
             mPictureIndex.visibility = View.INVISIBLE
         }
-        mPictureIndex.text = "${currentPosition + 1} / ${urls.size}"
+        mPictureIndex.text = "${currentPosition + 1} / ${urls?.size}"
 
     }
 
@@ -106,17 +100,18 @@ class PicturePreviewActivity : BaseActivity(), PicturePreviewContract.IPictureVi
             finish()
         }
 
-        mViewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
-            override fun onPageSelected(positon: Int) {
-                currentPosition = positon
-                mPictureIndex.text = "${currentPosition + 1} / ${urls.size}"
+        mViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                currentPosition = position
+                mPictureIndex.text = "${currentPosition + 1} / ${urls?.size}"
             }
         })
+
         //分享
         mShareIv.setOnClickListener {
             ShareManager.shareImage(mContext,
-                    urls[currentPosition])
-            Log.i("PicturePreview", "${urls[currentPosition]}+$currentPosition")
+                    urls!![currentPosition])
+            Log.i("PicturePreview", "${urls!![currentPosition]}+$currentPosition")
         }
 
         picture_layout.setOnClickListener {

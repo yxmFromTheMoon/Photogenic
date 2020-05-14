@@ -23,6 +23,11 @@ class CommunityRecommendPresenter : BasePresenter<CommunityRecommendContract.ICo
         mRootView?.showLoading()
         val disposable = mModel.getCommunityRecommendData()
                 .subscribe({
+                    it.itemList.filter { issue ->
+                        issue.type == "squareCardCollection"
+                    }.forEach { issue ->
+                        it.itemList.remove(issue)
+                    }
                     mRootView?.apply {
                         nextPageUrl = it.nextPageUrl
                         dismissLoading()

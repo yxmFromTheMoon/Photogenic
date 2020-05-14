@@ -47,10 +47,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/title_layout"
-        android:layout_centerVertical="true">
+        android:layout_below="@+id/title_layout">
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/picture_vp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

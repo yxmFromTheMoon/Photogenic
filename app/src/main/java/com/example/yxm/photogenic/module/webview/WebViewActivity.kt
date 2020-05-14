@@ -2,8 +2,6 @@ package com.example.yxm.photogenic.module.webview
 
 import android.content.Context
 import android.content.Intent
-import android.support.design.widget.AppBarLayout
-import android.support.v7.widget.Toolbar
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
@@ -11,8 +9,10 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
+import com.google.android.material.appbar.AppBarLayout
 import com.gyf.immersionbar.ktx.immersionBar
 import kotlinx.android.synthetic.main.activity_web_view.*
 
@@ -22,11 +22,11 @@ import kotlinx.android.synthetic.main.activity_web_view.*
  */
 class WebViewActivity : BaseActivity(), WebViewContract.IWebView {
 
-    lateinit var mWebTitle: TextView
-    lateinit var mWebToolbar: Toolbar
+    private lateinit var mWebTitle: TextView
+    private lateinit var mWebToolbar: Toolbar
     lateinit var mWebProgressBar: ProgressBar
-    lateinit var mWebAppbar: AppBarLayout
-    lateinit var mWebView: WebView
+    private lateinit var mWebAppbar: AppBarLayout
+    private lateinit var mWebView: WebView
 
     private val mPresenter: WebViewPresenter by lazy {
         WebViewPresenter()

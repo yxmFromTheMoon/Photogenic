@@ -17,7 +17,7 @@
         android:textStyle="bold"
         app:fontType="@string/condensed_bold_font" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/square_card_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

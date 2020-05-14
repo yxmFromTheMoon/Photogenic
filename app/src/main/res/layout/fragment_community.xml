@@ -30,12 +30,11 @@
 
     </FrameLayout>
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/community_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header_title"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
 
 </RelativeLayout>

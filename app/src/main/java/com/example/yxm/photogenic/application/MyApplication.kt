@@ -1,5 +1,6 @@
 package com.example.yxm.photogenic.application
 
+import com.didichuxing.doraemonkit.DoraemonKit
 import com.mob.MobApplication
 import com.yxm.lib_pullalive.AliveJobService
 
@@ -15,7 +16,8 @@ class MyApplication: MobApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        AliveJobService.start(this)
+        //AliveJobService.start(this)
+        DoraemonKit.install(this)
     }
 
     companion object {

@@ -3,13 +3,11 @@ package com.example.yxm.photogenic.module.categorydetails
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.widget.LinearLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.CommonVideoBean
 import com.example.yxm.photogenic.R
@@ -38,10 +36,10 @@ class RelativeVideoAdapter : BaseQuickAdapter<CommonVideoBean.ResultBean, BaseVi
              */
             val tagAdapter = TagAdapter()
             getView<RecyclerView>(R.id.tags_rv).apply {
-                layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
+                layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                 adapter = tagAdapter
             }
-            tagAdapter.onItemClickListener = OnItemClickListener { adapter, view, position ->
+            tagAdapter.setOnItemClickListener { adapter, view, position ->
                 val tagBean = adapter.getItem(position)
                 if (view.context is Activity) {
                     view.context.startActivity(Intent(view.context, TagDetailActivity::class.java).apply {
@@ -51,7 +49,8 @@ class RelativeVideoAdapter : BaseQuickAdapter<CommonVideoBean.ResultBean, BaseVi
                     })
                 }
             }
-            tagAdapter.setNewData(item.data.tags)
+
+            tagAdapter.setList(item.data.tags)
 
             ImageLoaderManager.displayImageForView(getView(R.id.video_picture), item.data.cover.feed
                     ?: "")
@@ -59,7 +58,7 @@ class RelativeVideoAdapter : BaseQuickAdapter<CommonVideoBean.ResultBean, BaseVi
             setText(R.id.video_like, "${item.data.consumption.realCollectionCount}")
             setText(R.id.video_comment, "${item.data.consumption.replyCount}")
             setText(R.id.video_collect, "${item.data.consumption.collectionCount}")
-            addOnClickListener(R.id.video_share_iv)
+            addChildClickViewIds(R.id.video_share_iv)
         }
     }
 }

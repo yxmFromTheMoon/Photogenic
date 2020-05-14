@@ -2,12 +2,13 @@ package com.example.yxm.photogenic.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_network.bean.CommunityBean
-import com.example.lib_share.share.ShareManager
+import share.core.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.module.community.CommunityRecommendAdapter
@@ -53,10 +54,11 @@ class CommunityRecommendFragment : BaseFragment(), CommunityRecommendContract.IC
 
         mRefreshLayout.setRefreshHeader(ClassicsHeader(mContext))
         mRefreshLayout.setEnableLoadMore(false)
-        mAdapter.setFooterView(FooterView(mContext))
 
+        val lm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        lm.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
         mContentRv.run {
-            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            layoutManager = lm
             adapter = mAdapter
         }
     }
@@ -81,7 +83,7 @@ class CommunityRecommendFragment : BaseFragment(), CommunityRecommendContract.IC
             }
         })
 
-        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
+        mAdapter.setOnItemClickListener { adapter, _, position ->
             val issue = adapter.getItem(position) as CommunityBean.Issue
             val bundle = Bundle().apply {
                 putSerializable("video", issue)
@@ -93,8 +95,6 @@ class CommunityRecommendFragment : BaseFragment(), CommunityRecommendContract.IC
                     startActivity(Intent(mContext, PicturePreviewActivity::class.java).apply {
                         val urls = Bundle().apply {
                             putStringArrayList("urls", issue.data.content.data.urls)
-                            putLong("width",issue.data.content.data.width)
-                            putLong("height",issue.data.content.data.height)
                         }
                         putExtras(urls)
                     })
@@ -108,7 +108,7 @@ class CommunityRecommendFragment : BaseFragment(), CommunityRecommendContract.IC
         }
 
         //分享
-        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, _, position ->
+        mAdapter.setOnItemChildClickListener { adapter, _, position ->
             val issue = adapter.getItem(position) as CommunityBean.Issue
             when (issue.type) {
                 "pictureFollowCard" -> {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import com.bumptech.glide.GlideBuilder
 import com.bumptech.glide.annotation.GlideModule
+import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory
 import com.bumptech.glide.load.engine.cache.LruResourceCache
@@ -20,14 +21,16 @@ import com.bumptech.glide.request.RequestOptions
 class GlideAppModule : AppGlideModule() {
 
     override fun applyOptions(context: Context, builder: GlideBuilder) {
-        val memoryCacheSizeBytes = 1024 * 1024 * 100 // 100mb
-        val diskCacheSizeBytes = 1024 * 1024 * 200 //200 MB
-        builder.setMemoryCache(LruResourceCache(memoryCacheSizeBytes.toLong()))
+        val maxMemory = Runtime.getRuntime().maxMemory()
+        val memoryCacheSizeBytes = maxMemory / 4 // 内存缓存设置为当前进程可用内存的1/4
+        val diskCacheSizeBytes = 1024 * 1024 * 200 //磁盘缓存设置为200 MB
+        builder.setMemoryCache(LruResourceCache(memoryCacheSizeBytes))
                 .setDiskCache(InternalCacheDiskCacheFactory(context, diskCacheSizeBytes.toLong()))
                 .setDefaultRequestOptions(RequestOptions()
                         .placeholder(R.mipmap.blackholder)
                         .error(R.mipmap.blackholder)
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
+                        .format(DecodeFormat.PREFER_ARGB_8888)
+                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
                 .setDefaultTransitionOptions(Drawable::class.java, DrawableTransitionOptions.withCrossFade())
     }
 

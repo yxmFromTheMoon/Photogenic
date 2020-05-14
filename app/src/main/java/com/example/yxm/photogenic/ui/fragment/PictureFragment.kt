@@ -1,7 +1,9 @@
 package com.example.yxm.photogenic.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import com.bumptech.glide.Glide
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
@@ -56,7 +58,8 @@ class PictureFragment : BaseFragment() {
     }
 
     override fun lazyLoad() {
-        ImageLoaderManager.displayImageForView(picture, url)
+        ImageLoaderManager.displayBigPicture(picture, url)
+        Log.i("pictureUrl",url)
     }
 
     companion object {

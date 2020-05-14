@@ -2,12 +2,12 @@ package com.example.yxm.photogenic.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_network.bean.HomeBean
-import com.example.lib_share.share.ShareManager
+import share.core.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.module.home.HomeRecommendAdapter
@@ -65,7 +65,7 @@ class HomePageRecommendFragment : BaseFragment(), HomeRecommendContract.IHomeRec
             adapter = mAdapter
         }
 
-        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        mAdapter.setOnItemClickListener { adapter, view, position ->
             val type = adapter.getItemViewType(position)
             val item = adapter.getItem(position) as HomeBean.Issue
 
@@ -89,7 +89,7 @@ class HomePageRecommendFragment : BaseFragment(), HomeRecommendContract.IHomeRec
             }
         }
 
-        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+        mAdapter.setOnItemChildClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as HomeBean.Issue
             //分享区别数据类型
             if (view.id == R.id.video_share_iv) {

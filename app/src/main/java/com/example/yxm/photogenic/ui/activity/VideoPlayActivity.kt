@@ -1,18 +1,16 @@
 package com.example.yxm.photogenic.ui.activity
 
 import android.content.res.Configuration
-import android.support.v4.widget.NestedScrollView
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import androidx.core.widget.NestedScrollView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.CommonVideoBean
 import com.example.lib_network.bean.CommunityBean
 import com.example.lib_network.bean.HomeBean
-import com.example.lib_share.share.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.font.FontTextView
@@ -28,6 +26,7 @@ import com.example.yxm.photogenic.ui.fragment.HomePageDailyReportFragment.Compan
 import com.example.yxm.photogenic.ui.fragment.HomePageRecommendFragment.Companion.HOME_RECOMMEND
 import com.example.yxm.photogenic.ui.fragment.RankFragment.Companion.RANK_FRAGMENT
 import com.example.yxm.photogenic.ui.fragment.SearchResultFragment.Companion.SEARCH_RESULT
+import com.example.yxm.photogenic.widget.CircleImageView
 import com.example.yxm.photogenic.widget.FooterView
 import com.gyf.immersionbar.ImmersionBar
 import com.shuyu.gsyvideoplayer.GSYVideoManager
@@ -35,9 +34,9 @@ import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
-import de.hdodenhof.circleimageview.CircleImageView
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_video_play.*
+import share.core.ShareManager
 
 /**
  *Created by yxm on 2020/2/25
@@ -128,14 +127,14 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
     }
 
     override fun initListener() {
-        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
+        mAdapter.setOnItemClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as CommonVideoBean.ResultBean
             playVideo(item.data.playUrl, item.data.title)
             mPresenter.loadRelativeVideo(item.data.id)
             mPresenter.loadVideoInfo(item, VIDEO_DETAIL)
         }
         //分享
-        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+        mAdapter.setOnItemChildClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as CommonVideoBean.ResultBean
             if (view.id == R.id.video_share_iv) {
                 ShareManager.shareWebPage(mContext,
@@ -168,8 +167,7 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
                     mVideoCategory.text = "#${bean.data.category}"
                     mVideoDescription.text = bean.data.author?.description
                     mVideoIntroduce.text = bean.data.description
-                    Glide.with(this).load(bean.data.author?.icon)
-                            .into(mAuthorAvatar)
+                    ImageLoaderManager.displayImageForView(mAuthorAvatar,bean.data.author?.icon?:"")
                     ImageLoaderManager.displayImageForViewGroup(mBackgroundView, bean.data.cover?.blurred
                             ?: "")
                 }
@@ -181,8 +179,7 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
                 mVideoCategory.text = "#${bean.data.header.issuerName}"
                 mVideoDescription.text = bean.data.content.data.owner.description
                 mVideoIntroduce.text = bean.data.content.data.description
-                Glide.with(this).load(bean.data.content.data.owner.avatar)
-                        .into(mAuthorAvatar)
+                ImageLoaderManager.displayImageForView(mAuthorAvatar,bean.data.content.data.owner.avatar)
                 ImageLoaderManager.displayImageForViewGroup(mBackgroundView, bean.data.content.data.cover.blurred
                         ?: "")
             }
@@ -190,7 +187,7 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
     }
 
     override fun setRelativeVideo(data: ArrayList<CommonVideoBean.ResultBean>) {
-        mAdapter.setNewData(data)
+        mAdapter.setList(data)
     }
 
     override fun playVideo(url: String, title: String) {
@@ -246,7 +243,7 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
         super.onBackPressed()
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
+    override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         //如果旋转了就全屏
         if (isPlay && !isPause) {

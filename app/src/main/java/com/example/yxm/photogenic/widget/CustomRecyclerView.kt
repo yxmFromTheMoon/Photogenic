@@ -1,9 +1,9 @@
 package com.example.yxm.photogenic.widget
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.MotionEvent
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  *Created by yxm on 2020/3/20

@@ -1,15 +1,16 @@
-package com.example.lib_share.share
+package share.core
 
 import android.app.Dialog
 import android.content.Context
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
 import android.view.Gravity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import cn.sharesdk.framework.Platform
 import cn.sharesdk.framework.PlatformActionListener
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_share.R
+import com.example.lib_share.share.ShareData
 import share.adapter.PlatformBean
 import share.adapter.SharePlatformAdapter
 import share.adapter.ShareType
@@ -63,7 +64,7 @@ class ShareDialog : Dialog {
     }
 
     private fun initListener() {
-        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        mAdapter.setOnItemClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as PlatformBean
             when (item.name) {
                 "QQ" -> {

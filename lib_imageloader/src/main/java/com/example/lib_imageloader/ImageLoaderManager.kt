@@ -5,23 +5,22 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Looper
-import android.support.annotation.DrawableRes
-import android.support.v4.content.ContextCompat
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
+import android.util.Log
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory
 import com.bumptech.glide.load.engine.cache.ExternalPreferredCacheDiskCacheFactory
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.BitmapImageViewTarget
-import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.io.File
 import java.lang.Exception
@@ -31,7 +30,6 @@ import java.lang.Exception
  *@function 图片加载类
  */
 object ImageLoaderManager {
-
 
     /**
      * * 为view加载资源图片
@@ -82,20 +80,25 @@ object ImageLoaderManager {
      * @param url
      */
     fun displayImageForViewGroup(viewGroup: ViewGroup, url: String) {
+        var dispose: Disposable? = null
         GlideApp.with(viewGroup.context)
                 .asBitmap()
                 .load(url)
-                .into(object : SimpleTarget<Bitmap>() {
+                .into(object : CustomTarget<Bitmap>() {
                     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                        val disposable = Observable.just(resource)
+                        dispose = Observable.just(resource)
                                 .map {
                                     //为bitmap作模糊处理
-                                    BitmapDrawable(Utils.doBlur(resource, 100, true))
+                                    BitmapDrawable(null, Utils.doBlur(resource, 100, true))
                                 }.subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe { drawable ->
                                     viewGroup.background = drawable
                                 }
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        dispose?.dispose()
                     }
                 })
     }
@@ -127,6 +130,86 @@ object ImageLoaderManager {
                 .apply(RequestOptions()
                         .override(width, height))
                 .into(imageView)
+    }
+
+    /**
+     * 加载大图
+     * 待优化
+     */
+    fun displayBigPicture(imageView: ImageView, url: String) {
+        val disposable = Observable.just(url).map {
+            Utils.getImageSizeAhead(it)
+        }.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    val lp = imageView.layoutParams
+                    imageView.layoutParams = scaleImage(imageView.context,
+                            lp, it[0].toLong(), it[1].toLong())
+                    displayImageForView(imageView, url)
+                }
+    }
+
+    /**
+     * 获取屏幕宽度
+     */
+    private fun getScreenWidth(context: Context): Int {
+        val resources = context.resources
+        val dm = resources.displayMetrics
+        return dm.widthPixels
+    }
+
+    /**
+     * 获取屏幕高度
+     */
+    private fun getScreenHeight(context: Context): Int {
+        val resources = context.resources
+        val dm = resources.displayMetrics
+        return dm.heightPixels
+    }
+
+    /**
+     * 根据图片宽高获取缩放比例
+     * @param width 宽
+     * @param height 高
+     */
+    private fun scaleImage(context: Context, layoutParams: ViewGroup.LayoutParams, width: Long, height: Long): ViewGroup.LayoutParams {
+        val screenWidth = getScreenWidth(context)
+        val screenHeight = getScreenHeight(context)
+        //图片宽度大于屏幕，但高度小于屏幕，高缩放，宽度缩小至屏幕宽
+        if (width >= screenWidth && height <= screenHeight) {
+            val scale = (screenWidth + 0f) / width
+            layoutParams.width = screenWidth
+            layoutParams.height = (height * scale).toInt()
+//            Log.d("Picture","缩放类型:1,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
+//                    "$height,缩放比例:$scale")
+        }
+        //图片宽度小于屏幕，但高度大于屏幕，宽度缩放，高度缩小至屏高
+        if (width <= screenWidth && height >= screenHeight) {
+            val scale = (screenHeight + 0f) / height
+            layoutParams.width = (width * scale).toInt()
+            layoutParams.height = screenHeight
+//            Log.d("Picture","缩放类型:2,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
+//                    "$height,缩放比例:$scale")
+        }
+        //图片高度和宽度都小于屏幕，宽度放大至屏幕宽，高度缩放
+        if (width < screenWidth && height < screenHeight) {
+            val scale = (screenWidth + 0f) / width
+            layoutParams.width = screenWidth
+            layoutParams.height = (height * scale).toInt()
+//            Log.d("Picture","缩放类型:3,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
+//                    "$height,缩放比例:$scale")
+        }
+        //图片高度和宽度都大于屏幕,则对宽高进行同比例缩放
+        if (width > screenWidth && height > screenHeight) {
+            val widthScale = (screenWidth + 0f) / width
+            val heightScale = (screenHeight + 0f) / height
+            val scale = if (widthScale > heightScale) heightScale else widthScale
+            layoutParams.width = (width * scale).toInt()
+            layoutParams.height = (height * scale).toInt()
+//            Log.d("Picture","缩放类型:4,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
+//                    "$height,缩放比例:$scale")
+        }
+        return layoutParams
     }
 
     /**
@@ -193,4 +276,5 @@ object ImageLoaderManager {
         val imageCacheDir = "${context.externalCacheDir}${ExternalPreferredCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR}"
         deleteFolderFile(imageCacheDir, true)
     }
+
 }

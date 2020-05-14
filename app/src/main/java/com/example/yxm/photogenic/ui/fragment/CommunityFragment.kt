@@ -1,10 +1,10 @@
 package com.example.yxm.photogenic.ui.fragment
 
 import android.content.Intent
-import android.support.v4.view.ViewPager
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.viewpager.widget.ViewPager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseImmersionFragment
 import com.example.yxm.photogenic.base.adapter.CommonViewPagerAdapter
