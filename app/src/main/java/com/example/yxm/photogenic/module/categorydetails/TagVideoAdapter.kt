@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager
@@ -12,7 +11,6 @@ import com.example.lib_network.bean.CategoryDetailBean
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.ui.activity.TagDetailActivity
 import com.example.yxm.photogenic.utils.TimeHelper
-import de.hdodenhof.circleimageview.CircleImageView
 import java.io.Serializable
 
 /**
@@ -23,9 +21,7 @@ class TagVideoAdapter : BaseQuickAdapter<CategoryDetailBean.FollowCardBean, Base
 
     override fun convert(holder: BaseViewHolder, item: CategoryDetailBean.FollowCardBean) {
         with(holder) {
-            Glide.with(getView(R.id.video_author_avatar) as CircleImageView)
-                    .load(item.data.header.icon)
-                    .into(getView(R.id.video_author_avatar) as CircleImageView)
+            ImageLoaderManager.displayImageForView(getView(R.id.video_author_avatar), item.data.header.icon)
             setText(R.id.video_header_description, item.data.header.description)
             setText(R.id.publish_time_tv, "${TimeHelper.timeStamp2Date(item.data.header.time)}发布：")
             setText(R.id.video_header_title, item.data.header.title)
@@ -38,7 +34,7 @@ class TagVideoAdapter : BaseQuickAdapter<CategoryDetailBean.FollowCardBean, Base
                 layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                 adapter = tagAdapter
             }
-            tagAdapter.setOnItemClickListener{ adapter, view, position ->
+            tagAdapter.setOnItemClickListener { adapter, view, position ->
                 val tagBean = adapter.getItem(position)
                 view.context.startActivity(Intent(view.context, TagDetailActivity::class.java).apply {
                     val bundle = Bundle()

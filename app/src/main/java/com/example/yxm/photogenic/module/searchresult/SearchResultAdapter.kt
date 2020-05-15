@@ -7,7 +7,6 @@ import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.CommonVideoBean
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.utils.TimeHelper
-import de.hdodenhof.circleimageview.CircleImageView
 
 /**
  * Created by yxm on 2020-1-17
@@ -19,9 +18,8 @@ class SearchResultAdapter : BaseQuickAdapter<CommonVideoBean.ResultBean, BaseVie
         with(holder) {
             ImageLoaderManager.displayImageForView(getView(R.id.video_picture), item.data.cover.feed
                     ?: "")
-            Glide.with((getView(R.id.video_author_avatar) as CircleImageView).context)
-                    .load(item.data.author?.icon?:"")
-                    .into(getView(R.id.video_author_avatar) as CircleImageView)
+            ImageLoaderManager.displayImageForView(getView(R.id.video_author_avatar), item.data.author?.icon
+                    ?: "")
             setText(R.id.video_title, item.data.title)
             setText(R.id.video_duration, TimeHelper.secToTime(item.data.duration))
             setText(R.id.video_secondary_title, "#${item.data.category}")

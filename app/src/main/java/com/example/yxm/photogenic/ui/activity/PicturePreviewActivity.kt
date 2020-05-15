@@ -3,22 +3,18 @@ package com.example.yxm.photogenic.ui.activity
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import share.core.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.event.ToggleUiEvent
-import com.example.yxm.photogenic.module.picturepreview.PictureAdapter
+import com.example.yxm.photogenic.base.adapter.CommonViewpager2Adapter
 import com.example.yxm.photogenic.module.picturepreview.PicturePreviewContract
 import com.example.yxm.photogenic.module.picturepreview.PicturePreviewPresenter
 import com.example.yxm.photogenic.ui.fragment.PictureFragment
-import com.example.yxm.photogenic.utils.ScreenHelper
-import com.example.yxm.photogenic.utils.ScreenHelper.scaleImage
 import com.gyf.immersionbar.ktx.immersionBar
 import kotlinx.android.synthetic.main.activity_preview_picture.*
 import org.greenrobot.eventbus.EventBus
@@ -38,7 +34,7 @@ class PicturePreviewActivity : BaseActivity(), PicturePreviewContract.IPictureVi
 
     private var urls: ArrayList<String>? = null
 
-    private var mPictureAdapter: PictureAdapter? = null
+    private var mPictureAdapter: CommonViewpager2Adapter? = null
 
     private val mPresenter: PicturePreviewPresenter by lazy {
         PicturePreviewPresenter()
@@ -81,7 +77,7 @@ class PicturePreviewActivity : BaseActivity(), PicturePreviewContract.IPictureVi
         urls?.forEach {
             fragments.add(PictureFragment.newInstance(it))
         }
-        mPictureAdapter = PictureAdapter(mContext as FragmentActivity, fragments)
+        mPictureAdapter = CommonViewpager2Adapter(mContext as FragmentActivity, fragments)
 
         mViewPager.apply {
             adapter = mPictureAdapter

@@ -53,7 +53,6 @@ class TagDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView {
     /**
      * UI
      */
-    private lateinit var mHintTv: FontTextView
     private lateinit var mToolbar: Toolbar
     private lateinit var mAppbar: AppBarLayout
     private lateinit var mCollapsingToolbarLayout: CollapsingToolbarLayout
@@ -92,7 +91,7 @@ class TagDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView {
     }
 
     override fun initData() {
-        ImageLoaderManager.displayImageForView(mCategoryBg, tagBean.headerImage)
+        ImageLoaderManager.displayImageWithPlaceholder(tagBean.headerImage, mCategoryBg, R.color.black)
         mCategoryName.text = tagBean.name
         mToolBarTitle.text = tagBean.name
         mCategoryTitle.text = tagBean.desc

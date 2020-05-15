@@ -5,17 +5,11 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Looper
-import android.util.Log
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.cache.ExternalPreferredCacheDiskCacheFactory
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import io.reactivex.Observable
@@ -23,7 +17,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.io.File
-import java.lang.Exception
 
 /**
  *Created by yxm on 2020/1/3
@@ -51,26 +44,6 @@ object ImageLoaderManager {
         GlideApp.with(imageView.context)
                 .load(url)
                 .into(imageView)
-    }
-
-    /**
-     * 为view加载圆形图片
-     *
-     * @param imageView
-     * @param url
-     */
-    fun displayImageForCircle(imageView: ImageView, url: String) {
-        GlideApp.with(imageView.context)
-                .asBitmap()
-                .centerCrop()
-                .load(url)
-                .into(object : BitmapImageViewTarget(imageView) {
-                    override fun setResource(resource: Bitmap?) {
-                        val drawable = RoundedBitmapDrawableFactory.create(imageView.resources, resource)
-                        drawable.isCircular = true
-                        imageView.setImageDrawable(drawable)
-                    }
-                })
     }
 
     /**
@@ -104,21 +77,27 @@ object ImageLoaderManager {
     }
 
     /**
-     * 自定义placeholder加载
+     * 自定义placeholder加载资源图片
      */
-    fun displayImageWithPlaceholder(any: Any, imageView: ImageView?, @DrawableRes placeholder: Int) {
-        var target = any
-        imageView?.let {
-            if (!Utils.isNetworkConnected(imageView.context)) {
-                target = ContextCompat.getDrawable(imageView.context, placeholder) as Drawable
-            }
-            GlideApp.with(imageView)
-                    .load(target)
-                    .apply(RequestOptions()
-                            .placeholder(placeholder)
-                            .error(placeholder))
-                    .into(imageView)
-        }
+    fun displayImageWithPlaceholder(resId: Int, imageView: ImageView, @DrawableRes placeholder: Int) {
+        GlideApp.with(imageView)
+                .load(resId)
+                .apply(RequestOptions()
+                        .placeholder(placeholder)
+                        .error(placeholder))
+                .into(imageView)
+    }
+
+    /**
+     * 自定义placeholder加载网络图片
+     */
+    fun displayImageWithPlaceholder(url: String, imageView: ImageView, @DrawableRes placeholder: Int) {
+        GlideApp.with(imageView)
+                .load(url)
+                .apply(RequestOptions()
+                        .placeholder(placeholder)
+                        .error(placeholder))
+                .into(imageView)
     }
 
     /**
@@ -145,7 +124,12 @@ object ImageLoaderManager {
                     val lp = imageView.layoutParams
                     imageView.layoutParams = scaleImage(imageView.context,
                             lp, it[0].toLong(), it[1].toLong())
-                    displayImageForView(imageView, url)
+                    GlideApp.with(imageView)
+                            .load(url)
+                            .apply(RequestOptions()
+                                    .placeholder(android.R.color.black)
+                                    .error(android.R.color.black))
+                            .into(imageView)
                 }
     }
 

@@ -87,7 +87,7 @@ class CategoryDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView 
     }
 
     override fun initData() {
-        ImageLoaderManager.displayImageForView(mCategoryBg, categoryBean.headerImage)
+        ImageLoaderManager.displayImageWithPlaceholder(categoryBean.headerImage, mCategoryBg, R.color.black)
         mCategoryName.text = categoryBean.name
         mToolBarTitle.text = categoryBean.name
         mCategoryTitle.text = categoryBean.description
@@ -160,7 +160,7 @@ class CategoryDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView 
             })
         }
         //分享
-        mAdapter.setOnItemChildClickListener{ adapter, _, position ->
+        mAdapter.setOnItemChildClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as CategoryDetailBean.FollowCardBean
             ShareManager.shareWebPage(mContext,
                     item.data.content.data.description,

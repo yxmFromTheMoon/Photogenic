@@ -13,7 +13,7 @@ import com.example.lib_network.bean.CommonVideoBean
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.ui.activity.TagDetailActivity
 import com.example.yxm.photogenic.utils.TimeHelper
-import de.hdodenhof.circleimageview.CircleImageView
+import com.example.yxm.photogenic.widget.CircleImageView
 import java.io.Serializable
 
 /**
@@ -24,9 +24,7 @@ class RelativeVideoAdapter : BaseQuickAdapter<CommonVideoBean.ResultBean, BaseVi
 
     override fun convert(helper: BaseViewHolder, item: CommonVideoBean.ResultBean) {
         with(helper) {
-            Glide.with(getView(R.id.video_author_avatar) as CircleImageView)
-                    .load(item.data.author?.icon ?: "")
-                    .into(getView(R.id.video_author_avatar) as CircleImageView)
+            ImageLoaderManager.displayImageForView(getView(R.id.video_author_avatar),item.data.author?.icon ?: "")
             setText(R.id.video_header_description, item.data.category)
             setText(R.id.publish_time_tv, "${TimeHelper.timeStamp2Date(item.data.releaseTime)}发布：")
             setText(R.id.video_header_title, item.data.title)
