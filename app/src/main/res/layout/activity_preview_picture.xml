@@ -7,53 +7,54 @@
 
     <View
         android:id="@+id/status_bar_view"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp" />
 
-    <LinearLayout
-        android:id="@+id/title_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/status_bar_view"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/close_iv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_close_grey" />
-
-        <TextView
-            android:id="@+id/picture_index"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="5"
-            android:gravity="center"
-            android:text="1 / 2"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
-
-        <ImageView
-            android:id="@+id/picture_share_iv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_action_share_without_padding" />
-    </LinearLayout>
-
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/title_layout">
+        android:layout_below="@+id/status_bar_view">
+
+        <LinearLayout
+            android:id="@+id/title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@color/transparent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/close_iv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_close_grey" />
+
+            <TextView
+                android:id="@+id/picture_index"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:text="1 / 2"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/picture_share_iv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_action_share_without_padding" />
+        </LinearLayout>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/picture_vp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical" />
-    </LinearLayout>
+            android:layout_gravity="center" />
 
+    </FrameLayout>
 </RelativeLayout>

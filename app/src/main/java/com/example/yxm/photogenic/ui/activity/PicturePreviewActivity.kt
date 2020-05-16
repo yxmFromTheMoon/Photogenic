@@ -6,12 +6,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
-import share.core.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.base.BaseFragment
-import com.example.yxm.photogenic.event.ToggleUiEvent
 import com.example.yxm.photogenic.base.adapter.CommonViewpager2Adapter
+import com.example.yxm.photogenic.event.ToggleUiEvent
 import com.example.yxm.photogenic.module.picturepreview.PicturePreviewContract
 import com.example.yxm.photogenic.module.picturepreview.PicturePreviewPresenter
 import com.example.yxm.photogenic.ui.fragment.PictureFragment
@@ -20,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_preview_picture.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import share.core.ShareManager
 
 /**
  * Created by yxm on 2020/3/1

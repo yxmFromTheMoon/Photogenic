@@ -4,13 +4,16 @@ import android.content.Intent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import androidx.viewpager.widget.ViewPager
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.widget.ViewPager2
 import com.example.yxm.photogenic.R
+import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.base.BaseImmersionFragment
-import com.example.yxm.photogenic.base.adapter.CommonViewPagerAdapter
+import com.example.yxm.photogenic.base.adapter.CommonViewpager2Adapter
 import com.example.yxm.photogenic.ui.activity.SearchActivity
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.gyf.immersionbar.ktx.immersionBar
-import com.kekstudio.dachshundtablayout.DachshundTabLayout
 import kotlinx.android.synthetic.main.fragment_community.*
 import kotlinx.android.synthetic.main.fragment_home.header_title
 import kotlinx.android.synthetic.main.fragment_home.search_iv
@@ -19,12 +22,12 @@ import kotlinx.android.synthetic.main.fragment_home.search_iv
  *Created by yxm on 2020/2/15
  *@function 社区fragment
  */
-class CommunityFragment: BaseImmersionFragment() {
+class CommunityFragment : BaseImmersionFragment() {
 
     private lateinit var mTitle: FrameLayout
-    private lateinit var mHomeTab: DachshundTabLayout
+    private lateinit var mHomeTab: TabLayout
     private lateinit var mSearchIv: ImageView
-    private lateinit var mViewPager: ViewPager
+    private lateinit var mViewPager: ViewPager2
 
     override fun initImmersionBar() {
         super.initImmersionBar()
@@ -45,18 +48,16 @@ class CommunityFragment: BaseImmersionFragment() {
         mViewPager = community_vp
 
         val titles = arrayOf("推荐", "关注")
-        val pagerAdapter = CommonViewPagerAdapter(childFragmentManager,titles)
-        val homeRecommend = CommunityRecommendFragment.newInstance()
-        val homeReport = CommunityFollowFragment.newInstance()
+        val fragments = ArrayList<BaseFragment>()
+        fragments.add(CommunityRecommendFragment.newInstance())
+        fragments.add(CommunityFollowFragment.newInstance())
+        val pagerAdapter = CommonViewpager2Adapter(mContext as FragmentActivity, fragments)
 
-        pagerAdapter.addFragment(homeRecommend)
-        pagerAdapter.addFragment(homeReport)
-        mHomeTab.setupWithViewPager(mViewPager)
-        mViewPager.apply {
-            adapter = pagerAdapter
-            currentItem = 0
-            offscreenPageLimit = titles.size
-        }
+        mViewPager.adapter = pagerAdapter
+
+        TabLayoutMediator(mHomeTab, mViewPager, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+            tab.text = (titles[position])
+        }).attach()
     }
 
     override fun initListener() {
@@ -68,7 +69,7 @@ class CommunityFragment: BaseImmersionFragment() {
     override fun lazyLoad() {
     }
 
-    companion object{
+    companion object {
         fun newInstance(): CommunityFragment = CommunityFragment()
     }
 }

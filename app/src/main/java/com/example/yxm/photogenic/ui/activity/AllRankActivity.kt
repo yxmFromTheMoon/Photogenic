@@ -1,13 +1,16 @@
 package com.example.yxm.photogenic.ui.activity
 
-import androidx.viewpager.widget.ViewPager
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.widget.ViewPager2
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
-import com.example.yxm.photogenic.base.adapter.CommonViewPagerAdapter
+import com.example.yxm.photogenic.base.BaseFragment
+import com.example.yxm.photogenic.base.adapter.CommonViewpager2Adapter
 import com.example.yxm.photogenic.ui.fragment.RankFragment
 import com.example.yxm.photogenic.widget.LeftBackTitle
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.gyf.immersionbar.ktx.immersionBar
-import com.kekstudio.dachshundtablayout.DachshundTabLayout
 import kotlinx.android.synthetic.main.activity_all_rank.*
 
 /**
@@ -16,8 +19,8 @@ import kotlinx.android.synthetic.main.activity_all_rank.*
  */
 class AllRankActivity : BaseActivity() {
 
-    private lateinit var mTabLayout: DachshundTabLayout
-    private lateinit var mViewPager: ViewPager
+    private lateinit var mTabLayout: TabLayout
+    private lateinit var mViewPager: ViewPager2
     private lateinit var mTitle: LeftBackTitle
 
     override fun getLayoutId(): Int {
@@ -31,19 +34,15 @@ class AllRankActivity : BaseActivity() {
         mTitle.setLeftFinish(this)
         val keys = arrayOf("weekly", "monthly", "historical")
         val titles = arrayOf("周排行", "月排行", "总排行")
-        val pagerAdapter = CommonViewPagerAdapter(supportFragmentManager,titles)
-        val weekFragment = RankFragment.newInstance(keys[0])
-        val monthFragment = RankFragment.newInstance(keys[1])
-        val totalFragment = RankFragment.newInstance(keys[2])
-        pagerAdapter.addFragment(weekFragment)
-        pagerAdapter.addFragment(monthFragment)
-        pagerAdapter.addFragment(totalFragment)
-
+        val fragments = ArrayList<BaseFragment>()
+        fragments.add(RankFragment.newInstance(keys[0]))
+        fragments.add(RankFragment.newInstance(keys[1]))
+        fragments.add(RankFragment.newInstance(keys[2]))
+        val pagerAdapter = CommonViewpager2Adapter(mContext as FragmentActivity, fragments)
         mViewPager.adapter = pagerAdapter
-        mTabLayout.setupWithViewPager(mViewPager)
-        mViewPager.currentItem = 0
-        mViewPager.offscreenPageLimit = titles.size
-
+        TabLayoutMediator(mTabLayout, mViewPager, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+            tab.text = titles[position]
+        }).attach()
     }
 
     override fun initData() {

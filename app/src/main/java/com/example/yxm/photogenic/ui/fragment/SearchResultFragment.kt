@@ -7,9 +7,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_network.bean.CommonVideoBean
-import share.core.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.font.FontTextView
@@ -19,6 +17,7 @@ import com.example.yxm.photogenic.module.searchresult.SearchResultPresenter
 import com.example.yxm.photogenic.ui.activity.VideoPlayActivity
 import com.example.yxm.photogenic.widget.FooterView
 import kotlinx.android.synthetic.main.fragment_search_result.*
+import share.core.ShareManager
 
 /**
  * Created by yxm on 2020-1-16

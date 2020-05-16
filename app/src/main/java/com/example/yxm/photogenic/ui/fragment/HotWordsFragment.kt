@@ -3,7 +3,6 @@ package com.example.yxm.photogenic.ui.fragment
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.module.hotwords.HotWordsAdapter

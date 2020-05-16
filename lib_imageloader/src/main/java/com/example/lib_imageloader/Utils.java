@@ -8,12 +8,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
@@ -380,6 +382,73 @@ public class Utils {
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeStream(new URL(url).openStream(), null, options);
         return new int[]{options.outWidth, options.outHeight};
+    }
+
+    /**
+     * 获取缩放后的Bitmap
+     *
+     * @param url       url
+     * @param reqWidth  图片宽
+     * @param reqHeight 图片高
+     * @return bitmap
+     * @throws IOException
+     */
+    public static Bitmap getFitBitmap(String url, int reqWidth, int reqHeight) throws IOException {
+        InputStream inputStream = new URL(url).openStream();
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        byte[] bytes = readStream(inputStream);
+        BitmapFactory.decodeByteArray(bytes, 0, bytes.length,options);
+        options.inSampleSize = calculateSampleSize(options, reqWidth, reqHeight);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+    }
+
+    /**
+     * 将输入流转化为输出流
+     *
+     * @param inputStream
+     * @return
+     * @throws IOException
+     */
+    private static byte[] readStream(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, len);
+        }
+        outputStream.close();
+        inputStream.close();
+        return outputStream.toByteArray();
+    }
+
+    /**
+     * 计算采样率
+     *
+     * @param options
+     * @param reqWidth
+     * @param reqHeight
+     * @return
+     */
+    private static int calculateSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        if (reqWidth == 0 || reqHeight == 0) {
+            return 1;
+        }
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        Log.i("采样率", "原始图片：" + width + ":" + height);
+        int inSampleSize = 1;
+        if (width > reqWidth || height > reqHeight) {
+            int halfWidth = width / 2;
+            int halfHeight = height / 2;
+            while ((halfWidth / inSampleSize) >= reqWidth &&
+                    (halfHeight / inSampleSize) >= reqHeight) {
+                inSampleSize *= 2;
+            }
+        }
+        Log.i("采样率", "采样率：" + inSampleSize);
+        return inSampleSize;
     }
 
 }

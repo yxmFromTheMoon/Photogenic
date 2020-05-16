@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager
@@ -13,7 +12,6 @@ import com.example.lib_network.bean.CommonVideoBean
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.ui.activity.TagDetailActivity
 import com.example.yxm.photogenic.utils.TimeHelper
-import com.example.yxm.photogenic.widget.CircleImageView
 import java.io.Serializable
 
 /**

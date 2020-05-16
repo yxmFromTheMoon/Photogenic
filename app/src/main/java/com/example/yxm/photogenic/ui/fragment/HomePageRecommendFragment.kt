@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_network.bean.HomeBean
-import share.core.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.module.home.HomeRecommendAdapter
@@ -18,6 +16,7 @@ import com.example.yxm.photogenic.widget.FooterView
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.fragment_homepage_recommend.*
+import share.core.ShareManager
 
 /**
  * Created by yxm on 2020-1-14
@@ -111,7 +110,7 @@ class HomePageRecommendFragment : BaseFragment(), HomeRecommendContract.IHomeRec
                 }
             }
         }
-        mAdapter.setNewData(data)
+        mAdapter.setList(data)
     }
 
     override fun setMoreData(data: ArrayList<HomeBean.Issue>) {

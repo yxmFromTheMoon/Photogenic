@@ -64,6 +64,9 @@
         android:text="在这条永无止境的路上，我们始终都在前行，唯有不断努力，冲破黑暗，方能到达明天的彼岸。"
         android:textColor="@color/black"
         android:textSize="13sp"
+        android:maxLength="100"
+        android:singleLine="true"
+        android:ellipsize="end"
         app:layout_constraintTop_toBottomOf="@+id/video_header_title" />
 
     <androidx.recyclerview.widget.RecyclerView

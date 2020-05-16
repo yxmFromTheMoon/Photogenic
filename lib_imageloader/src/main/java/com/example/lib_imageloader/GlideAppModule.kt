@@ -27,7 +27,7 @@ class GlideAppModule : AppGlideModule() {
         builder.setMemoryCache(LruResourceCache(memoryCacheSizeBytes))
                 .setDiskCache(InternalCacheDiskCacheFactory(context, diskCacheSizeBytes.toLong()))
                 .setDefaultRequestOptions(RequestOptions()
-                        .format(DecodeFormat.PREFER_ARGB_8888)
+                        .format(DecodeFormat.PREFER_RGB_565)
                         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
                 .setDefaultTransitionOptions(Drawable::class.java, DrawableTransitionOptions.withCrossFade())
     }

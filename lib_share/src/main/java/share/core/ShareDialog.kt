@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.sharesdk.framework.Platform
 import cn.sharesdk.framework.PlatformActionListener
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_share.R
 import com.example.lib_share.share.ShareData
 import share.adapter.PlatformBean

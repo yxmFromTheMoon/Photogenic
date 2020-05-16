@@ -2,13 +2,10 @@ package com.example.yxm.photogenic.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_network.bean.CommunityBean
-import share.core.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.module.community.CommunityRecommendAdapter
@@ -17,10 +14,10 @@ import com.example.yxm.photogenic.module.community.CommunityRecommendPresenter
 import com.example.yxm.photogenic.ui.activity.PicturePreviewActivity
 import com.example.yxm.photogenic.ui.activity.VideoPlayActivity
 import com.example.yxm.photogenic.utils.MathHelper
-import com.example.yxm.photogenic.widget.FooterView
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.fragment_community_recommend.*
+import share.core.ShareManager
 
 /**
  * Created by yxm on 2020-1-14

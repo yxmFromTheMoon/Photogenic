@@ -8,12 +8,10 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.CategoryDetailBean
 import com.example.lib_network.bean.CommonVideoBean
 import com.example.lib_network.bean.HomeBean
-import share.core.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseActivity
 import com.example.yxm.photogenic.font.FontTextView
@@ -28,6 +26,7 @@ import com.gyf.immersionbar.ktx.immersionBar
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.activity_category_details.*
+import share.core.ShareManager
 
 /**
  *Created by yxm on 2020/2/10

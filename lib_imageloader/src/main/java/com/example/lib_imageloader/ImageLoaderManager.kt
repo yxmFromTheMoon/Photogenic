@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.os.Looper
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.annotation.DrawableRes
 import com.bumptech.glide.load.engine.cache.ExternalPreferredCacheDiskCacheFactory
 import com.bumptech.glide.request.RequestOptions
@@ -15,6 +16,7 @@ import com.bumptech.glide.request.transition.Transition
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import java.io.File
 
@@ -23,6 +25,12 @@ import java.io.File
  *@function 图片加载类
  */
 object ImageLoaderManager {
+
+    /**
+     * 采样时默认需要的图片宽高
+     */
+    private const val DEFAULT_SAMPLE_WIDTH = 320
+    private const val DEFAULT_SAMPLE_HEIGHT = 320
 
     /**
      * * 为view加载资源图片
@@ -113,23 +121,53 @@ object ImageLoaderManager {
 
     /**
      * 加载大图
-     * 待优化
+     *
      */
     fun displayBigPicture(imageView: ImageView, url: String) {
+        val observable1 = Observable.create<Bitmap> {
+            val bitmap = Utils.getFitBitmap(url, DEFAULT_SAMPLE_WIDTH, DEFAULT_SAMPLE_HEIGHT)
+            it.onNext(bitmap)
+            it.onComplete()
+        }.subscribeOn(Schedulers.io())
+
+        val observable2 = Observable.create<Int> {
+            val sizeInfo = Utils.getImageSizeAhead(url)
+            it.onNext(getScaleHeight(imageView.context, sizeInfo[0].toLong(), sizeInfo[1].toLong()))
+            it.onComplete()
+        }.subscribeOn(Schedulers.io())
+
+         val  observableZip = Observable.zip(observable1, observable2,
+                BiFunction<Bitmap, Int, BitmapWithHeight> { bitmap, height ->
+                    return@BiFunction BitmapWithHeight(bitmap, height)
+                }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe ({
+                    val lp = imageView.layoutParams
+                    lp.height = it.height;
+                    imageView.layoutParams = lp
+                    //imageView.setImageBitmap(it.bitmap)
+                    GlideApp.with(imageView.context)
+                            .load(it.bitmap)
+                            .into(imageView)
+                },{
+                    Toast.makeText(imageView.context,"图片加载失败,请重试",Toast.LENGTH_SHORT).show()
+                })
+    }
+
+    /**
+     * 采样加载图片
+     * @imageView
+     * @url
+     * @reqWidth
+     * @reqHeight
+     */
+    fun displayForSampleImage(imageView: ImageView, url: String, reqWidth: Int, reqHeight: Int) {
         val disposable = Observable.just(url).map {
-            Utils.getImageSizeAhead(it)
+            Utils.getFitBitmap(it, reqWidth, reqHeight)
         }.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    val lp = imageView.layoutParams
-                    imageView.layoutParams = scaleImage(imageView.context,
-                            lp, it[0].toLong(), it[1].toLong())
-                    GlideApp.with(imageView)
-                            .load(url)
-                            .apply(RequestOptions()
-                                    .placeholder(android.R.color.black)
-                                    .error(android.R.color.black))
-                            .into(imageView)
+                    imageView.setImageBitmap(it)
                 }
     }
 
@@ -152,34 +190,32 @@ object ImageLoaderManager {
     }
 
     /**
-     * 根据图片宽高获取缩放比例
+     * 根据图片宽高获取缩放后的高度
      * @param width 宽
      * @param height 高
      */
-    private fun scaleImage(context: Context, layoutParams: ViewGroup.LayoutParams, width: Long, height: Long): ViewGroup.LayoutParams {
+    private fun getScaleHeight(context: Context, width: Long, height: Long): Int {
         val screenWidth = getScreenWidth(context)
         val screenHeight = getScreenHeight(context)
+        var realHeight = 0
         //图片宽度大于屏幕，但高度小于屏幕，高缩放，宽度缩小至屏幕宽
         if (width >= screenWidth && height <= screenHeight) {
             val scale = (screenWidth + 0f) / width
-            layoutParams.width = screenWidth
-            layoutParams.height = (height * scale).toInt()
+            realHeight = (height * scale).toInt()
 //            Log.d("Picture","缩放类型:1,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
 //                    "$height,缩放比例:$scale")
         }
         //图片宽度小于屏幕，但高度大于屏幕，宽度缩放，高度缩小至屏高
         if (width <= screenWidth && height >= screenHeight) {
             val scale = (screenHeight + 0f) / height
-            layoutParams.width = (width * scale).toInt()
-            layoutParams.height = screenHeight
+            realHeight = screenHeight
 //            Log.d("Picture","缩放类型:2,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
 //                    "$height,缩放比例:$scale")
         }
         //图片高度和宽度都小于屏幕，宽度放大至屏幕宽，高度缩放
         if (width < screenWidth && height < screenHeight) {
             val scale = (screenWidth + 0f) / width
-            layoutParams.width = screenWidth
-            layoutParams.height = (height * scale).toInt()
+            realHeight = (height * scale).toInt()
 //            Log.d("Picture","缩放类型:3,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
 //                    "$height,缩放比例:$scale")
         }
@@ -188,12 +224,11 @@ object ImageLoaderManager {
             val widthScale = (screenWidth + 0f) / width
             val heightScale = (screenHeight + 0f) / height
             val scale = if (widthScale > heightScale) heightScale else widthScale
-            layoutParams.width = (width * scale).toInt()
-            layoutParams.height = (height * scale).toInt()
+            realHeight = (height * scale).toInt()
 //            Log.d("Picture","缩放类型:4,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
 //                    "$height,缩放比例:$scale")
         }
-        return layoutParams
+        return realHeight
     }
 
     /**

@@ -3,7 +3,7 @@ package com.example.yxm.photogenic.ui.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import com.bumptech.glide.Glide
+import android.widget.ProgressBar
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
@@ -21,6 +21,7 @@ import org.greenrobot.eventbus.EventBus
 class PictureFragment : BaseFragment() {
 
     private lateinit var picture: SlideDownCloseImageView
+    private lateinit var progressBar: ProgressBar
 
     val url: String by lazy {
         arguments?.getString(URL) ?: ""
@@ -32,6 +33,8 @@ class PictureFragment : BaseFragment() {
 
     override fun initView(view: View) {
         picture = picture_view
+        progressBar = load_picture_bar
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun initListener() {
@@ -59,7 +62,7 @@ class PictureFragment : BaseFragment() {
 
     override fun lazyLoad() {
         ImageLoaderManager.displayBigPicture(picture, url)
-        Log.i("pictureUrl",url)
+        Log.i("pictureUrl", url)
     }
 
     companion object {

@@ -1,9 +1,6 @@
 package com.example.yxm.photogenic.module.categorydetails
 
-import com.example.lib_network.bean.CategoriesBean
 import com.example.lib_network.bean.CategoryDetailBean
-import com.example.lib_network.bean.CommonVideoBean
-import com.example.lib_network.bean.HomeBean
 import com.example.yxm.photogenic.base.BaseView
 import com.example.yxm.photogenic.base.IPresenter
 

@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.lib_imageloader.ImageLoaderManager
-import com.example.lib_imageloader.Utils
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseImmersionFragment
 import com.example.yxm.photogenic.rxschedulers.IoMainScheduler

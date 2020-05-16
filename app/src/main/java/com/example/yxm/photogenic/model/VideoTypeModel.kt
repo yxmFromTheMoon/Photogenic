@@ -4,7 +4,6 @@ import com.example.lib_network.api.RetrofitManager
 import com.example.lib_network.api.constants.UrlConstants
 import com.example.lib_network.bean.CategoryDetailBean
 import com.example.lib_network.bean.CommonVideoBean
-import com.example.lib_network.bean.HomeBean
 import com.example.yxm.photogenic.rxschedulers.IoMainScheduler
 import io.reactivex.Observable
 

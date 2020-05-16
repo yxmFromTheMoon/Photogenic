@@ -3,7 +3,6 @@ package com.example.yxm.photogenic.base.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.adapter.FragmentViewHolder
 import com.example.yxm.photogenic.base.BaseFragment
 
 /**

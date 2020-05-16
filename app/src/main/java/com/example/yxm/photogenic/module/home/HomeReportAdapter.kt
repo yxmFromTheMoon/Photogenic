@@ -1,13 +1,11 @@
 package com.example.yxm.photogenic.module.home
 
-import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.HomeBean
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.utils.TimeHelper
-import com.example.yxm.photogenic.widget.CircleImageView
 
 /**
  *Created by yxm on 2020/2/19
@@ -50,9 +48,8 @@ class HomeReportAdapter(data: ArrayList<HomeBean.Issue>) : BaseMultiItemQuickAda
         with(helper) {
             ImageLoaderManager.displayImageForView(getView(R.id.video_picture), item.data.content?.data?.cover?.feed
                     ?: "")
-            Glide.with((getView(R.id.video_author_avatar) as CircleImageView).context)
-                    .load(item.data.content?.data?.author?.icon?:"")
-                    .into(getView(R.id.video_author_avatar) as CircleImageView)
+            ImageLoaderManager.displayImageForView(getView(R.id.video_author_avatar),
+                    item.data.content?.data?.author?.icon ?: "")
             setText(R.id.video_title, item.data.content?.data?.title)
             setText(R.id.video_duration, TimeHelper.secToTime(item.data.content?.data?.duration
                     ?: 0))

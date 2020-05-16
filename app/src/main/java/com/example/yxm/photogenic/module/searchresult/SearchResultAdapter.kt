@@ -1,6 +1,5 @@
 package com.example.yxm.photogenic.module.searchresult
 
-import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager

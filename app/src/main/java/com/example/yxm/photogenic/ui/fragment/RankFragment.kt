@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_network.bean.CommonVideoBean
-import share.core.ShareManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseFragment
 import com.example.yxm.photogenic.module.categorydetails.RelativeVideoAdapter
@@ -19,6 +17,7 @@ import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.fragment_discovery.refreshLayout
 import kotlinx.android.synthetic.main.fragment_rank.*
+import share.core.ShareManager
 
 /**
  * Created by yxm on 2020-1-15

@@ -9,17 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.kekstudio.dachshundtablayout.DachshundTabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/home_tab"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/statusBarColor"
-            app:ddIndicatorColor="@color/black"
-            app:ddIndicatorHeight="3dp"
-            app:tabBackground="@color/statusBarColor"
             app:tabGravity="center"
-            app:tabIndicatorGravity="bottom"
-            app:tabSelectedTextColor="@color/black" />
+            app:tabIndicatorColor="@color/black"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="3dp"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextColor="@color/gray" />
 
         <ImageView
             android:id="@+id/search_iv"
@@ -30,12 +31,10 @@
 
     </FrameLayout>
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/home_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header_title"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
+        android:layout_below="@+id/header_title" />
 
 </RelativeLayout>

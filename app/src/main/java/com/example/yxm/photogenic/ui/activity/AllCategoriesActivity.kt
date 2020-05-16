@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.lib_network.bean.CategoriesBean
 import com.example.lib_network.bean.CommonVideoBean
 import com.example.yxm.photogenic.R

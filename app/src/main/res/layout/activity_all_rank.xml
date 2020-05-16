@@ -8,26 +8,27 @@
         android:id="@+id/header_title"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        app:centerTitle="全部排行"
-        android:background="@color/statusBarColor"/>
+        android:background="@color/statusBarColor"
+        app:centerTitle="全部排行" />
 
-    <com.kekstudio.dachshundtablayout.DachshundTabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/rank_tab"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_below="@+id/header_title"
-        app:tabBackground="@color/statusBarColor"
+        android:background="@color/statusBarColor"
         app:tabGravity="fill"
-        app:ddIndicatorColor="@color/black"
-        app:ddIndicatorHeight="3dp"
-        app:tabIndicatorGravity="bottom"
-        app:tabSelectedTextColor="@color/black" />
+        app:tabIndicatorColor="@color/black"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorHeight="3dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextColor="@color/gray" />
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/rank_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rank_tab"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_below="@+id/rank_tab" />
 
 </RelativeLayout>

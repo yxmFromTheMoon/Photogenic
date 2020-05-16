@@ -88,7 +88,7 @@
 
                     <com.example.yxm.photogenic.widget.CircleImageView
                         android:id="@+id/video_author_avatar"
-                        android:layout_width="wrap_content"
+                        android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/recommend_share_icon" />
