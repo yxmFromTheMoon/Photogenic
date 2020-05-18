@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black">
@@ -8,14 +8,13 @@
         android:id="@+id/load_picture_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_centerInParent="true" />
 
     <com.example.yxm.photogenic.widget.SlideDownCloseImageView
         android:id="@+id/picture_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:scaleType="fitXY"
-        android:src="@android:color/black" />
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY" />
 
-</FrameLayout>
+</RelativeLayout>
