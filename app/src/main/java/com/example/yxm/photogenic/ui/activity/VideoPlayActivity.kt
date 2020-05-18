@@ -26,6 +26,7 @@ import com.example.yxm.photogenic.ui.fragment.HomePageDailyReportFragment.Compan
 import com.example.yxm.photogenic.ui.fragment.HomePageRecommendFragment.Companion.HOME_RECOMMEND
 import com.example.yxm.photogenic.ui.fragment.RankFragment.Companion.RANK_FRAGMENT
 import com.example.yxm.photogenic.ui.fragment.SearchResultFragment.Companion.SEARCH_RESULT
+import com.example.yxm.photogenic.utils.ScreenHelper
 import com.example.yxm.photogenic.widget.CircleImageView
 import com.example.yxm.photogenic.widget.FooterView
 import com.gyf.immersionbar.ImmersionBar
@@ -167,7 +168,11 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
                     mVideoCategory.text = "#${bean.data.category}"
                     mVideoDescription.text = bean.data.author?.description
                     mVideoIntroduce.text = bean.data.description
-                    ImageLoaderManager.displayImageForView(mAuthorAvatar,bean.data.author?.icon?:"")
+
+                    ImageLoaderManager.displayImageOverrideWidthAndHeight(mAuthorAvatar,
+                            bean.data.author?.icon ?: ""
+                            , ScreenHelper.dip2px(mContext, 50f),
+                            ScreenHelper.dip2px(mContext, 50f))
                     ImageLoaderManager.displayImageForViewGroup(mBackgroundView, bean.data.cover?.blurred
                             ?: "")
                 }
@@ -179,7 +184,7 @@ class VideoPlayActivity : BaseActivity(), VideoDetailContract.IVideoDetailView {
                 mVideoCategory.text = "#${bean.data.header.issuerName}"
                 mVideoDescription.text = bean.data.content.data.owner.description
                 mVideoIntroduce.text = bean.data.content.data.description
-                ImageLoaderManager.displayImageForView(mAuthorAvatar,bean.data.content.data.owner.avatar)
+                ImageLoaderManager.displayImageForView(mAuthorAvatar, bean.data.content.data.owner.avatar)
                 ImageLoaderManager.displayImageForViewGroup(mBackgroundView, bean.data.content.data.cover.blurred
                         ?: "")
             }

@@ -5,7 +5,9 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.lib_network.bean.HomeBean
 import com.example.yxm.photogenic.R
+import com.example.yxm.photogenic.utils.ScreenHelper
 import com.example.yxm.photogenic.utils.TimeHelper
+import com.example.yxm.photogenic.widget.CircleImageView
 
 /**
  *Created by yxm on 2020/2/19
@@ -48,8 +50,10 @@ class HomeReportAdapter(data: ArrayList<HomeBean.Issue>) : BaseMultiItemQuickAda
         with(helper) {
             ImageLoaderManager.displayImageForView(getView(R.id.video_picture), item.data.content?.data?.cover?.feed
                     ?: "")
-            ImageLoaderManager.displayImageForView(getView(R.id.video_author_avatar),
-                    item.data.content?.data?.author?.icon ?: "")
+            ImageLoaderManager.displayImageOverrideWidthAndHeight(getView<CircleImageView>(R.id.video_author_avatar),
+                    item.data.content?.data?.author?.icon ?: ""
+                    , ScreenHelper.dip2px(context, 40f),
+                    ScreenHelper.dip2px(context, 40f))
             setText(R.id.video_title, item.data.content?.data?.title)
             setText(R.id.video_duration, TimeHelper.secToTime(item.data.content?.data?.duration
                     ?: 0))

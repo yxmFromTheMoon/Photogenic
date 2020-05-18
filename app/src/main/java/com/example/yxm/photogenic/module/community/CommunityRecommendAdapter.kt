@@ -38,8 +38,10 @@ class CommunityRecommendAdapter : BaseQuickAdapter<CommunityBean.Issue, BaseView
                     getView(R.id.community_cover_image), item.data.content.data.cover.feed ?: "",
                     item.data.content.data.width.toInt(), item.data.content.data.height.toInt())
 
-            ImageLoaderManager.displayImageWithPlaceholder(item.data.header.icon, getView<CircleImageView>(R.id.author_avatar) as ImageView,
-                    android.R.color.white)
+            ImageLoaderManager.displayImageOverrideWidthAndHeight(getView<CircleImageView>(R.id.author_avatar),
+                    item.data.header.icon,
+                    ScreenHelper.dip2px(context, 10f),
+                    ScreenHelper.dip2px(context, 10f))
             setText(R.id.picture_brief_introduce, item.data.content.data.description)
             setText(R.id.author_name, item.data.header.issuerName)
             setText(R.id.like_count, "${item.data.content.data.consumption.collectionCount}")
@@ -58,8 +60,10 @@ class CommunityRecommendAdapter : BaseQuickAdapter<CommunityBean.Issue, BaseView
                     getView(R.id.community_cover_image), item.data.content.data.cover.feed ?: "",
                     item.data.content.data.width.toInt(), item.data.content.data.height.toInt())
 
-            ImageLoaderManager.displayImageWithPlaceholder(item.data.header.icon, getView<CircleImageView>(R.id.author_avatar) as ImageView,
-                    android.R.color.white)
+            ImageLoaderManager.displayImageOverrideWidthAndHeight(getView<CircleImageView>(R.id.author_avatar),
+                    item.data.header.icon,
+                    ScreenHelper.dip2px(context, 10f),
+                    ScreenHelper.dip2px(context, 10f))
             setText(R.id.picture_brief_introduce, item.data.content.data.description)
             setText(R.id.author_name, item.data.header.issuerName)
             setText(R.id.like_count, "${item.data.content.data.consumption.collectionCount}")
