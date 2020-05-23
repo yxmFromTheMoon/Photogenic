@@ -118,7 +118,7 @@ class SearchActivity : BaseActivity() {
      * 移除搜索结果fragment
      */
     private fun removeResultFragment() {
-        supportFragmentManager?.let {
+        supportFragmentManager.let {
             val fragment = searchResultFragment
             if (fragment != null) {
                 it.beginTransaction().remove(fragment).commitAllowingStateLoss()

@@ -49,7 +49,7 @@ class RankFragment : BaseFragment(), RankContract.IRankView {
     }
 
     override fun setData(data: ArrayList<CommonVideoBean.ResultBean>) {
-        mAdapter.setNewData(data)
+        mAdapter.setList(data)
     }
 
     override fun showLoading() {

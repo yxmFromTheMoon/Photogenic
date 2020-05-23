@@ -20,8 +20,8 @@ import java.io.Serializable
  */
 class RelativeVideoAdapter : BaseQuickAdapter<CommonVideoBean.ResultBean, BaseViewHolder>(R.layout.item_category_details_video) {
 
-    override fun convert(helper: BaseViewHolder, item: CommonVideoBean.ResultBean) {
-        with(helper) {
+    override fun convert(holer: BaseViewHolder, item: CommonVideoBean.ResultBean) {
+        with(holer) {
             ImageLoaderManager.displayImageForView(getView(R.id.video_author_avatar),item.data.author?.icon ?: "")
             setText(R.id.video_header_description, item.data.category)
             setText(R.id.publish_time_tv, "${TimeHelper.timeStamp2Date(item.data.releaseTime)}发布：")

@@ -177,7 +177,7 @@ class CategoryDetailActivity : BaseActivity(), TagDetailContract.ITagDetailView 
     }
 
     override fun setTagVideo(data: ArrayList<CategoryDetailBean.FollowCardBean>) {
-        mAdapter.setNewData(data)
+        mAdapter.setList(data)
     }
 
     override fun loadMoreVideo(data: ArrayList<CategoryDetailBean.FollowCardBean>) {

@@ -101,7 +101,7 @@ class CommunityFollowFragment : BaseFragment(), CommunityFollowContract.ICommuni
     }
 
     override fun setData(data: ArrayList<CommonVideoBean.ResultBean>) {
-        mAdapter.setNewData(data)
+        mAdapter.setList(data)
     }
 
     override fun setMoreData(data: ArrayList<CommonVideoBean.ResultBean>) {

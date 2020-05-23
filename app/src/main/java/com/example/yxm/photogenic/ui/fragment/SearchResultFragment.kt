@@ -105,7 +105,7 @@ class SearchResultFragment : BaseFragment(), SearchResultContract.ISearchResultV
      * 初始化数据
      */
     override fun setSearchResult(data: ArrayList<CommonVideoBean.ResultBean>) {
-        mAdapter.setNewData(data)
+        mAdapter.setList(data)
     }
 
     /**

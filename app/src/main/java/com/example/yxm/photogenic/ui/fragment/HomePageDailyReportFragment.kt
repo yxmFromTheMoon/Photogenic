@@ -119,7 +119,7 @@ class HomePageDailyReportFragment : BaseFragment(), HomeReportContract.IHomeRepo
             }
         }
 
-        mAdapter.setNewData(data)
+        mAdapter.setList(data)
     }
 
     override fun setMoreData(data: ArrayList<HomeBean.Issue>) {

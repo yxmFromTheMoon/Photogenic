@@ -128,6 +128,6 @@ class ShareDialog : Dialog {
         platformList.add(PlatformBean(R.mipmap.ic_action_share_weibo_grey, "微博"))
         platformList.add(PlatformBean(R.mipmap.ic_action_share_qq_grey, "QQ"))
         platformList.add(PlatformBean(R.mipmap.ic_action_share_qqzone_grey, "QQ空间"))
-        mAdapter.setNewData(platformList)
+        mAdapter.setList(platformList)
     }
 }

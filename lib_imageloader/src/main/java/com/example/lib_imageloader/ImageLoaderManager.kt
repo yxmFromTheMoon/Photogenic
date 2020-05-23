@@ -132,7 +132,7 @@ object ImageLoaderManager {
 
         val observable2 = Observable.create<ViewGroup.LayoutParams> {
             val sizeInfo = Utils.getImageSizeAhead(url)
-            val lp = scaleImage(imageView.context,imageView.layoutParams,sizeInfo[0].toLong(), sizeInfo[1].toLong())
+            val lp = scaleImage(imageView.context, imageView.layoutParams, sizeInfo[0].toLong(), sizeInfo[1].toLong())
             it.onNext(lp)
             it.onComplete()
         }.subscribeOn(Schedulers.io())
@@ -198,23 +198,6 @@ object ImageLoaderManager {
     }
 
     /**
-     * 采样加载图片
-     * @imageView
-     * @url
-     * @reqWidth
-     * @reqHeight
-     */
-    fun displayForSampleImage(imageView: ImageView, url: String, reqWidth: Int, reqHeight: Int) {
-        val disposable = Observable.just(url).map {
-            Utils.getFitBitmap(it, reqWidth, reqHeight)
-        }.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    imageView.setImageBitmap(it)
-                }
-    }
-
-    /**
      * 获取屏幕宽度
      */
     private fun getScreenWidth(context: Context): Int {
@@ -230,48 +213,6 @@ object ImageLoaderManager {
         val resources = context.resources
         val dm = resources.displayMetrics
         return dm.heightPixels
-    }
-
-    /**
-     * 根据图片宽高获取缩放后的高度
-     * @param width 宽
-     * @param height 高
-     */
-    private fun getScaleHeight(context: Context, width: Long, height: Long): Int {
-        val screenWidth = getScreenWidth(context)
-        val screenHeight = getScreenHeight(context)
-        var realHeight = 0
-        //图片宽度大于屏幕，但高度小于屏幕，高缩放，宽度缩小至屏幕宽
-        if (width >= screenWidth && height <= screenHeight) {
-            val scale = (screenWidth + 0f) / width
-            realHeight = (height * scale).toInt()
-//            Log.d("Picture","缩放类型:1,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
-//                    "$height,缩放比例:$scale")
-        }
-        //图片宽度小于屏幕，但高度大于屏幕，宽度缩放，高度缩小至屏高
-        if (width <= screenWidth && height >= screenHeight) {
-            val scale = (screenHeight + 0f) / height
-            realHeight = screenHeight
-//            Log.d("Picture","缩放类型:2,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
-//                    "$height,缩放比例:$scale")
-        }
-        //图片高度和宽度都小于屏幕，宽度放大至屏幕宽，高度缩放
-        if (width < screenWidth && height < screenHeight) {
-            val scale = (screenWidth + 0f) / width
-            realHeight = (height * scale).toInt()
-//            Log.d("Picture","缩放类型:3,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
-//                    "$height,缩放比例:$scale")
-        }
-        //图片高度和宽度都大于屏幕,则对宽高进行同比例缩放
-        if (width > screenWidth && height > screenHeight) {
-            val widthScale = (screenWidth + 0f) / width
-            val heightScale = (screenHeight + 0f) / height
-            val scale = if (widthScale > heightScale) heightScale else widthScale
-            realHeight = (height * scale).toInt()
-//            Log.d("Picture","缩放类型:4,屏幕宽:$screenWidth,屏幕高:$screenHeight,原始图片宽:$width,原始图片高" +
-//                    "$height,缩放比例:$scale")
-        }
-        return realHeight
     }
 
     /**

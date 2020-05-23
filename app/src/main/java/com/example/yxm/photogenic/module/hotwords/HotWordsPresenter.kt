@@ -8,7 +8,7 @@ import com.example.yxm.photogenic.model.HotWordsModel
  * Created by yxm on 2020-1-13
  * @function: 热搜presenter
  */
-class HotWordsPresenter: BasePresenter<HotWordsContract.IHotWordsView>(),HotWordsContract.IHotWordsPresenter {
+class HotWordsPresenter : BasePresenter<HotWordsContract.IHotWordsView>(), HotWordsContract.IHotWordsPresenter {
 
     private val hotWordsModel: HotWordsModel by lazy {
         HotWordsModel()
@@ -26,11 +26,11 @@ class HotWordsPresenter: BasePresenter<HotWordsContract.IHotWordsView>(),HotWord
                         dismissLoading()
                         setHotWords(it)
                     }
-                },{
+                }, {
                     mRootView?.apply {
                         showError("获取热搜失败")
                     }
-                    Log.e("HotWords",it.message)
+                    Log.e("HotWords", it.message ?: "")
                 })
         addSubscribe(dispose)
     }

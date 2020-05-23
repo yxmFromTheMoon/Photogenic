@@ -99,7 +99,7 @@ class AllCategoriesActivity: BaseActivity(),DiscoveryContract.IDiscoveryView {
     }
 
     override fun setCategory(data: ArrayList<CategoriesBean>) {
-        mCategoryAdapter.setNewData(data)
+        mCategoryAdapter.setList(data)
     }
 
     override fun setVideoData(data: ArrayList<CommonVideoBean.ResultBean.ResultData>) {

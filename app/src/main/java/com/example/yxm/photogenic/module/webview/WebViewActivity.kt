@@ -76,7 +76,7 @@ class WebViewActivity : BaseActivity(), WebViewContract.IWebView {
         settings.loadWithOverviewMode = true
         settings.javaScriptEnabled = true
         settings.setAppCacheEnabled(true)
-        settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+        settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.NORMAL
         settings.setSupportZoom(true)
         mWebView.webChromeClient = MyWebChrome()
         mWebView.webViewClient = MyWebClient()

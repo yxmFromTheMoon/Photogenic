@@ -1,10 +1,12 @@
 package com.example.yxm.photogenic.ui.fragment
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import com.example.lib_imageloader.ImageLoaderManager
 import com.example.yxm.photogenic.R
 import com.example.yxm.photogenic.base.BaseImmersionFragment
@@ -82,9 +84,10 @@ class SplashFragment: BaseImmersionFragment(),Observer<Long> {
         ImageLoaderManager.displayImageWithPlaceholder(R.mipmap.splash1,splashImageView,R.mipmap.splash1)
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("SetTextI18n")
     override fun onNext(t: Long) {
-        skipBtn.background = resources.getDrawable(R.drawable.splash_skip_background)
+        skipBtn.background = resources.getDrawable(R.drawable.splash_skip_background,null)
         skipBtn.text = "跳过${t}s"
         mOnSplashListener?.onSplash(t,mTotalTime)
     }

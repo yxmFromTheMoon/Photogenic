@@ -20,19 +20,11 @@ abstract class BaseImmersionFragment: SimpleImmersionFragment(){
 
     protected val TAG = this.javaClass.simpleName
 
-    protected val rxPermission: RxPermissions by lazy {
-        RxPermissions(this)
-    }
-
     protected lateinit var mContext: Context
     /**
-     * 视图是否加载完毕
+     * 是否第一次加载数据
      */
-    private var isViewPrepare = false
-    /**
-     * 数据是否加载过了
-     */
-    private var hasLoadData = false
+    private var isFirstLoad = true
     /**
      * 布局ID
      */
@@ -56,10 +48,8 @@ abstract class BaseImmersionFragment: SimpleImmersionFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mContext = activity as Context
-        isViewPrepare = true
         initView(view)
         initListener()
-        lazyLoadDataIfPrepared()
     }
 
     override fun initImmersionBar() {
@@ -69,20 +59,11 @@ abstract class BaseImmersionFragment: SimpleImmersionFragment(){
                 .init()
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if(isVisibleToUser){
-            lazyLoadDataIfPrepared()
-        }
-    }
-
-    /**
-     * view准备完毕并且没有加载过数据
-     */
-    private fun lazyLoadDataIfPrepared(){
-        if(userVisibleHint && isViewPrepare && !hasLoadData){
+    override fun onResume() {
+        super.onResume()
+        if(isFirstLoad){
             lazyLoad()
-            hasLoadData = true
+            isFirstLoad = false
         }
     }
 

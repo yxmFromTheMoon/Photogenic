@@ -51,4 +51,7 @@
 <Oasis Enable="false" />
 <XMAccount Enable="false" />
 <SnapChat Enable="false" />
+<Kuaishou Enable="false" />
+<Littleredbook Enable="false" />
+<Watermelonvideo Enable="false" />
 </DevInfor>

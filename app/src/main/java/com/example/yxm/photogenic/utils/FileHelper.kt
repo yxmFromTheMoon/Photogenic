@@ -9,8 +9,14 @@ import android.provider.MediaStore
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.example.lib_imageloader.GlideApp
+import com.example.lib_imageloader.ImageLoaderManager
 import com.example.yxm.photogenic.application.MyApplication
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.io.IOException
 
 /**
@@ -40,7 +46,7 @@ object FileHelper {
             try {
                 mContext.contentResolver.openOutputStream(uri).use { outputStream ->
                     if (outputStream != null) {
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream)
                         outputStream.close()
                     }
                 }
@@ -54,7 +60,8 @@ object FileHelper {
     /**
      * 使用glide下载图片并保存到本地图库
      */
-    fun saveImage(url: String){
+    fun saveImage(url: String) {
+        Toast.makeText(mContext, "下载中", Toast.LENGTH_SHORT).show()
         Glide.get(mContext).clearMemory()
         Glide.with(mContext)
                 .asBitmap()

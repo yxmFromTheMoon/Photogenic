@@ -127,7 +127,7 @@ class CommunityRecommendFragment : BaseFragment(), CommunityRecommendContract.IC
     }
 
     override fun setData(data: ArrayList<CommunityBean.Issue>) {
-        mAdapter.setNewData(data)
+        mAdapter.setList(data)
     }
 
     override fun setMoreData(data: ArrayList<CommunityBean.Issue>) {
