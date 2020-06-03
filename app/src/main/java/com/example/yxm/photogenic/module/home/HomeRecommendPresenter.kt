@@ -23,6 +23,7 @@ class HomeRecommendPresenter : BasePresenter<HomeRecommendContract.IHomeRecommen
                 .subscribe({
                     it.itemList.filter { issue ->
                         issue.type == "banner2" || issue.data.text == "查看全部热门排行"
+                                || issue.type == "autoPlayVideoAd"
                     }.forEach { issue ->
                         it.itemList.remove(issue)
                     }
