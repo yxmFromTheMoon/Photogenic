@@ -22,8 +22,9 @@ class HomeRecommendPresenter : BasePresenter<HomeRecommendContract.IHomeRecommen
         val disposable = mModel.getHomeRecommend()
                 .subscribe({
                     it.itemList.filter { issue ->
-                        issue.type == "banner2" || issue.data.text == "查看全部热门排行"
-                                || issue.type == "autoPlayVideoAd"
+                        (issue.type != "squareCardCollection" && issue.type != "textCard"
+                                && issue.type != "followCard" && issue.type != "videoSmallCard")
+                                || issue.data.text == "查看全部热门排行"
                     }.forEach { issue ->
                         it.itemList.remove(issue)
                     }
