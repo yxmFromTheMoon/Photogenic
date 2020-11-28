@@ -11,7 +11,7 @@ object MathHelper {
      */
     fun getMaxElem(array: IntArray): Int{
         var maxVal = Int.MIN_VALUE
-        for (i in 0 until array.size){
+        for (i in array.indices){
             if(array[i] > maxVal){
                 maxVal = array[i]
             }

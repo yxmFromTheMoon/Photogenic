@@ -1,7 +1,10 @@
 package com.example.lib_network.okhttp.client;
 
+import com.example.lib_network.BuildConfig;
+import com.example.lib_network.api.constants.ChangeBaseUrlInterceptor;
 import com.example.lib_network.okhttp.cookie.SimpleCookieJar;
 import com.example.lib_network.okhttp.https.HttpsUtils;
+import com.example.lib_network.okhttp.interceptor.CacheInterceptor;
 import com.example.lib_network.okhttp.listeners.DisposeDataHandle;
 import com.example.lib_network.okhttp.response.CommonFileCallBack;
 import com.example.lib_network.okhttp.response.CommonJsonCallBack;
@@ -24,19 +27,19 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class CommonOkHttpClient {
 
     private static final int TIME_OUT = 30;
-    private static OkHttpClient mOkHttpClient;
+    private static final OkHttpClient mOkHttpClient;
 
     static {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
-        okHttpClientBuilder.hostnameVerifier(new HostnameVerifier() {
+        OkHttpClient.Builder builder = okHttpClientBuilder.hostnameVerifier(new HostnameVerifier() {
             @Override
             public boolean verify(String hostname, SSLSession session) {
                 return true;
             }
         });
         okHttpClientBuilder.cookieJar(new SimpleCookieJar())
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 //.addInterceptor(new ChangeBaseUrlInterceptor())
+                .addNetworkInterceptor(new CacheInterceptor())
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
@@ -47,7 +50,10 @@ public class CommonOkHttpClient {
                  */
                 .sslSocketFactory(HttpsUtils.initSSLSocketFactory(),
                         HttpsUtils.initTrustManager());
-
+        if (BuildConfig.DEBUG) {
+            okHttpClientBuilder.addNetworkInterceptor(new HttpLoggingInterceptor()
+                    .setLevel(HttpLoggingInterceptor.Level.BODY));
+        }
         mOkHttpClient = okHttpClientBuilder.build();
     }
 

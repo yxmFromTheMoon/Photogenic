@@ -16,7 +16,7 @@ import okhttp3.Response;
  *
  * @function 回调基类
  */
-public class BaseCommonCallBack implements Callback {
+public abstract class BaseCommonCallBack implements Callback {
 
     protected final int NETWORK_ERROR = -1;
     protected final int IO_ERROR = -2;
@@ -27,16 +27,6 @@ public class BaseCommonCallBack implements Callback {
 
     protected Handler mDeliveryHandler;
     protected Gson gson = new Gson();
-
-    @Override
-    public void onFailure(Call call, IOException e) {
-
-    }
-
-    @Override
-    public void onResponse(Call call, Response response) throws IOException{
-
-    }
 
     /**
      * 检查文件是否存在
